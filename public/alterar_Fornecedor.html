@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000; img-src 'self' data:;">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../style/css/login_menu/menu_interno.css">
-        <link rel="stylesheet" href="../style/css/css_global/form_padrao.css">
-        <link rel="stylesheet" href="../style/css/css_global/btn.css">
-        <link rel="stylesheet" href="../style/css/css_global/inputs.css">
-        <link rel="stylesheet" href="../style/css/css_global/info.css">
-        <style>
-              #alterar-fornecedor a {
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000; img-src 'self' data:;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/css/login_menu/menu_interno.css">
+    <link rel="stylesheet" href="../style/css/css_global/form_padrao.css">
+    <link rel="stylesheet" href="../style/css/css_global/btn.css">
+    <link rel="stylesheet" href="../style/css/css_global/inputs.css">
+    <link rel="stylesheet" href="../style/css/css_global/info.css">
+    <style>
+        #alterar-fornecedor a {
             background: var(--hover-color);
             color: black;
             text-shadow: none;
             border-bottom: 2px solid black;
         }
-        </style>
-        <title>Atualizar Cadastro Fornecedor</title>
-    </head>
+    </style>
+    <title>Atualizar Cadastro Fornecedor</title>
+</head>
+
 <body>
     <header>
         <nav style="background-color: rgb(0, 38, 87);">
             <ul id="ul-Menu"></ul>
         </nav>
         <nav class="nav-menu-2">
-            <ul class="menu-secundario">
+            <ul class="menu-secundario" id="menu-secundario-fornecedor">
                 <li id="cadastro-fornecedor">
-                    <a href="./fornecedor.html" id="btn-flex">Cadastro do Fornecedor</a>
+                    <a href="./fornecedor.html" id="btn-flex">Cadastrar novo Fornecedor</a>
                 </li>
                 <li id="alterar-fornecedor">
-                    <a href="./alterar_Fornecedor.html">Atualizar Cadastro Fornecedor</a>
+                    <a href="./alterar_Fornecedor.html">Informações Cadastrais do Fornecedor</a>
                 </li>
                 <li id="">
-                    <a href="./informaçoes_fornecedor.html">Informações do Fornecedor</a>
+                    <a href="./informaçoes_fornecedor.html">Produtos vinculados ao Fornecedor</a>
                 </li>
             </ul>
         </nav>
     </header>
     <div class="container">
-          <div class="container-register"></div>
-          <div class="div-form" role="form">
-              <div class="div-form-display">
+        <div class="container-register"></div>
+        <div class="div-form" role="form">
+            <div class="div-form-display">
                 <section class="div-form-img">
                     <p class="titulo-img">Atualizar Fornecedor</p>
-                      <img class="img-produto" src="../style/img/fornecedor-alt.png" alt="Produto sem imagem.">
-                    
-                  </section>
-                  <section class="div-form__body">
+                    <img class="img-produto" src="../style/img/fornecedor-alt.png" alt="Produto sem imagem.">
+                </section>
+                <section class="div-form__body">
                     <div class="form-group">
-                          <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                          <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
+                        <div id="div-numero">
                             <label class="labelFornecedor" for="tipoPessoa">Pessoa</label>
                             <select name="tipoPessoa" id="tipoPessoa">
-                                <option value="fisica">Física</option>
-                                <option value="juridica">Jurídica</option>
-                            </select>                            
+                                <option value="">Selecione</option>
+                                <option value="Física">Física</option>
+                                <option value="Jurídica">Jurídica</option>
+                            </select>
                         </div>
                         <div id="div-cnpj">
                             <label class="labelFornecedor" for="cnpj">CNPJ</label>
-                            <input type="text" id="cnpj">
+                            <input type="text" id="cnpjAlterar">
                         </div>
-                       
+
                         <div id="div-razoSocial">
                             <label class="labelFornecedor" for="razaoSocial">Razão Social</label>
                             <input type="text" id="razaoSocial">
                         </div>
                     </div>
                     <div class="form-group">
-                             <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                             <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
-                                <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual</label>
-                                <select name="inscricaoEstadual" id="inscricaoEstadual">
-                                    <option value="contribuinte">Contribuinte</option>
-                                    <option value="isento">Isento</option>
-                                </select>
-                            </div>
+                        <div id="div-numero">
+                            <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual</label>
+                            <select name="inscricaoEstadual" id="inscricaoEstadual">
+                                <option value="">Selecione</option>
+                                <option value="contribuinte">Contribuinte</option>
+                                <option value="isento">Isento</option>
+                            </select>
+                        </div>
                         <div id="div-ie">
                             <label class="labelFornecedor" for="ie">Inscrição Estadual</label>
                             <input type="text" id="ie">
@@ -92,8 +93,7 @@
                             <label class="labelFornecedor" for="endereco">Endereço</label>
                             <input type="text" id="endereco">
                         </div>
-                         <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                         <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
+                        <div id="div-numero">
                             <label class="labelFornecedor" for="cep">Numero</label>
                             <input type="text" id="numero">
                         </div>
@@ -103,7 +103,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                       
                         <div id="div-cep">
                             <label class="labelFornecedor" for="cep">Cep</label>
                             <input type="text" id="cep">
@@ -131,28 +130,25 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                               <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                               <label for="cidade">Ramos de atividade:</label>
-                               <select name="" id="atividade">
-                                   <option value="">Selecione</option>
-                               </select>
-                           </div>
-                           <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                               <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                               <label for="cidade">Forma de Pgto:</label>
-                               <select name="" id="atividade">
-                                   <option value="">Selecione</option>
-                               </select>
-                           </div>
-                           <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                               <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                               <label for="cidade">Condições Pgto:</label>
-                               <select name="" id="atividade">
-                                   <option value="">Selecione</option>
-                               </select>
-                           </div>
-                       </div>
+                        <div id="div-atividade">
+                            <label for="cidade">Ramos de atividade:</label>
+                            <select name="" id="atividade">
+                        
+                            </select>
+                        </div>
+                        <div id="div-atividade">
+                            <label for="cidade">Forma de Pgto:</label>
+                            <select name="" id="formaPgto">
+                               
+                            </select>
+                        </div>
+                        <div id="div-atividade">
+                            <label for="cidade">Condições Pgto:</label>
+                            <select name="" id="condicoesPgto">
+                            
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group" style="display:none;">
                         <div id="text-area">
                             <div><label class="label" for="observacoes">Observações:</label>
@@ -161,34 +157,28 @@
                             </div>
                         </div>
                     </div>
-                  </section>
-              </div>
-              <footer class="div-form__footer">
-                <p class="informativo">⚠️ <strong>Atenção: Ao alterar os dados do fornecedor, as informações antigas serão
-                    substituídas. Caso necessário, revise antes de aplicar a alteração.</strong> </p>
-                    <button id="btn-cad-fornecedor"><img class="img-disquete"
-                src="../style//img/disquete.png">Alterar</button>
-        <button id="limparButton"><img class="img-excluir"
-            src="../style//img/excluir.png" alt="">Limpar</button>
-              </footer>
-          </div>
-  </body>
-  <script src="../Renderer/Menu/renderer_menu.js"></script>
-  <script src="../Renderer/services/formatters.js"></script>
-  <script src="../Renderer/Fornecedor/api_fornecedor.js"></script>
-  <script src="../Renderer/Fornecedor/alterar_fornecedor.js"></script>
-  <script src="../Renderer/services/cidadesPorEstados.js"></script>
-  <script src="../Renderer/services/alertMsg.js"></script>
-  </html> 
-  
-  
+                </section>
+            </div>
+            <footer class="div-form__footer">
+                <p class="informativo">⚠️ <strong>Atenção: Ao alterar os dados do fornecedor, as informações antigas
+                        serão
+                        substituídas. Caso necessário, revise antes de aplicar a alteração.</strong> </p>
+                <button id="btn-cad-fornecedor"><img class="img-disquete"
+                        src="../style//img/disquete.png">Alterar</button>
+                <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
+                        alt="">Limpar</button>
+            </footer>
+        </div>
+</body>
+<script src="../Renderer/Menu/renderer_menu.js"></script>
+<script src="../Renderer/services/formatters.js"></script>
+<script src="../Renderer/Fornecedor/api_fornecedor.js"></script>
+<script src="../Renderer/Fornecedor/alterar_fornecedor.js"></script>
+<script src="../Renderer/services/cidadesPorEstados.js"></script>
+<script src="../Renderer/services/alertMsg.js"></script>
 
+<script src="../Renderer/services/ramos_atividades.js"></script>
+<script src="../Renderer/services/forma_pgto.js"></script>
+<script src="../Renderer/services/condicoesPag.js"></script>
 
-
-
-
-
-
-
-
-
+</html>

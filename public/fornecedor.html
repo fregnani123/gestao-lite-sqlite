@@ -30,13 +30,13 @@
         <nav class="nav-menu-2">
             <ul class="menu-secundario" id="menu-secundario-fornecedor">
                 <li id="cadastro-fornecedor">
-                    <a href="./fornecedor.html" id="btn-flex">Cadastro do Fornecedor</a>
+                    <a href="./fornecedor.html" id="btn-flex">Cadastrar novo Fornecedor</a>
                 </li>
                 <li id="alterar-fornecedor">
-                    <a href="./alterar_Fornecedor.html">Atualizar Cadastro Fornecedor</a>
+                    <a href="./alterar_Fornecedor.html">Informações Cadastrais do Fornecedor</a>
                 </li>
                 <li id="">
-                    <a href="./informaçoes_fornecedor.html">Informações do Fornecedor</a>
+                    <a href="./informaçoes_fornecedor.html">Produtos vinculados ao Fornecedor</a>
                 </li>
             </ul>
         </nav>
@@ -50,8 +50,7 @@
                 </section>
                 <section class="div-form__body">
                     <div class="form-group">
-                        <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                        <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
+                        <div id="div-numero">
                             <label class="labelFornecedor" for="tipoPessoa">Pessoa</label>
                             <select name="tipoPessoa" id="tipoPessoa">
                                 <option value="fisica">Física</option>
@@ -69,8 +68,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                                <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                                <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
+                                <div id="div-numero">
                                     <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual</label>
                                     <select name="inscricaoEstadual" id="inscricaoEstadual">
                                         <option value="contribuinte">Contribuinte</option>
@@ -91,10 +89,9 @@
                             <label class="labelFornecedor" for="endereco">Logradouro</label>
                             <input type="text" id="endereco">
                         </div>
-                        <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                        <div id="div-numero" style="background-color:red; color: white; padding: 5px;">
+                        <div id="div-numero">
                             <label class="labelFornecedor" for="cep">Numero</label>
-                            <input type="text" id="cep">
+                            <input type="text" id="numero">
                         </div>
                         <div id="div-bairro">
                             <label class="labelFornecedor" for="bairro">Bairro</label>
@@ -129,24 +126,21 @@
                         </div>
                     </div>
                     <div class="form-group">
-                     <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                            <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                            <label for="cidade">Ramos de atividade:</label>
+                     <div  id="div-atividade">
+                            <label for="">Ramos de atividade:</label>
                             <select name="" id="atividade">
                                 <option value="">Selecione</option>
                             </select>
                         </div>
-                        <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                            <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                            <label for="cidade">Forma de Pgto:</label>
-                            <select name="" id="atividade">
+                        <div id="div-atividade">
+                            <label for="">Forma de Pgto:</label>
+                            <select name="" id="formaPgto">
                                 <option value="">Selecione</option>
                             </select>
                         </div>
-                        <div id="div-atividade" style="width: 40%;background-color:red; color: white; padding: 10px;">
-                            <!-- Observação: background red é pq não esta configurado e falta add na table -->
-                            <label for="cidade">Condições Pgto:</label>
-                            <select name="" id="atividade">
+                        <div id="div-atividade">                
+                            <label for="">Condições Pgto:</label>
+                            <select name="" id="condicoesPgto">
                                 <option value="">Selecione</option>
                             </select>
                         </div>
@@ -157,7 +151,6 @@
                                 <textarea rows="3" cols="37" id="observacoes" name="observacoes"
                                     placeholder="Informações adicionais Fornecedor"></textarea>
                             </div>
-
                         </div>
                     </div>
                 </section>
@@ -180,5 +173,7 @@
 <script src="../Renderer/Fornecedor/api_fornecedor.js"></script>
 <script src="../Renderer/services/cidadesPorEstados.js"></script>
 <script src="../Renderer/services/alertMsg.js"></script>
-
+<script src="../Renderer/services/ramos_atividades.js"></script>
+<script src="../Renderer/services/forma_pgto.js"></script>
+<script src="../Renderer/services/condicoesPag.js"></script>
 </html>

@@ -84,7 +84,13 @@ async function initializeDB(db) {
                 endereco TEXT NOT NULL, 
                 telefone TEXT NOT NULL,
                 email TEXT NOT NULL,
-                observacoes TEXT
+                observacoes TEXT,
+                pessoa TEXT NOT NULL DEFAULT 'Jurídica',
+                contribuinte TEXT NOT NULL DEFAULT 'contribuinte',
+                numero TEXT NOT NULL DEFAULT '0',
+                ramos_de_atividade TEXT NOT NULL DEFAULT 'Outros',
+                forma_de_Pgto TEXT NOT NULL DEFAULT 'Boleto',
+                condicoes_Pgto TEXT NOT NULL DEFAULT 'À vista'
             );`,
 
             // Criar Tabela cor produto
