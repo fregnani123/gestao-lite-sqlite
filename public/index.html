@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000;">
+    <link rel="stylesheet" href="../style/css/login_menu/login.css">
+    <title>Gestão Lite - Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- ativar-produto inicialmente começa display none, enquanto verifica a ativação do produto. -->
+        <div class="ativar-produto">
+            <img src="../style/img/logoLogin.png" alt="Logo">
+            <h2>Obrigado por adquirir nosso Gerenciador de Estoque! Por favor, insira os dados de ativação do produto.</h2>
+        
+            <label for="cliente">Cliente</label>
+            <input type="text" id="cliente">
+            <label for="serial-key">Chave Serial</label>
+            <input type="text" id="serial-key">
+        
+            <!-- Termos de Uso -->
+            <div class="termos-uso">
+                <input type="checkbox" id="termos">
+                <label for="termos">Eu aceito os <a href="#">termos de uso</a>.</label>
+            </div>
+        
+            <!-- Botão desabilitado inicialmente -->
+            <button id="ativar-btn" disabled>Ativar Produto</button>
+        </div>
+        
+        <img class="img-logo" src="../style/img/logoLogin.png" alt="GestãoLite">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form >
+                <div class="form-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" name="username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required autocomplete="off">
+                </div>
+                <button id="formLogin" >Login</button>
+            </form>
+            <div id="mensagem-licenca"></div>
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; Todos os direitos reservados 2025 - FGL - v. 2.0
+    </footer>
+    <script src="../config/ApiLicenca.js"></script>
+    <script src="../config/loginUsers.js"></script>
+    <script src="../Renderer/services/alertMsg.js"></script>
+</body>
+
+</html>

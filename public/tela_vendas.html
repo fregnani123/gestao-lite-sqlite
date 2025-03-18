@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000; img-src 'self' data:;">
+    <link rel="stylesheet" href="../style/css/venda/modais.css">
+    <link rel="stylesheet" href="../style/css/venda/pagamento.css">
+    <link rel="stylesheet" href="../style/css/venda/tela_vendas.css">
+    <link rel="stylesheet" href="../style/css/venda/cupon.css">
+    <title>Tela de Vendas</title>
+</head>
+<body>
+    <div class="cupom">
+        <div class="cabecalho">
+            <div class="div-titulo">
+                <!-- <img class="imgLogo" alt="Logo da Loja"> -->
+                <h3 >
+                    <span class="titulo-cupom" id=""></span>
+                </h3>
+            </div>
+            <span id="razaoSocial"></span>
+            <span id="endereco"></span>
+            <span id="contato"></span>
+            <span id="cnpj"></span>
+        </div>
+        <div class="dados">
+            <span><strong>Cliente:</strong> <span id="cliente"></span></span>
+            <span><strong>Data e Hora:</strong> <span id="dataVenda"></span></span>
+            <span><strong>Pedido Nº:</strong> <span id="numeroVenda"></span></span>
+        </div>
+        <div class="itens-venda">
+            <div style="display: flex; justify-content: space-between;">
+                <strong>CÓDIGO</strong>
+                <strong>DESCRIÇÃO</strong>
+                <strong>VALOR R$</strong>
+            </div>
+            <div id="listaItens">
+            </div> <!-- Aqui vamos adicionar os itens -->
+        </div>
+        <div class="total">
+            <span class="total-span"><span>Total da Nota:</span><span id="totalNota"></span></span>
+            <span class="total-span"><span>Valor Recebido:</span> <span id="valorRecebidoCupom"></span></span>
+            <span class="total-span"><span>Troco:</span> <span id="trocoCupom"></span></span>
+            <span class="total-span"><span>Forma de Pagamento:</span> <span id="formaPgto"></span></span>
+        </div>
+        <div class="assinatura">
+            <span class="text-recebi">Recebi os produto(s) conforme descrito(s) acima.</span>
+            <hr>
+            <span class="text-assinatura">ASSINATURA DO CLIENTE</span>
+        </div>
+        <div class="rodape">
+            <img class="imgQr" src="../style/img/qrcode.png" alt="QR Code">
+            <span class="text-acesse">Acesse nossas redes sociais pelo QR Code</span>
+            <span class="text-slogan">Sempre fazendo o melhor para nossos clientes!</span>
+        </div>
+    </div>
+    <div class="container-sales">
+        <!-- Divs com display inicial none -->
+        <div id="impressaoCupom"></div>
+        <div class="div-qtd" style="display: none;">
+            <label for="input-qtd">Informe a quantidade.</label>
+            <input type="text" id="input-qtd">
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+        </div>
+        <div class="confirmation-clear" style="display: none;">
+            <p>Confirmar início de nova venda?</p>
+            <input id="limpar-tela-key" type="password">
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+        </div>
+        <div class="exit-venda" style="display: none;">
+            <label for="exit-key">Digite a senha para voltar ao menu principal:</label>
+            <input id="exit-key" type="password">
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+        </div>
+        <div class="remove-item" style="display: none;">
+            <p class="titulo-delete-item">Digite o número do <strong>item</strong> para remover.</p>
+            <input id="numero-Item" type="number">
+            <p id="mensagem"></p>
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Delete</strong> para confirmar.</p>
+        </div>
+        <div class="desconto-venda" style="display: none;">
+            <label for="desconto">Informe a porcentagem de desconto para a venda:</label>
+            <input id="desconto" type="text">
+            <p id="mensagem"></p>
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+        </div>
+        <div class="payment-form-section"><strong>
+                <div class="div-pagamento">
+                    <p class="titulo-choose-item-2"><strong>Finalize a venda pressionando Enter.</strong></p>
+                    <div class="pagamento-container">
+                        <div class="pagamento-default">
+                            <div class="pagamento-default-1" id="div-valorDinheiro">
+                                <div style="max-width: 25%;margin-left: 35%;">
+                                    <label for="valorDinheiro">À Vista (Dinheiro):</label>
+                                    <input id="valorDinheiro" type="text" value="0,00">
+                                </div>
+                            </div>
+                            <div class="pagamento-default-1" id="div-PIX">
+                                <div style="max-width: 25%;margin-left: 35%;">
+                                    <label for="PIX">PIX:</label>
+                                    <input id="PIX" type="text" value="0,00">
+                                </div>
+                            </div>
+                            <div class="pagamento-default-1" id="div-Cartao-Debito">
+                                <div style="max-width: 25%;margin-left: 35%;">
+                                    <label for="Cartao-Debito">Cartão Débito:</label>
+                                    <input id="Cartao-Debito" type="text" value="0,00">
+                                </div>
+                            </div>
+                            <div class="pagamento-default-1" id="div-Cartao-Credito">
+                                <div style="max-width: 25%;margin-left: 35%;">
+                                    <label for="Cartao-Credito">Cartão Crédito:</label>
+                                    <input id="Cartao-Credito" type="text" value="0,00">
+                                </div>
+                            </div>
+                            <!--Configurações - Crediario-loja -->
+                            <div class="pagamento-default-1" id="div-Crediario">
+                                <div class="inputs-container">
+
+                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                        <div style="width: 50%">
+                                            <label for="Crediario" style="width: 100%; margin-bottom: -1%;">CPF
+                                                Cliente: </label>
+                                            <div style="max-width: 100%;">
+                                                <input id="Crediario-cliente" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="" style="width: 100%;  margin-bottom: -1%;">Cliente:</label>
+                                            <div style="max-width: 100%;"><input id="nomeCliente" type="text"
+                                                    type="text" value="" readonly></div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                        <div>
+                                            <label for="Crediario" style="width: 100%;  margin-bottom: -1%;">Numero de
+                                                Parcelas:</label>
+                                            <div style="max-width: 100%;"><input id="Crediario-parcela" type="number"
+                                                    value="">
+                                            </div>
+                                        </div><span style="margin-top: 2.5%;">X</span>
+                                        <div>
+                                            <label for="" style="width: 100%;  margin-bottom: -1%;">Taxa de Juros
+                                                %:</label>
+                                            <div style="max-width: 100%;"><input id="taxa-juros" type="number"
+                                                    value="1.5" readonly>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="" style="width: 100%;  margin-bottom: -1%;">Valor da
+                                                Parcela:</label>
+                                            <div style="max-width: 100%;"><input id="Crediario-valor" type="number"
+                                                    value="" readonly>
+                                            </div>
+                                        </div>
+                                        <span style="margin-top: 2.5%;">=</span>
+                                        <div>
+                                            <label for="Crediario" style="width: 100%;  margin-bottom: -1%;">Subtotal
+                                            </label>
+                                            <div style="max-width: 100%;"><input id="Crediario" type="text" value="0,00"
+                                                    readonly></div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                        <div>
+                                            <label style="width: 100%;  margin-bottom: -.5%;">Vencimentos para o dia:
+                                            </label>
+                                            <div style="max-width: 70%;"><input id="vencimentos" type="date"></div>
+                                        </div>
+                                        <div>
+                                            <label style="width: 100%;  margin-bottom: -.5%;">Crédito liberado:
+                                            </label>
+                                            <div style="max-width: 100%;"> <input id="creditoLimite" value="0,00"
+                                                    style="background-color: #e9ecef;" readonly></div>
+                                        </div>
+                                        <div>
+                                            <label style="width: 100%;  margin-bottom: -.5%;">Crédito utilizado:
+                                            </label>
+                                            <div style="max-width: 100%;"> <input id="creditoUtilizado" value="0,00"
+                                                    readonly></div>
+                                        </div>
+                                        <!-- input para salvar o id Cliente Globalmente. -->
+                                        <input id="id-cliente" type="hidden" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="info-pag">Ao optar pelo pagamento parcelado, será aplicada uma taxa de X% de juros
+                            sobre o valor total da compra.</p>
+                        <p class="info-pag">
+                            Pressione <strong>Shift + Atalho</strong> Pgto para adicionar mais opções de Pgto
+                        </p>
+                    </div>
+                </div>
+            </strong>
+        </div>
+        <!-- Quantidade, Descrição -->
+        <input type="hidden" id="medidaEstoque" readonly>
+        <input type="hidden" id="input-descricao" readonly>
+        <!-- valor unitario produto -->
+        <input type="hidden" id="valor-unitario" readonly>
+        <!-------------------------------------------------------------------------------------------->
+        <!-- Caixa Aberto -->
+        <header class="header">
+            <div class="info-item-data" style="display: none;">
+                <label class="info-container-label" for="data-venda">Data da Venda:</label>
+                <input type="text" id="data-venda" readonly>
+            </div>
+            <div class="div-nomeProduto">
+                <h1 class="nomeProduto"></h1>
+            </div>
+            <div class="info-item-nome-cliente" style="display: none;">
+                <label class="info-container-label" for="nome-cliente">Cliente:</label>
+                <input id="nome-cliente" type="text" readonly value="Consumidor Final">
+
+                <!-- <input id="id-cliente" type="hidden" value="1">
+                <input id="creditoLimite" >
+                <input id="creditoUtilizado" >  -->
+
+            </div>
+            <div class="info-item-time">
+                <p class="caixa-aberto">CAIXA ABERTO</p>
+                <p class="square-time"><span class="squere-hide">.</span></p>
+                <p class="square-day">Obrigado pela preferência!</p>
+            </div>
+        </header>
+        <!-- Dados do produto -->
+        <section class="product-section">
+            <div class="product-info">
+                <div class="div-img">
+                    <img class="img-produto" src="../style/img/carrinho-de-compras.png" alt="Produto">
+                </div>
+                <div class="product-codigo">
+                    <label for="codigo">Código Barras (EAN)</label>
+                    <input type="text" id="codigo">
+                    <div class="product-quantity">
+                        <p>Quantidade <span>(F1)</span></p>
+                        <p class="qtd-selecionada"></p>
+                    </div>
+                </div>
+                <div class="carrinho">
+                    <div style="overflow: hidden;">
+                        <ul class="ul-carrinho">
+                            <li class="li-titulo-carrino">
+                                <label style="border-bottom: 1px solid black;" for="numero-pedido">Nº Pedido:</label>
+                                <input type="text" id="numero-pedido" readonly> <span
+                                    style="border-bottom: 1px solid black;">Itens adicionados ao carrinho </span>
+                            </li>
+                        </ul>
+                        <ul class="ul-descricao-produto">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Totais -->
+        <section class="totals-section">
+            <div class="atalhos">
+                <H3 style="position:absolute; top: 3%; left: 1.5%;">Selecione o Pagamento</H3>
+                <div class="pagamento">
+                    <p class="atalhos-p">F1 = Pagamento Dinheiro</p>
+                    <p class="atalhos-p">F2 = Pagamento PIX</p>
+                    <p class="atalhos-p">F3 = Pgto Cartão Crédito </p>
+                    <p class="atalhos-p">F4 = Pgto Cartão Débito</p>
+                </div>
+                <div class="pagamento">
+                    <p class="atalhos-p">F6 = Cancelar Item</p>
+                    <p class="atalhos-p">F7 = Crediário Loja</p>
+                    <p class="atalhos-p">F9 = Alterar Qtd</p>
+                    <p class="atalhos-p">F10 = Desconto Venda</p>
+                </div>
+                <div class="pagamento">
+                    <p class="atalhos-p">F12 = Reiniciar Venda</p>
+                    <p class="atalhos-p">Enter = Finalizar Venda</p>
+                    <p class="atalhos-p">ESC = Sair (Menu)</p>
+                    <p class="atalhos-p" style="color: transparent;">.</p>
+                </div>
+            </div>
+
+            <div class="payment-summary">
+                <div class="div-total-liquido">
+                    <label class="label-total-liquido" for="total-liquido">Subtotal</label>
+                    <input id="total-liquido" type="text" value="0,00" readonly>
+                </div>
+                <div class="div-total-pago">
+                    <div class="div-total-recebido">
+                        <label class="label-total-recebido" for="total-pago">Valores Pagos</label>
+                        <input id="total-pago" value="0,00" type="text">
+                    </div>
+                    <div class="div-troco">
+                        <label class="label-troco" for="troco">Troco</label>
+                        <input id="troco" value="0,00" type="text" readonly>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="../Renderer/Vendas/renderer_vendas.js"></script>
+    <script src="../Renderer/services/converte_moeda.js"></script>
+    <script src="../Renderer/services/formatters.js"></script>
+    <script src="../Renderer/Vendas/api_vendas/api_vendas.js"></script>
+    <script src="../Renderer/services/renderer_relogio.js"></script>
+    <script src="../Renderer/services/alertMsg.js"></script>
+    <script src="../Renderer/Vendas/carrinho.js"></script>
+    <script src="../Renderer/Vendas/pagamento.js"></script>
+    <script src="../Renderer/Vendas/finalizarVenda.js"></script>
+    <script src="../Renderer/Vendas/api_vendas/api_crediario.js"></script>
+    <script src="../Renderer/imprimir/cupom.js"></script>
+
+</body>
+
+</html>
