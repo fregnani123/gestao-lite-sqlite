@@ -189,7 +189,61 @@ async function UpdateFornecedor(fornecedorId) {
         alertMsg('Erro durante a atualização do fornecedor:', 'error', 2000);
         consol.log('Erro durante a atualização do fornecedor:', error);
     }
-}
+};
+
+pessoa.addEventListener('change', () => {
+    const labelCnpjCPF = document.getElementById('filtrar');
+    const label_razao = document.getElementById('label_razao');
+
+    if (pessoa.value === "juridica") {
+        cnpj.value = '';
+        cnpj.removeAttribute('readonly'); 
+        razaoSocial.removeAttribute('readonly'); 
+        formatarCNPJ(cnpj);
+        inputMaxCaracteres(cnpj, 18);
+        labelCnpjCPF.innerHTML = '🔍 Filtrar CNPJ';
+        label_razao.innerHTML = 'Razão Social';
+        contribuinte.removeAttribute('disabled');
+        nomeFantasia.removeAttribute('readonly');
+        contribuinte.value = 'isento';
+        cnpj.focus();
+    } else if (pessoa.value === "fisica") {
+        razaoSocial.addEventListener('input', () => {
+            if (pessoa.value === "fisica") {
+                nomeFantasia.value = razaoSocial.value;
+            }
+        });        
+        cnpj.value = '';
+        cnpj.removeAttribute('readonly'); // Remove o atributo readonly
+        razaoSocial.removeAttribute('readonly'); 
+        nomeFantasia.setAttribute('readonly',true);
+        nomeFantasia.value = razaoSocial.value;
+        contribuinte.value = 'isento';
+        formatarEVerificarCPF(cnpj);
+        inputMaxCaracteres(cnpj, 14);
+        labelCnpjCPF.innerHTML = '🔍 Filtrar CPF';
+        label_razao.innerHTML = 'Nome';
+        cnpj.focus();
+    } else {
+        cnpj.value = '';
+        labelCnpjCPF.innerHTML = 'CNPJ / CPF';
+        label_razao.innerHTML = 'Razão Social / Nome';
+        cnpj.setAttribute('readonly', 'true'); 
+        contribuinte.setAttribute('disabled',true);
+        razaoSocial.setAttribute('readonly',true);
+        nomeFantasia.setAttribute('readonly',true);
+    }
+});
+
+contribuinte.addEventListener('change', () => {
+    if (contribuinte.value === 'contribuinte') {
+        ie.removeAttribute('readonly');
+    } else {
+        ie.value = '';
+        ie.setAttribute('readonly', true);
+    }
+});
+
 
 btnAtualizar.addEventListener('click', (e) => {
     e.preventDefault();

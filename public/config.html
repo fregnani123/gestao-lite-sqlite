@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +10,9 @@
     <link rel="stylesheet" href="../style/css/css_global/btn.css">
     <link rel="stylesheet" href="../style/css/css_global/inputs.css">
     <link rel="stylesheet" href="../style/css/css_global/info.css">
+    <link rel="stylesheet" href="../style/css/config/config.css">
     <style>
-        .menu-item-11 a {
+        #cadastro-usuario a {
             background: #ffcc00;
             text-shadow: none;
             color: black;
@@ -20,17 +20,18 @@
         }
     </style>
     <title>Configurações</title>
+
 <body>
     <header>
         <nav class="nav-config">
             <ul id="ul-Menu">
                 <img class="img-config" src="../style/img/configuracoes.png" alt="">
-                <li class="menu-item-11"><a class="list-a11">Configurações</a></li>
+                <li class="menu-item-11"><a class="list-a11" href="./config.html">Configurações</a></li>
             </ul>
         </nav>
         <nav class="nav-menu-2">
             <ul class="menu-secundario">
-                <li id="cadastro-fornecedor">
+                <li id="cadastro-usuario">
                     <a href="" id="btn-flex">Informações do usuário</a>
                 </li>
                 <li id="alterar-fornecedor">
@@ -43,19 +44,135 @@
         </nav>
     </header>
     <div class="container">
-          <div class="container-register"></div>
-          <div class="div-form" role="form">
-              <div class="div-form-display">
-                  <section class="div-form__body">
-                    
-                  </section>
-              </div>
-          </div>
-  </body>
-  <script src="../Renderer/Menu/renderer_menu.js"></script>
-  <script src="../Renderer/services/alertMsg.js"></script>
-  <script src="../Renderer/services/converte_moeda.js"></script>
-  <script src="../Renderer/services/formatters.js"></script>
-  <script src="../config/config.js"></script>
-  </html> 
-  
+        <div class="container-register"></div>
+        <div class="div-form" role="form">
+            <div class="div-form-display">
+                <section class="div-form__body">
+                    <div class="form-group">
+                        <div id="div-ativo">
+                            <label for="ativo">Ativo:</label>
+                            <select id="ativo" name="ativo">
+                                <option value=""></option>
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                        <div id="div-tipo_usuario">
+                            <label for="tipo_usuario">Tipo de Usuário:</label>
+                            <select id="tipo_usuario" name="tipo_usuario">
+                                <option value="empresa">Selecione</option>
+                                <option value="empresa">CNPJ</option>
+                                <option value="cliente">CPF</option>
+                            </select>
+                        </div>
+                        <div id="div-cnpj">
+                            <label for="">CNPJ / CPF</label>
+                            <input type="text" id="cnpj-nome" name="">
+                        </div>
+                
+                        <div id="div-razoSocial">
+                            <label for="razao_social">Razão Social / nome</label>
+                            <input type="text" id="razao_social" name="razao_social">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="div-ie">
+                            <label for="inscricao_estadual">Inscrição Estadual:</label>
+                            <input type="text" id="inscricao_estadual" name="inscricao_estadual">
+                        </div>
+                        <div id="div-ie">
+                            <label for="inscricao_estadual">Numero IE::</label>
+                            <input type="text" id="inscricao_estadual" name="inscricao_estadual">
+                        </div>
+                        <div id="div-fantasia">
+                            <label for="nome_fantasia">Nome Fantasia:</label>
+                            <input type="text" id="nome_fantasia" name="nome_fantasia">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="div-cep">
+                            <label class="labelFornecedor" for="endereco">Cep</label>
+                            <input type="text" id="endereco">
+                        </div>
+                        <div id="div-logradouro">
+                            <label for="endereco">Endereço:</label>
+                            <input type="text" id="endereco" name="endereco">
+                        </div>
+                
+                        <div id="div-numero">
+                            <label for="numero">Número:</label>
+                            <input type="text" id="numero" name="numero">
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <div id="div-bairro">
+                            <label for="bairro">Bairro:</label>
+                            <input type="text" id="bairro" name="bairro">
+                        </div>
+                        <div id="div-uf">
+                            <label for="estado">Estado:</label>
+                            <select type="text" id="estado" name="estado"></select>
+                        </div>
+                        <div id="div-cidade">
+                            <label for="cidade">Cidade:</label>
+                            <select type="text" id="cidade" name="cidade"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="div-email">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="div-contato">
+                            <label for="contato">Contato:</label>
+                            <input type="text" id="contato" name="contato">
+                        </div>
+                        <div class="div-site">
+                            <label for="site">Site:</label>
+                            <input type="url" id="site" name="site">
+                        </div>
+                
+                        <div class="div-usuario">
+                            <label for="usuario">Usuário:</label>
+                            <input type="text" id="usuario" name="usuario">
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <div class="div-senha">
+                            <label for="senha">Senha:</label>
+                            <input type="password" id="senha" name="senha">
+                        </div>
+                        <div class="div-slogan">
+                            <label for="slogan">Slogan:</label>
+                            <input type="text" id="slogan" name="slogan">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="div-qr_code_img">
+                            <label for="qr_code_img">QR Code (URL da imagem):</label>
+                            <input type="url" id="qr_code_img" name="qr_code_img">
+                        </div>
+                    </div> -->
+                </section>
+                <section class="div-form-img">
+                    <p class="titulo-img">Cadastro Cliente</p>
+                    <img class="img-produto" src="" alt="cupom">
+                </section>
+            </div>
+            <footer class="div-form__footer">
+                <p class="informativo">⚠️ <strong> Atenção: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea placeat atque porro soluta aliquid deleniti accusantium nesciunt non tenetur sint.</strong></p>
+                    <button id="btn-estoque"><img class="img-disquete" src="../style//img/disquete.png">Gravar</button>
+                  <button id="limparButton"><img class="img-excluir"
+                      src="../style//img/excluir.png" alt="">Limpar</button>
+            </footer>
+        </div>
+</body>
+<script src="../Renderer/Menu/renderer_menu.js"></script>
+<script src="../Renderer/services/alertMsg.js"></script>
+<script src="../Renderer/services/converte_moeda.js"></script>
+<script src="../Renderer/services/formatters.js"></script>
+<script src="../config/config.js"></script>
+
+</html>

@@ -1,6 +1,10 @@
 :root{
     --input-readonly: rgb(232, 232, 232);
 }
+input[readonly], input:disabled, select:disabled {
+    background-color: var(--input-readonly);
+}
+
 input[type="number"] {
     -moz-appearance: textfield; 
     -webkit-appearance: none; 
@@ -19,6 +23,12 @@ label {
     align-items: center;
     justify-content: center;
     font-weight: 700;
+}
+#filtrar{
+    margin-top: -1%;
+}
+#labelFornecedor{
+    margin-top: 1%;
 }
 input,
 select {
@@ -120,7 +130,10 @@ background-color:var(--input-readonly);}
 #div-uf{width: 15%;}
 #div-cidade{width: 35%;}
 .div-codigoDeBarras{width: 28%;}
-#div-numero{width: 20%;}
+#div-ie{width: 25%;}
+#div-pessoa{width: 25%;}
+#div-ativo{width: 25%;}
+#div-tipo_usuario{width: 20%;}
 #div-razoSocial{width: 55%;}
 #div-atividade{width: 40%;}
 #div-fantasia{width: 55%;}

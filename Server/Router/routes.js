@@ -13,6 +13,7 @@ const controllersDesativar = require('../Controller/desativarProdutoSistema');
 const controllersCrediario = require('../Controller/crediario');
 const controllersAgenda = require('../Controller/agendamento');
 const { getLicenca } = require('../../db/mongoDB');
+const controllersUsuario = require('../Controller/usuario');
 
 // Definições de rotas
 Router.get('/produtos', controllersProduto.getAllProducts);
@@ -49,6 +50,7 @@ Router.post('/postNewAgendamento', controllersAgenda.postNewAgendamento);
 Router.post('/upload-imagem', controllersProduto.UploadImagem);
 Router.post('/postNewCliente', controllersCliente.postNewCliente);
 Router.post('/insertAtivacao', controllersAtivacao.postAtivacao);
+Router.post('/postNewUsuario', controllersUsuario.postNewUsuario);
 
 Router.patch('/UpdateAtivacao', controllersAtivacao.UpdateAtivacao);
 Router.patch('/UpdateEstoque', controllersEstoque.UpdateEstoque);

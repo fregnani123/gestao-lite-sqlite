@@ -183,8 +183,6 @@ async function updateCreditoCliente(dadosCliente) {
 }
 
 
-
-
 module.exports = {
     postNewCliente,
     getClientePorCPF,

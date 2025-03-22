@@ -37,7 +37,7 @@ const controllersCliente = {
             console.log("CPF recebido antes da formatação:", cpf);
     
             const cliente = await getClientePorCPF(cpf);
-            console.log("Resultado da consulta:", cliente);
+            // console.log("Resultado da consulta:", cliente);
     
             if (!cliente.length) {
                 return res.status(404).json({ message: "Cliente não encontrado" });

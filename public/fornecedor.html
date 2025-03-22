@@ -21,7 +21,6 @@
     </style>
     <title>Cadastro Fornecedor</title>
 </head>
-
 <body>
     <header>
         <nav style="background-color: rgb(0, 38, 87);">
@@ -50,78 +49,80 @@
                 </section>
                 <section class="div-form__body">
                     <div class="form-group">
-                        <div id="div-numero">
+                        <div id="div-pessoa">
                             <label class="labelFornecedor" for="tipoPessoa">Pessoa</label>
                             <select name="tipoPessoa" id="tipoPessoa">
-                                <option value="fisica">Física</option>
+                                <option value="">Selecione</option>
                                 <option value="juridica">Jurídica</option>
+                                <option value="fisica">Física</option> 
                             </select>
                         </div>
                         <div id="div-cnpj">
-                            <label class="labelFornecedor" for="cnpj">CNPJ</label>
-                            <input type="text" id="cnpj">
+                            <label class="labelFornecedor" id="label_cnpj_cpf" for="cnpj">CNPJ / CPF</label>
+                            <input type="text" id="cnpj" readonly>
                         </div>
 
                         <div id="div-razoSocial">
-                            <label class="labelFornecedor" for="razaoSocial">Razão Social</label>
-                            <input type="text" id="razaoSocial">
+                            <label class="labelFornecedor" id="label_razao" for="razaoSocial">Razão Social / Nome</label>
+                            <input type="text" id="razaoSocial" readonly>
                         </div>
                     </div>
                     <div class="form-group">
-                                <div id="div-numero">
-                                    <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual</label>
-                                    <select name="inscricaoEstadual" id="inscricaoEstadual">
+                                <div id="div-ie">
+                                    <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual:</label>
+                                    <select name="inscricaoEstadual" id="inscricaoEstadual" disabled>
+                                        <option value="">Selecione</option>
                                         <option value="contribuinte">Contribuinte</option>
                                         <option value="isento">Isento</option>
                                     </select>
                                 </div>
                         <div id="div-ie">
-                            <label class="labelFornecedor" for="ie">Inscrição Estadual</label>
-                            <input type="text" id="ie">
+                            <label class="labelFornecedor" for="ie">numero IE:</label>
+                            <input type="text" id="ie" readonly>
                         </div>
                         <div id="div-fantasia">
-                            <label class="labelFornecedor" for="nomeFantasia">Nome Fantasia</label>
-                            <input type="text" id="nomeFantasia">
+                            <label class="labelFornecedor" for="nomeFantasia">Nome Fantasia:</label>
+                            <input type="text" id="nomeFantasia" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-logradouro">
-                            <label class="labelFornecedor" for="endereco">Logradouro</label>
+                            <label class="labelFornecedor" for="endereco">Logradouro:</label>
                             <input type="text" id="endereco">
                         </div>
                         <div id="div-numero">
-                            <label class="labelFornecedor" for="cep">Numero</label>
+                            <label class="labelFornecedor" for="cep">Numero:</label>
                             <input type="text" id="numero">
                         </div>
                         <div id="div-bairro">
-                            <label class="labelFornecedor" for="bairro">Bairro</label>
+                            <label class="labelFornecedor" for="bairro">Bairro:</label>
                             <input type="text" id="bairro">
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-cep">
-                            <label class="labelFornecedor" for="cep">Cep</label>
+                            <label class="labelFornecedor" for="cep">Cep:</label>
                             <input type="text" id="cep">
                         </div>
                         <div id="div-uf">
-                            <label class="labelFornecedor" for="uf">UF</label>
+                            <label class="labelFornecedor" for="uf">UF:</label>
                             <select id="uf">
                             </select>
                         </div>
                         <div id="div-cidade">
-                            <label class="labelFornecedor" for="cidade">Cidade</label>
+                            <label class="labelFornecedor" for="cidade">Cidade:</label>
                             <select id="cidade">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-email">
-                            <label class="labelFornecedor" for="email">Email</label>
+                            <label class="labelFornecedor" for="email">Email:</label>
                             <input type="email" id="email">
                         </div>
 
                         <div id="div-tel">
-                            <label class="labelFornecedor" for="email">Contato</label>
+                            <label class="labelFornecedor" for="email">Contato:</label>
                             <input type="email" id="telefone">
                         </div>
                     </div>
@@ -129,19 +130,19 @@
                      <div  id="div-atividade">
                             <label for="">Ramos de atividade:</label>
                             <select name="" id="atividade">
-                                <option value="">Selecione</option>
+                               
                             </select>
                         </div>
                         <div id="div-atividade">
                             <label for="">Forma de Pgto:</label>
                             <select name="" id="formaPgto">
-                                <option value="">Selecione</option>
+                              
                             </select>
                         </div>
                         <div id="div-atividade">                
                             <label for="">Condições Pgto:</label>
                             <select name="" id="condicoesPgto">
-                                <option value="">Selecione</option>
+                              
                             </select>
                         </div>
                     </div>
@@ -156,7 +157,7 @@
                 </section>
             </div>
             <footer class="div-form__footer">
-                <p class="informativo observacoes">🔍<strong>Observação: Antes de cadastrar, verifique se todos os dados
+                <p class="informativo observacoes"> <strong>⚠️ Atenção: Antes de cadastrar, verifique se todos os dados
                         do fornecedor estão corretos.</strong>
                 </p>
                 <button id="btn-cad-fornecedor"><img class="img-disquete"

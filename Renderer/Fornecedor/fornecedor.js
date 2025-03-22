@@ -29,7 +29,6 @@ function estilizarLinkAtivo(linkID) {
 }
 estilizarLinkAtivo(linkID_8)
 
-
 document.addEventListener('DOMContentLoaded', () => {
 
     cnpj.focus();
@@ -37,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     formatarTelefone(telefone);
     inputMaxCaracteres(telefone, 15);
 
-    // Formatando o campo CNPJ
-    formatarCNPJ(cnpj);
     inputMaxCaracteres(cnpj, 18);
 
     // Formatando o campo IE
@@ -61,6 +58,57 @@ document.addEventListener('DOMContentLoaded', () => {
     inputMaxCaracteres(cidade, 150);
     inputMaxCaracteres(uf, 2);
 })
+
+pessoa.addEventListener('change', () => {
+    const labelCnpjCPF = document.getElementById('label_cnpj_cpf');
+    const label_razao = document.getElementById('label_razao');
+
+    if (pessoa.value === "juridica") {
+        cnpj.value = '';
+        cnpj.removeAttribute('readonly'); 
+        razaoSocial.removeAttribute('readonly'); 
+        formatarCNPJ(cnpj);
+        inputMaxCaracteres(cnpj, 18);
+        labelCnpjCPF.innerHTML = 'CNPJ';
+        label_razao.innerHTML = 'Razão Social';
+        contribuinte.removeAttribute('disabled');
+        nomeFantasia.removeAttribute('readonly');
+        contribuinte.value = 'isento';
+        cnpj.focus();
+    } else if (pessoa.value === "fisica") {
+        razaoSocial.addEventListener('input', () => {
+            if (pessoa.value === "fisica") {
+                nomeFantasia.value = razaoSocial.value;
+            }
+        });        
+        cnpj.value = '';
+        cnpj.removeAttribute('readonly'); // Remove o atributo readonly
+        razaoSocial.removeAttribute('readonly'); 
+        nomeFantasia.setAttribute('readonly',true);
+        nomeFantasia.value = razaoSocial.value;
+        contribuinte.value = 'isento';
+        formatarEVerificarCPF(cnpj);
+        inputMaxCaracteres(cnpj, 14);
+        labelCnpjCPF.innerHTML = 'CPF';
+        label_razao.innerHTML = 'Nome';
+        cnpj.focus();
+    } else {
+        cnpj.value = '';
+        labelCnpjCPF.innerHTML = 'CNPJ / CPF';
+        label_razao.innerHTML = 'Razão Social / Nome';
+        cnpj.setAttribute('readonly', 'true'); // Corrigido para ativar readonly corretamente
+    }
+});
+
+contribuinte.addEventListener('change', () => {
+    if (contribuinte.value === 'contribuinte') {
+        ie.removeAttribute('readonly');
+    } else {
+        ie.value = '';
+        ie.setAttribute('readonly', true);
+    }
+});
+
 
 
 // Enviar dados do formulário
@@ -129,11 +177,11 @@ function limparFormulario() {
     uf.value = '';
     observacoes.value = '';
     pessoa.value = '',
-    contribuinte.value = '',
-    numero.value = '',
-    ramos_de_atividade.value = '',
-    forma_de_Pgto.value = '',
-    condicoes_Pgto.value = ''
+        contribuinte.value = '',
+        numero.value = '',
+        ramos_de_atividade.value = '',
+        forma_de_Pgto.value = '',
+        condicoes_Pgto.value = ''
 }
 
 // Adicionando evento ao botão de envio

@@ -60,7 +60,7 @@ inputMaxCaracteres(logradouro, 250);
 inputMaxCaracteres(bairro, 150);
 inputMaxCaracteres(cidade, 150);
 inputMaxCaracteres(uf, 2);
-preencherSelect(ocupacao);
+
 }); 
 
 function parseCurrency(value) {

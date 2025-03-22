@@ -1,4 +1,4 @@
-const ramosDeAtividade = [
+const ocupacoes = [
     { value: "", text: "Selecione:" },
     { value: "administrador", text: "Administrador" },
     { value: "advogado", text: "Advogado" },
@@ -62,6 +62,5 @@ function preencherSelect(idSelect) {
     });
 }
 
-// Preencher o select com id "ocupacao"
 preencherSelect("ocupacao");
 

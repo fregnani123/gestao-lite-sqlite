@@ -10,6 +10,31 @@ async function initializeDB(db) {
             // Criar Schema e Tabelas (SQLite não precisa de CREATE SCHEMA)
 
             // Criar Tabela Serial_Key
+            ` CREATE TABLE IF NOT EXISTS usuario (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              nome_fantasia TEXT,
+              razao_social TEXT,
+              cep TEXT,
+              endereco TEXT NOT NULL,
+              numero TEXT NOT NULL,
+              bairro TEXT NOT NULL,
+              cidade TEXT NOT NULL,
+              estado TEXT NOT NULL,
+              contato TEXT NOT NULL,
+              cnpj_cpf TEXT UNIQUE,
+              inscricao_estadual TEXT,
+              email TEXT UNIQUE,
+              site TEXT,
+              usuario TEXT UNIQUE NOT NULL,
+              senha TEXT NOT NULL,
+              tipo_usuario TEXT CHECK(tipo_usuario IN ('empresa', 'cliente')) NOT NULL,
+              slogan TEXT,
+              path_img TEXT,
+              ativo INTEGER DEFAULT 1,
+              data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+                );`,
+
+            // Criar Tabela Serial_Key
             `CREATE TABLE IF NOT EXISTS Serial_Key (
                 serial_key_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 userID TEXT NOT NULL,
