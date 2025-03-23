@@ -24,8 +24,8 @@ async function postNewVenda(newSale) {
     await ensureDBInitialized();
 
     const insertSaleQuery = `
-        INSERT INTO venda (data_venda, cliente_id, total_liquido, valor_recebido, troco, numero_pedido)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO venda (data_venda, cliente_id, total_liquido, valor_recebido, troco, numero_pedido, desconto_venda)
+        VALUES (?, ?, ?, ?, ?, ? , ?)
     `;
     const insertItemQuery = `
         INSERT INTO item_venda (venda_id, produto_id, preco, quantidade, unidade_estoque_id)
@@ -44,7 +44,8 @@ async function postNewVenda(newSale) {
                 newSale.total_liquido,
                 newSale.valor_recebido,
                 newSale.troco || 0,
-                newSale.numero_pedido
+                newSale.numero_pedido,
+                newSale.desconto_venda || 0
             );
 
             const vendaId = vendaResult.lastInsertRowid;
@@ -87,7 +88,6 @@ async function fetchVenda() {
     }
 }
 
-
 async function historicoDeVendas({ startDate, endDate, cpfCliente, numeroPedido }) {
     await ensureDBInitialized();
     try {
@@ -121,7 +121,7 @@ async function historicoDeVendas({ startDate, endDate, cpfCliente, numeroPedido 
 
         const query = `
         SELECT v.data_venda, c.cpf AS cpf, c.nome AS nome_cliente, v.total_liquido,
-        v.valor_recebido, v.troco, v.numero_pedido, iv.produto_id,
+        v.valor_recebido, v.troco, v.numero_pedido, v.desconto_venda, iv.produto_id,
         p.codigo_ean AS codigo_ean, p.nome_produto AS produto_nome, iv.preco, iv.quantidade,
         ue.estoque_nome AS unidade_estoque_nome, fp.tipo_pagamento, fp.valor AS valor_pagamento
         FROM venda v
@@ -158,6 +158,7 @@ async function getVendasPorNumeroVenda(numeroPedido) {
                 v.valor_recebido,
                 v.troco,
                 v.numero_pedido,
+                v.desconto_venda,
                 iv.produto_id,
                 p.codigo_ean,
                 p.nome_produto AS produto_nome,

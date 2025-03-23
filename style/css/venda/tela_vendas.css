@@ -314,28 +314,45 @@ input[readonly] {
 
 .div-total-liquido {
     display: flex;
-    background-color: var(--background-color);
     color: white;
     border-radius: 10px;
     width: 100%;
     height:50%;
     box-sizing: border-box;
+    align-items: flex-end;
+    gap: 2%;
+}
+
+.div-liquido{
+    background-color: var(--background-color);
+    height: 100%;
 }
 
 .label-total-liquido{
     font-size: 2.5rem;
-    margin-left: 3%;
+    display: flex;
+    justify-content: left;
     margin-top: 2%;
 }
+
 #total-liquido{
     background-color: var(--background-color);
     color: white;
     text-align: end;
     outline: none;
     border: none;
-    font-size: 3rem;
+    font-size: 2.5rem;
+   
 }
-
+#mostrarDesconto{
+    background-color: var(--background-color);
+    color: white;
+    text-align: end;
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    margin-top: 7%;
+}
 #total-pago,#troco{
     background-color: var(--background-color);
     color: white;

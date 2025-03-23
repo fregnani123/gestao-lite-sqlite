@@ -87,7 +87,6 @@ function navegarCampos(evento, campos) {
     }
   });
 
-
   function getFormasDePagamento() {
     const formasDePagamento = [];
 
@@ -98,7 +97,6 @@ function navegarCampos(evento, campos) {
     const valorCrediario = parseCurrency(document.getElementById('Crediario').value);
 
    
-
     if (valorDinheiro > 0) {
         formasDePagamento.push({ tipo: 'Dinheiro', valor: valorDinheiro.toFixed(2) });
     }
@@ -147,6 +145,36 @@ function parseCurrency(value) {
     return totalPago;
   }
 
+// Função para aplicar o desconto
+function aplicarDesconto() {
+  try {
+      let value = inputdescontoPorcentagem.value;
+
+      // Substitui caracteres que não sejam números ou pontos
+      value = value.replace(/[^0-9.]/g, '');
+
+      // Garante que apenas o primeiro ponto seja mantido
+      const parts = value.split('.');
+      if (parts.length > 2) {
+          value = parts[0] + '.' + parts.slice(1).join(''); // Remove pontos adicionais
+      }
+
+      // Limita a duas casas decimais
+      if (value.indexOf('.') !== -1) {
+          value = value.slice(0, value.indexOf('.') + 3); // mantém duas casas após o ponto
+      }
+
+      // Atualiza o campo de entrada com o valor limpo e com no máximo 2 casas decimais
+      inputdescontoPorcentagem.value = value;
+
+      // Chama a função de cálculo com os valores
+      descontoVenda(inputTotalLiquido, inputdescontoPorcentagem);
+
+  } catch (error) {
+      console.error(error.message);
+  }
+}
+
 // Função genérica para calcular e atualizar o troco
 function atualizarTroco() {
     // Formatar o total líquido
@@ -174,45 +202,44 @@ function atualizarTroco() {
       campo.addEventListener('input', atualizarTroco);
     }
   });
+  
 
- // Adicionar evento de tecla no campo de desconto
-inputdescontoPorcentagem.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        aplicarDesconto();
-    }
+  formatarDesconto(inputdescontoPorcentagem)
+
+// Adicionar evento de entrada no campo de desconto
+inputdescontoPorcentagem.addEventListener('input', () => {
+  
+  
+  aplicarDesconto(); // Aplica o desconto automaticamente
+  calCarrinho(
+      carrinho,
+      converteMoeda,
+      inputTotalLiquido,
+      textSelecionarQtd,
+      inputdescontoPorcentagem
+  );
+
+  // Atualiza o campo mostrando a porcentagem corretamente
+  mostrarDesconto.value = inputdescontoPorcentagem.value + "%";
 });
 
+// Função para calcular o desconto e atualizar o total líquido
+function descontoVenda(inputTotal, inputDesconto) {
+  let total = parseFloat(inputTotal.value.replace(/\./g, '').replace(',', '.')) || 0;
+  let desconto = parseFloat(inputDesconto.value.replace(',', '.')) || 0;
 
-// Função para aplicar o desconto
-function aplicarDesconto() {
-    try {
-        // Remove caracteres inválidos, permitindo apenas números e um único ponto decimal
-        let value = inputdescontoPorcentagem.value;
+  if (desconto > 100) {
+      desconto = 100; // Evita desconto maior que 100%
+  }
 
-        // Substitui caracteres que não sejam números ou pontos
-        value = value.replace(/[^0-9.]/g, '');
-
-        // Garante que apenas o primeiro ponto seja mantido
-        const parts = value.split('.');
-        if (parts.length > 2) {
-            value = parts[0] + '.' + parts.slice(1).join(''); // Remove pontos adicionais
-        }
-
-        // Limita a duas casas decimais
-        if (value.indexOf('.') !== -1) {
-            value = value.slice(0, value.indexOf('.') + 3); // mantém duas casas após o ponto
-        }
-
-        // Atualiza o campo de entrada com o valor limpo e com no máximo 2 casas decimais
-        inputdescontoPorcentagem.value = value;
-
-        // Chama a função de cálculo com os valores
-        descontoVenda(inputTotalLiquido, inputdescontoPorcentagem);
-
-    } catch (error) {
-        console.error(error.message);
-    }
+  let valorDesconto = (total * desconto) / 100;
+  let novoTotal = total - valorDesconto;
+  // Atualiza o campo com o novo total formatado
+  inputTotal.value = novoTotal.toFixed(2).replace('.', ',');
+  
 }
+
+
 
 
    

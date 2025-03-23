@@ -38,8 +38,6 @@ async function FinalizarVenda(){
         return;
     }
 
-
-   
 // Quando precisar usar totalComJuros:
 inputTotalLiquido.value = converteMoeda(totalComJuros || parseCurrency(inputTotalLiquido.value));
 
@@ -78,6 +76,7 @@ inputTotalLiquido.value = converteMoeda(totalComJuros || parseCurrency(inputTota
         troco: Math.max(0, valorPago - totalLiquido),
         numero_pedido: numeroPedido.value,
         pagamentos: getFormasDePagamento(),
+        desconto_venda: inputdescontoPorcentagem.value
     };
 
     const dataCrediario = {

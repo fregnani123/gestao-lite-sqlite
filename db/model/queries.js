@@ -155,7 +155,8 @@ async function initializeDB(db) {
                 total_liquido REAL NOT NULL,
                 valor_recebido REAL NOT NULL,
                 troco REAL NOT NULL,
-                numero_pedido TEXT NOT NULL
+                numero_pedido TEXT NOT NULL,
+                desconto_venda TEXT DEFAULT 0
             );`,
 
             // Criar Tabela forma_pagamento

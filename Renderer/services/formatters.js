@@ -21,6 +21,16 @@ function formatarCodigoEANProdutos(inputEan){
     });
   }
 
+function formatarDesconto(inputEan){
+    inputEan.addEventListener('input', (e) => {
+      // Remove non-numeric characters and limit the input to 13 characters
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+      if (e.target.value.length === 13) {
+        e.target.value;
+      }
+    });
+  }
+
 // Função para formatar o telefone (ex: (XX) XXXX-XXXX)
 function formatarTelefone(input) {
     input.addEventListener('input', function () {

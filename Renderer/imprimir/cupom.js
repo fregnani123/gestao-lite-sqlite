@@ -33,7 +33,6 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         }
         const data = await response.json();
 
-       
         const nomeFantasia = 'NEW SUN SHINE SHOP SERVICE';
         const razaoSocial = 'Impressões - Informática';
         const endereco = 'R. Henrique Lage - 222, Centro - Içara/SC';
@@ -42,7 +41,9 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         const cliente = data[0].cliente_nome;
         const dataVenda = formatarDataISO(data[0].data_venda);
         const numeroVenda = data[0].numero_pedido;
+        const cuponDesconto = data[0].desconto_venda;
         const totalNota = formatarValorReal(data[0].total_liquido);
+      
         const valorRecebido = data[0].tipo_pagamento.trim() === 'Crediário' ? '(Crediário Loja)' : formatarValorReal(data[0].valor_recebido);
         const troco = formatarValorReal(data[0].troco);
         const formaPgto = data[0].tipo_pagamento;
@@ -60,6 +61,8 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         document.querySelector('.dados #cliente').textContent = cliente;
         document.querySelector('.dados #dataVenda').textContent = dataVenda;
         document.querySelector('.dados #numeroVenda').textContent = numeroVenda;
+       
+        document.querySelector('.total #cuponDesconto').textContent =  `${cuponDesconto}%`;
         document.querySelector('.total #totalNota').textContent = totalNota;
         document.querySelector('.total #valorRecebidoCupom').textContent = valorRecebido;
         document.querySelector('.total #trocoCupom').textContent = troco;

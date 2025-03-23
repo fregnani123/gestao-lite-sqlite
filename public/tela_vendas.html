@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="../style/css/venda/pagamento.css">
     <link rel="stylesheet" href="../style/css/venda/tela_vendas.css">
     <link rel="stylesheet" href="../style/css/venda/cupon.css">
+    <link rel="stylesheet" href="../style/css/css_global/inputs.css">
     <title>Tela de Vendas</title>
 </head>
+
 <body>
     <div class="cupom">
         <div class="cabecalho">
             <div class="div-titulo">
                 <!-- <img class="imgLogo" alt="Logo da Loja"> -->
-                <h3 >
+                <h3>
                     <span class="titulo-cupom" id=""></span>
                 </h3>
             </div>
@@ -41,6 +43,7 @@
             </div> <!-- Aqui vamos adicionar os itens -->
         </div>
         <div class="total">
+            <span class="total-span"><span>Desconto:</span><span id="cuponDesconto"></span></span>
             <span class="total-span"><span>Total da Nota:</span><span id="totalNota"></span></span>
             <span class="total-span"><span>Valor Recebido:</span> <span id="valorRecebidoCupom"></span></span>
             <span class="total-span"><span>Troco:</span> <span id="trocoCupom"></span></span>
@@ -81,11 +84,11 @@
             <p id="mensagem"></p>
             <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Delete</strong> para confirmar.</p>
         </div>
-        <div class="desconto-venda" style="display: none;">
-            <label for="desconto">Informe a porcentagem de desconto para a venda:</label>
-            <input id="desconto" type="text">
+        <div class="desconto-venda">
+            <label for="desconto">Informe o desconto (%) na venda:</label>
+            <input id="desconto" type="text"><span style="margin-left: -10%;">%</span>
             <p id="mensagem"></p>
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+            <p class="p-info">Pressione <strong>Esc</strong> para voltar.</p>
         </div>
         <div class="payment-form-section"><strong>
                 <div class="div-pagamento">
@@ -282,8 +285,14 @@
 
             <div class="payment-summary">
                 <div class="div-total-liquido">
-                    <label class="label-total-liquido" for="total-liquido">Subtotal</label>
-                    <input id="total-liquido" type="text" value="0,00" readonly>
+                    <div class="div-liquido">
+                        <label class="label-total-liquido" id="label-desconto">Desconto (%)</label>
+                        <input id="mostrarDesconto" type="text" value="0%" readonly>
+                    </div>
+                    <div  class="div-liquido">
+                        <label class="label-total-liquido" for="total-liquido">Subtotal</label>
+                        <input id="total-liquido" type="text" value="0,00" readonly>
+                    </div>
                 </div>
                 <div class="div-total-pago">
                     <div class="div-total-recebido">
@@ -309,7 +318,6 @@
     <script src="../Renderer/Vendas/finalizarVenda.js"></script>
     <script src="../Renderer/Vendas/api_vendas/api_crediario.js"></script>
     <script src="../Renderer/imprimir/cupom.js"></script>
-
 </body>
 
 </html>

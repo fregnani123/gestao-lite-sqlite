@@ -22,7 +22,20 @@
     font-family: Arial, sans-serif;
     font-size: 1rem; /* 16px em rem */
 }
-
+.desconto-venda{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50hv;
+    gap: 2%;
+}
+.div-liquido{
+   padding: .5%;
+    width: 50%;
+}
+#label-desconto{
+    font-size: 1.8rem;
+}
 /* Estilo para quando as divs estão visíveis */
 .div-qtd.active,
 .desconto-venda.active,

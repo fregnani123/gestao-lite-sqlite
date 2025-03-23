@@ -66,7 +66,7 @@ async function alteraEstoqueEVendido(carrinho) {
     }
 }
 
-function calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd) {
+function calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd, inputdescontoPorcentagem) {
     if (textSelecionarQtd) textSelecionarQtd.innerHTML = ''; // Atualiza o texto, se fornecido
 
     const total = carrinho.reduce((acc, item) => {
@@ -76,10 +76,20 @@ function calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQ
         return acc + precoFormatado * parseInt(item.Qtd, 10);
     }, 0);
 
-    if (inputTotalLiquido) inputTotalLiquido.value = converteMoeda(total); // Atualiza o campo, se fornecido
-    return total;
-}
+    let desconto = parseFloat(inputdescontoPorcentagem.value.replace(',', '.')) || 0;
 
+    if (desconto > 100) {
+        desconto = 100; // Evita desconto maior que 100%
+    }
+
+    // Aplica o desconto ao total
+    let valorDesconto = (total * desconto) / 100;
+    let novoTotal = total - valorDesconto;
+
+    if (inputTotalLiquido) inputTotalLiquido.value = converteMoeda(novoTotal); // Atualiza o campo, se fornecido
+
+    return novoTotal;
+}
 
 function pushProdutoCarrinho({
     carrinho,
@@ -134,7 +144,8 @@ function pushProdutoCarrinho({
         carrinho,
         converteMoeda,
         inputTotalLiquido,
-        textSelecionarQtd
+        textSelecionarQtd,
+        inputdescontoPorcentagem
     );
 
     // Obtém os dados da venda

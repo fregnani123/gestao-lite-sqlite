@@ -28,6 +28,7 @@ const inputExitVenda = document.querySelector('#exit-key');
 const inputlimparTelakey = document.querySelector('#limpar-tela-key');
 const inputExcluiItem = document.querySelector('#numero-Item');
 const mensagemDiv = document.querySelector('#mensagem');
+const mostrarDesconto = document.getElementById("mostrarDesconto");
 
 const inputTroco = document.querySelector('#troco');
 const valorDinheiro = document.getElementById('valorDinheiro');
@@ -186,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             case 'F10': // Aplicar desconto na venda
                 if (inputTotalLiquido.value === '0,00') {
-                    alertMsg('Não é possível adicionar desconto com o subtotal da venda igual a R$ 0,00.', 'info', 6000);
+                    alertMsg('Não é possível adicionar desconto com o subtotal da venda igual a R$ 0,00.', 'info', 5000);
                 } else if (visibleDivs.length === 0) {
                     divDesconto.style.display = 'block';
                     inputdescontoPorcentagem.focus();
@@ -203,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const index = parseInt(inputExcluiItem.value, 10) - 1;
                     if (!isNaN(index) && index >= 0 && index < carrinho.length) {
                         carrinho.splice(index, 1);
-                        calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd);
+                        calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd, inputdescontoPorcentagem);
                         rendererCarrinho(carrinho, ulDescricaoProduto, createSpan);
             
                         // Verifica se o carrinho está vazio antes de alterar a imagem
