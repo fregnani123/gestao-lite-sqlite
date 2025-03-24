@@ -3,7 +3,7 @@ function alertMsg(msg, type = 'info',time) {
     const colors = {
         info: 'rgb(0, 38, 87)',
         success: 'green',
-        warning: 'orange',
+        warning: '#B8860B',
         error: 'red'
     };
 

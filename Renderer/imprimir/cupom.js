@@ -39,8 +39,10 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         const contato = 'Contato (48) 3432-5672';
         const cnpj = '07.833.865/0001-88';
         const cliente = data[0].cliente_nome;
+        const CPF = data[0].cpf;
         const dataVenda = formatarDataISO(data[0].data_venda);
         const numeroVenda = data[0].numero_pedido;
+        const naoFiscal = 'Não é documento Fiscal'
         const cuponDesconto = data[0].desconto_venda;
         const totalNota = formatarValorReal(data[0].total_liquido);
       
@@ -59,9 +61,11 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         document.querySelector('#contato').textContent = contato;
         document.querySelector('#cnpj').textContent = `CNPJ: ${cnpj}`;
         document.querySelector('.dados #cliente').textContent = cliente;
+        document.querySelector('.dados #CPFCli').textContent = CPF;
         document.querySelector('.dados #dataVenda').textContent = dataVenda;
         document.querySelector('.dados #numeroVenda').textContent = numeroVenda;
-       
+        document.querySelector('.dados #naoFiscal').textContent = naoFiscal;
+        
         document.querySelector('.total #cuponDesconto').textContent =  `${cuponDesconto}%`;
         document.querySelector('.total #totalNota').textContent = totalNota;
         document.querySelector('.total #valorRecebidoCupom').textContent = valorRecebido;

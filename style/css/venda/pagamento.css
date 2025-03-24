@@ -185,6 +185,11 @@
     border: 1px solid white;
     padding: 1%;
 }
+.atalhos-p {
+    color: white;
+    text-align: left;
+    font-size: 1.1rem;
+}
 p{
    margin-bottom: 1%;
 }

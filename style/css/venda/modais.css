@@ -4,7 +4,8 @@
 .exit-venda,
 .desconto-venda,
 .remove-item,
-.payment-section {
+.payment-section
+{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,6 +23,61 @@
     font-family: Arial, sans-serif;
     font-size: 1rem; /* 16px em rem */
 }
+
+.alterarCliente {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    max-width: 700px;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #fff, #f9f9f9);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: none;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+.campo {
+    width: 100%;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.campo p {
+    margin-top: 5%;
+}
+.campo label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #444;
+}
+.campo-cpf {
+ width: 50%;
+ margin-left: 25%;
+}
+.assinatura {
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
+    color: #666;
+}
+
 .desconto-venda{
     justify-content: center;
     align-items: center;

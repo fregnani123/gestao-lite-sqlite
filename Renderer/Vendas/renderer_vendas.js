@@ -5,11 +5,12 @@ const descricao = document.querySelector('#input-descricao');
 const precoVenda = document.querySelector('#valor-unitario');
 const inputQtd = document.querySelector('#input-qtd');
 const selectCliente = document.querySelector('#nome-cliente');
+const alterCliente = document.querySelector('#alterClienteCPF');
+const nomeClienteAlter = document.getElementById("nomeClienteAlter");
 
 const clienteId = document.querySelector("#id-cliente");
 const creditoUtilizado = document.querySelector("#creditoUtilizado");
 const creditoLimite = document.querySelector("#creditoLimite");
-
 
 const ulDescricaoProduto = document.querySelector('.ul-descricao-produto');
 const numeroPedido = document.querySelector('#numero-pedido');
@@ -52,6 +53,7 @@ const divCrediario = document.getElementById('div-Crediario');
 const divCartaoCredito = document.getElementById('div-Cartao-Credito');
 const divDesconto = document.querySelector('.desconto-venda');
 const divPagamento = document.querySelector('.payment-form-section');
+const divAlterarCliente = document.querySelector('.alterarCliente')
 const nomeProduto = document.querySelector('.nomeProduto');
 // Estado do carrinho
 let carrinho = [];
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keydown', (event) => {
         // Selecionar as divs principais
-        const visibleDivs = [alertRemoverItem, divPagamento, alertLimparVenda, divSelecionarQtd, alertExit, divDesconto].filter(div => div.style.display === 'block');
+        const visibleDivs = [alertRemoverItem, divPagamento, alertLimparVenda, divSelecionarQtd, alertExit, divDesconto, divAlterarCliente].filter(div => div.style.display === 'block');
         const visibleDivsPag = [divValorDinheiro, divPIX, divCartaoDebito, divCartaoCredito, divCrediario];
 
         // Função para gerenciar visibilidade de formas de pagamento
@@ -144,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     CartaoDebito.focus();
                 }
                 break;
+
+            case 'F8':
+                if (event.shiftKey || visibleDivs.length === 0) {
+                    divAlterarCliente.style.display = 'block';
+                }
+                alterCliente.focus()
+                break;
+
             case 'F7': // Forma pagamento 
                 if (inputTotalLiquido.value === '0,00') {
                     alertMsg('Não é possível adicionar forma de pagamento com o subtotal da venda igual a R$ 0,00.', 'info', 6000);
@@ -171,12 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 break;
 
-
             case 'F6': // Remover item
                 if (visibleDivs.length === 0) {
                     alertRemoverItem.style.display = 'block';
                     inputExcluiItem.focus();
                 }
+                inputExcluiItem.focus();
                 break;
             case 'F9': // Alterar quantidade de produtos
                 if (visibleDivs.length === 0) {
@@ -198,15 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (visibleDivs.length === 0) {
                     alertLimparVenda.style.display = 'block';
                 }
+                inputlimparTelakey.focus();
                 break;
-                case 'Delete': // Remover item do carrinho
+
+            case 'Delete': // Remover item do carrinho
                 if (alertRemoverItem.style.display === 'block') {
                     const index = parseInt(inputExcluiItem.value, 10) - 1;
                     if (!isNaN(index) && index >= 0 && index < carrinho.length) {
                         carrinho.splice(index, 1);
                         calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd, inputdescontoPorcentagem);
                         rendererCarrinho(carrinho, ulDescricaoProduto, createSpan);
-            
+
                         // Verifica se o carrinho está vazio antes de alterar a imagem
                         if (carrinho.length === 0) {
                             imgProduto.src = "../style/img/carrinho-de-compras.png"; // Volta para o ícone padrão
@@ -214,16 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Se ainda houver itens, atualiza para o último item do carrinho
                             imgProduto.src = carrinho[carrinho.length - 1].imgSrc || "../style/img/carrinho-de-compras.png";
                         }
-            
+
                         alertMsg(`Item ${index + 1} removido do carrinho.`, 'warning', 3000);
                     }
                     nomeProduto.innerHTML = ''
                     alertRemoverItem.style.display = 'none';
                     inputExcluiItem.value = '';
-                    inputExcluiItem.focus();
+                    codigoEan.focus();
                 }
                 break;
-            
+
 
             case 'Escape': // Fechar janelas
                 inputExcluiItem.value = '';
@@ -307,7 +319,7 @@ const handleInputExit = (e) => {
     }
 };
 const limparTelakey = (e) => {
-    if (e.key === 'Enter') { // Verifica se a tecla pressionada foi Enter
+    if (e.key === 'Enter') {
         if (inputlimparTelakey.value === 'adm') {
             alertMsg('Todos os campos serão limpos e a venda será reiniciada.', 'warning', 6000);
             limparCampos();

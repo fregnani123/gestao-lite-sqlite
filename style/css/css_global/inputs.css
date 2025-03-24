@@ -99,6 +99,13 @@ input:focus {
     flex-direction: column;
     align-items: center;
 }
+#div-slogan{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
 #div-cnpj{
     width: 30%;
     display: flex;

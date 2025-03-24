@@ -154,6 +154,7 @@ async function getVendasPorNumeroVenda(numeroPedido) {
             SELECT 
                 v.data_venda, 
                 c.nome AS cliente_nome, 
+                c.cpf,
                 v.total_liquido,
                 v.valor_recebido,
                 v.troco,

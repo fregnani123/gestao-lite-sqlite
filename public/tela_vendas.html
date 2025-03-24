@@ -30,8 +30,10 @@
         </div>
         <div class="dados">
             <span><strong>Cliente:</strong> <span id="cliente"></span></span>
+            <span><strong>CPF:</strong> <span id="CPFCli"></span> </span>
             <span><strong>Data e Hora:</strong> <span id="dataVenda"></span></span>
             <span><strong>Pedido Nº:</strong> <span id="numeroVenda"></span></span>
+            <span><strong>Doc. Auliar de Venda:</strong> <span id="naoFiscal"></span></span>
         </div>
         <div class="itens-venda">
             <div style="display: flex; justify-content: space-between;">
@@ -43,7 +45,7 @@
             </div> <!-- Aqui vamos adicionar os itens -->
         </div>
         <div class="total">
-            <span class="total-span"><span>Desconto:</span><span id="cuponDesconto"></span></span>
+            <span class="total-span"><span>Desconto Aplicado:</span><span id="cuponDesconto"></span></span>
             <span class="total-span"><span>Total da Nota:</span><span id="totalNota"></span></span>
             <span class="total-span"><span>Valor Recebido:</span> <span id="valorRecebidoCupom"></span></span>
             <span class="total-span"><span>Troco:</span> <span id="trocoCupom"></span></span>
@@ -55,41 +57,78 @@
             <span class="text-assinatura">ASSINATURA DO CLIENTE</span>
         </div>
         <div class="rodape">
-            <img class="imgQr" src="../style/img/qrcode.png" alt="QR Code">
-            <span class="text-acesse">Acesse nossas redes sociais pelo QR Code</span>
+            <!-- <img class="imgQr" src="../style/img/qrcode.png" alt="QR Code"> -->
+            <span class="">@new_sunshine_lanhause</span>
+            <span class="text-acesse">Acesse nossas redes sociais pelo <!-- QR Code --> </span>
             <span class="text-slogan">Sempre fazendo o melhor para nossos clientes!</span>
         </div>
     </div>
     <div class="container-sales">
         <!-- Divs com display inicial none -->
+
+        <div class="alterarCliente">
+            <p class="titulo">Alterar Cliente do Cupom</p>
+            <div class="campo">
+                <label for="alterCliente">Filtrar Cliente por CPF 🔍</label>
+                <input type="text" id="alterClienteCPF">
+            </div>
+            <div class="campo">
+                <label for="nomeClienteAlter">Cliente:</label>
+                <input type="text" id="nomeClienteAlter" readonly>
+            </div>
+            <p class="">⚠️ O cliente precisa estar cadastrado para alteração no cupom. </p>
+            <br>
+            <p>Para voltar ou confirmar, pressione <strong>ESC</strong>. </p>
+        </div>
+
         <div id="impressaoCupom"></div>
+
         <div class="div-qtd" style="display: none;">
-            <label for="input-qtd">Informe a quantidade.</label>
-            <input type="text" id="input-qtd">
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+            <p class="titulo">Alterar Quantidade</p>
+            <div class="campo">
+                <label for="input-qtd">Informe a quantidade:</label>
+                <input type="text" id="input-qtd">
+                <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.
+                </p>
+            </div>
         </div>
+
         <div class="confirmation-clear" style="display: none;">
-            <p>Confirmar início de nova venda?</p>
-            <input id="limpar-tela-key" type="password">
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+            <p class="titulo">Confirmar início de nova venda?</p>
+            <div class="campo">
+                <input id="limpar-tela-key" type="password">
+                <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.
+                </p>
+            </div>
         </div>
+
         <div class="exit-venda" style="display: none;">
-            <label for="exit-key">Digite a senha para voltar ao menu principal:</label>
-            <input id="exit-key" type="password">
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.</p>
+            <p class="titulo">Voltar para o paínel de Controle</p>
+            <div class="campo">
+                <label for="exit-key">Digite a senha para voltar ao menu principal:</label>
+                <input id="exit-key" type="password">
+                <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Enter</strong> para confirmar.
+                </p>
+            </div>
         </div>
+
         <div class="remove-item" style="display: none;">
-            <p class="titulo-delete-item">Digite o número do <strong>item</strong> para remover.</p>
-            <input id="numero-Item" type="number">
-            <p id="mensagem"></p>
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Delete</strong> para confirmar.</p>
+            <p  class="titulo"> Remove item do Carrinho</p>
+            <div class="campo">
+                <label>Digite o número do <strong>item</strong> para remover.</label>
+                <input id="numero-Item" type="number">
+                <p class="p-info">Pressione <strong>Esc</strong> para voltar ou <strong>Delete</strong> para confirmar.</p>
+            </div>
+
         </div>
         <div class="desconto-venda">
-            <label for="desconto">Informe o desconto (%) na venda:</label>
-            <input id="desconto" type="text"><span style="margin-left: -10%;">%</span>
-            <p id="mensagem"></p>
-            <p class="p-info">Pressione <strong>Esc</strong> para voltar.</p>
-        </div>
+            <p  class="titulo"> Adicionar Desconto na Venda</p>
+            <div class="campo">
+                <label for="desconto">Informe o desconto (%) na venda:</label>
+               <div style="width: 100%;"><input id="desconto" type="text"><span style="margin-left: -10%;">%</span></div> 
+                <p class="p-info">Pressione <strong>Esc</strong> para voltar ou para confirmar.</p>
+            </div>
+            </div>
         <div class="payment-form-section"><strong>
                 <div class="div-pagamento">
                     <p class="titulo-choose-item-2"><strong>Finalize a venda pressionando Enter.</strong></p>
@@ -272,14 +311,15 @@
                 <div class="pagamento">
                     <p class="atalhos-p">F6 = Cancelar Item</p>
                     <p class="atalhos-p">F7 = Crediário Loja</p>
+                    <p class="atalhos-p">F8 = Alterar Cliente Cupom</p>
                     <p class="atalhos-p">F9 = Alterar Qtd</p>
-                    <p class="atalhos-p">F10 = Desconto Venda</p>
                 </div>
                 <div class="pagamento">
+                    <p class="atalhos-p">F10 = Desconto Venda</p>
                     <p class="atalhos-p">F12 = Reiniciar Venda</p>
                     <p class="atalhos-p">Enter = Finalizar Venda</p>
                     <p class="atalhos-p">ESC = Sair (Menu)</p>
-                    <p class="atalhos-p" style="color: transparent;">.</p>
+                    <!-- <p class="atalhos-p" style="color: transparent;">.</p> -->
                 </div>
             </div>
 
@@ -289,7 +329,7 @@
                         <label class="label-total-liquido" id="label-desconto">Desconto (%)</label>
                         <input id="mostrarDesconto" type="text" value="0%" readonly>
                     </div>
-                    <div  class="div-liquido">
+                    <div class="div-liquido">
                         <label class="label-total-liquido" for="total-liquido">Subtotal</label>
                         <input id="total-liquido" type="text" value="0,00" readonly>
                     </div>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../style/css/css_global/btn.css">
     <link rel="stylesheet" href="../style/css/css_global/inputs.css">
     <link rel="stylesheet" href="../style/css/css_global/info.css">
+    <link rel="stylesheet" href="../style/css/venda/cupon.css">
     <link rel="stylesheet" href="../style/css/config/config.css">
     <style>
         #cadastro-usuario a {
@@ -120,11 +121,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="div-email">
+                        <div id="div-email">
                             <label for="email">E-mail:</label>
                             <input type="email" id="email" name="email">
                         </div>
-                        <div class="div-contato">
+                        <div id="div-tel">
                             <label for="contato">Contato:</label>
                             <input type="text" id="contato" name="contato">
                         </div>
@@ -132,22 +133,22 @@
                             <label for="site">Site:</label>
                             <input type="url" id="site" name="site">
                         </div>
-                
-                        <div class="div-usuario">
-                            <label for="usuario">Usuário:</label>
-                            <input type="text" id="usuario" name="usuario">
-                        </div>
                     </div>
                 
-                    <div class="form-group">
-                        <div class="div-senha">
-                            <label for="senha">Senha:</label>
-                            <input type="password" id="senha" name="senha">
-                        </div>
-                        <div class="div-slogan">
+                    <div class="form-group" >
+                        <div id="div-slogan">
                             <label for="slogan">Slogan:</label>
                             <input type="text" id="slogan" name="slogan">
                         </div>
+                        <div id="div-usuario">
+                            <label for="usuario">Usuário:</label>
+                            <input type="text" id="usuario" name="usuario">
+                        </div>
+                        <div id="div-senha">
+                            <label for="senha">Senha:</label>
+                            <input type="password" id="senha" name="senha">
+                        </div>
+                        
                     </div>
                     <!-- <div class="form-group">
                         <div class="div-qr_code_img">
@@ -157,8 +158,54 @@
                     </div> -->
                 </section>
                 <section class="div-form-img">
-                    <p class="titulo-img">Cadastro Cliente</p>
-                    <img class="img-produto" src="" alt="cupom">
+                    <p class="titulo-img">Espelho Cupom não Fiscal</p>
+                    <div class="cupom">
+                        <div class="cabecalho">
+                            <div class="div-titulo">
+                                <!-- <img class="imgLogo" alt="Logo da Loja"> -->
+                                <h3>
+                                    <span class="titulo-cupom" id="">Nome Fantásia</span>
+                                </h3>
+                            </div>
+                            <span id="razaoSocial">Razão Social</span>
+                            <span id="endereco">Endereço - numero - bairro - cidade </span>
+                            <span id="contato">Contato</span>
+                            <span id="cnpj">CNPJ</span>
+                        </div>
+                        <div class="dados">
+                            <span><strong>Cliente:</strong> <span id="cliente"></span></span>
+                            <span><strong>Data e Hora:</strong> <span id="dataVenda"></span></span>
+                            <span><strong>Pedido Nº:</strong> <span id="numeroVenda"></span></span>
+                            <span><strong>Doc. Auliar de Venda:</strong> <span id="naoFiscal">'Não é documento Fiscal'</span></span>
+                        </div>
+                        <div class="itens-venda">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>CÓDIGO</strong>
+                                <strong>DESCRIÇÃO</strong>
+                                <strong>VALOR R$</strong>
+                            </div>
+                            <div id="listaItens">
+                            </div> <!-- Aqui vamos adicionar os itens -->
+                        </div>
+                        <div class="total">
+                            <span class="total-span"><span>Desconto:</span><span id="cuponDesconto"></span></span>
+                            <span class="total-span"><span>Total da Nota:</span><span id="totalNota"></span></span>
+                            <span class="total-span"><span>Valor Recebido:</span> <span id="valorRecebidoCupom"></span></span>
+                            <span class="total-span"><span>Troco:</span> <span id="trocoCupom"></span></span>
+                            <span class="total-span"><span>Forma de Pagamento:</span> <span id="formaPgto"></span></span>
+                        </div>
+                        <div class="assinatura">
+                            <span class="text-recebi">Recebi os produto(s) conforme descrito(s) acima.</span>
+                            <hr>
+                            <span class="text-assinatura">ASSINATURA DO CLIENTE</span>
+                        </div>
+                        <div class="rodape">
+                            <!-- <img class="imgQr" src="../style/img/qrcode.png" alt="QR Code"> -->
+                             <span class="">@new_sunshine_lanhause</span>
+                            <span class="text-acesse">Acesse nossas redes sociais pelo <!-- QR Code --> </span>
+                            <span class="text-slogan">Sempre fazendo o melhor para nossos clientes!</span>
+                        </div>
+                    </div>
                 </section>
             </div>
             <footer class="div-form__footer">

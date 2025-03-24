@@ -1,4 +1,77 @@
-// const { copyFile } = require("original-fs");
+async function findClienteAlterar(cpf) {
+    cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    // Verifica se o CPF tem o formato correto (11 dígitos)
+    if (cpf.length !== 11) {
+        alertMsg("CPF inválido. Digite um CPF válido.", "error", 3000);
+        document.getElementById("nomeClienteAlter").value = "";
+        clienteId.value = "";
+        return;
+    }
+
+    const findOneClient = `http://localhost:3000/getCliente/${cpf}`;
+
+    try {
+        const response = await fetch(findOneClient, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        // Verifica se a resposta não está OK antes mesmo de tentar convertê-la
+        if (!response.ok) {
+            throw new Error("Cliente não encontrado.");
+        }
+
+        const data = await response.json(); // Converte para JSON
+
+        // Se a resposta for vazia, retorna erro
+        if (!data || (Array.isArray(data) && data.length === 0) || Object.keys(data).length === 0) {
+            throw new Error("Cliente não encontrado.");
+        }
+
+        const cliente = Array.isArray(data) ? data[0] : data; // Se for um array, pega o primeiro elemento
+
+        if (!cliente || !cliente.cpf) {
+            throw new Error("Cliente não encontrado.");
+        }
+
+        // Bloqueia o consumidor final
+        if (cliente.cpf === "000.000.000-00" || cliente.cliente_id === 1) {
+            alertMsg("Consumidor final já é inserido por padrão", "info", 3000);
+            clienteId.value = "";
+            return;
+        }
+
+        // Preenche os campos com os dados do cliente encontrado
+        document.getElementById("nomeClienteAlter").value = cliente.nome || "Nome não disponível";
+        clienteId.value = cliente.cliente_id || "";
+
+    } catch (error) {
+        console.error("Erro ao buscar cliente:", error);
+        alertMsg("Cliente não encontrado. Verifique o CPF informado.", "warning", 3000);
+        clienteId.value = "";
+    }
+}
+
+// Evento para disparar a busca ao digitar um CPF válido
+alterCliente.addEventListener("input", async function () {
+    let cpf = this.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    if (cpf.length === 11) {
+        await findClienteAlterar(cpf);
+    } else {
+        // Limpa o nome e o id quando o CPF tiver menos de 11 dígitos
+        document.getElementById("nomeClienteAlter").value = "";
+        clienteId.value = "1";
+    }
+});
+
+// Funções extras que você pode ter para formatação
+formatarEVerificarCPF(alterCliente);
+inputMaxCaracteres(alterCliente, 14);
+
+
+
 
 function parseCurrency(value) {
     if (!value) return 0;
