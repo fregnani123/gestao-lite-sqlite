@@ -75,6 +75,7 @@
                 margin-bottom: 10px;
                 display: flex;
                 width: 100%;
+                color: black;
             }
             
             .text-recebi {
@@ -84,6 +85,7 @@
                 padding-top: 8px;
                 font-size: 12px;
                 margin-bottom: 22px;
+                color: black;
             }
             
             .text-acesse {

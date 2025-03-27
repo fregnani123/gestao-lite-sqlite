@@ -1,5 +1,3 @@
-
-
 function focus() {
     const usernameInput = document.getElementById('username');
     if (usernameInput) {

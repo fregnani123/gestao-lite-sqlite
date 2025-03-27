@@ -1,6 +1,6 @@
 
 .container{
-    background-color: rgba(0, 38, 87, 0.432);
+    background-color: rgba(255, 255, 255, 0.464);
 }
 #div-ativo,.div-site,#div-usuario,#div-senha{
     display: none;
@@ -8,11 +8,10 @@
 .cupom{
     margin-top: 14%;
     display: block;
+    width: 100%;
 }
-.div-form-img{
-align-items: top;
-justify-content: flex-start;
-}
+
 .titulo-img{
-    margin-top: 10%;
+    margin-top: 5%;
+
 }

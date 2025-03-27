@@ -22,7 +22,6 @@ cpfFilter.addEventListener("input", (e) => {
     }
 });
 
-
 // Função para renderizar os agendamentos na tabela
 function renderizarAgendamentos(agendamentos) {
     const containerForm = document.getElementById('div-container-form');
@@ -251,66 +250,6 @@ function renderizarAgendamentos(agendamentos) {
 }
 // Chama a função para carregar os dados assim que a página for carregada
 buscarAgendamentos();
-
-
-btnCadastrar.addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    // Obtém a data e a hora atuais no fuso local
-    const agora = new Date();
-    const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate()); // Mantém apenas ano, mês e dia
-
-    const dataSelecionada = new Date(inputDate.value + "T00:00:00"); // Garante que não haja problema de fuso
-    const horaSelecionada = inputHora.value;
-
-    // Verifica se todos os campos foram preenchidos
-    if (!clienteID.value || !inputDate.value || !inputHora.value || !inputMotivo.value) {
-        alertMsg('Preencha todos os campos antes de cadastrar!', 'error', 4000);
-        return;
-    }
-
-    // Verifica se a data selecionada já passou
-    if (dataSelecionada < hoje) {
-        alertMsg('Não é possível agendar para uma data que já passou!', 'error', 4000);
-        return;
-    }
-
-    // Se a data for hoje, verifica se a hora já passou
-    if (dataSelecionada.getTime() === hoje.getTime()) {
-        const [hora, minutos] = horaSelecionada.split(':').map(Number);
-        const horaAtual = agora.getHours();
-        const minutosAtuais = agora.getMinutes();
-
-        if (hora < horaAtual || (hora === horaAtual && minutos < minutosAtuais)) {
-            alertMsg('O horário selecionado já passou!', 'error', 4000);
-            return;
-        }
-    }
-
-    const produtoData = {
-        cliente_id: parseInt(clienteID.value), // Garante que seja um número
-        data: inputDate.value,
-        hora: inputHora.value,
-        motivo: inputMotivo.value,
-    };
-
-    // Chama a função para cadastrar
-    const response = await postNewAgendamento(produtoData);
-
-    if (response) { // Se o cadastro foi bem-sucedido
-        alertMsg('Novo agendamento cadastrado com sucesso!', 'success', 4000);
-
-        setTimeout(() => {
-            inputCPF.value = '';
-            clienteNome.value = '';
-            clienteID.value = '';
-            inputDate.value = '';
-            inputHora.value = '';
-            inputMotivo.value = '';
-            buscarAgendamentos();
-        }, 3000);
-    }
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const historicoBtn = document.getElementById("li-historico");

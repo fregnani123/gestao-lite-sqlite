@@ -14,7 +14,7 @@ margin-left: 2%;
 .add-grupo:hover,.add-subGrupo:hover,.add-cor:hover,#btn-cad-Cor:hover{
 background-color: #4cae4c;
 }
-.btn-cadastrar-produto,.btn-alterar-produto,#salvar-cliente,.btn-atualizar, #btn-cad-fornecedor,#filterButton,#btn-estoque,#filterButtonCrediario,#btn-cadastrar,#filtrarHistorico,#filtrarProdutos {
+.btn-cadastrar-produto,.btn-alterar-produto,#salvar-cliente,.btn-atualizar, #btn-cad-fornecedor,#filterButton,#btn-estoque,#filterButtonCrediario,#btn-cadastrar,#filtrarHistorico,#filtrarProdutos,#btn-user {
 background-color: #198754;
 color: #fff;
 padding: 10px 16px;
@@ -30,7 +30,7 @@ align-items: center;
 margin-right: 1%;
 justify-content: center;
 }
-.btn-cadastrar-produto:hover,.btn-alterar-produto:hover,#salvar-cliente:hover,.btn-atualizar:hover,#btn-cad-fornecedor:hover,#filterButton:hover,#btn-estoque:hover,#filterButtonCrediario:hover,#btn-cadastrar:hover,#filtrarHistorico:hover{
+.btn-cadastrar-produto:hover,.btn-alterar-produto:hover,#salvar-cliente:hover,.btn-atualizar:hover,#btn-user:hover,#btn-cad-fornecedor:hover,#filterButton:hover,#btn-estoque:hover,#filterButtonCrediario:hover,#btn-cadastrar:hover,#filtrarHistorico:hover{
 background-color: #157347;
 transform: scale(1.05);
 font-size: 1rem;

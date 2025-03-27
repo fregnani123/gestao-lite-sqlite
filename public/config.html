@@ -48,6 +48,10 @@
         <div class="container-register"></div>
         <div class="div-form" role="form">
             <div class="div-form-display">
+                <section class="div-form-img">
+                    <p class="titulo-img">Configurações</p>
+                    <img class="img-produto" src="../style/img/configuracoes.png" alt="Produto sem imagem.">
+                </section>
                 <section class="div-form__body">
                     <div class="form-group">
                         <div id="div-ativo">
@@ -59,31 +63,36 @@
                             </select>
                         </div>
                         <div id="div-tipo_usuario">
-                            <label for="tipo_usuario">Tipo de Usuário:</label>
-                            <select id="tipo_usuario" name="tipo_usuario">
-                                <option value="empresa">Selecione</option>
-                                <option value="empresa">CNPJ</option>
-                                <option value="cliente">CPF</option>
+                            <label class="labelFornecedor" for="tipoPessoa">Pessoa</label>
+                            <select name="tipoPessoa" id="tipoPessoa">
+                                <option value="">Selecione</option>
+                                <option value="juridica">Jurídica</option>
+                                <option value="fisica">Física</option>
                             </select>
                         </div>
                         <div id="div-cnpj">
-                            <label for="">CNPJ / CPF</label>
-                            <input type="text" id="cnpj-nome" name="">
+                            <label  id="label_cnpj_cpf">CNPJ / CPF</label>
+                            <input type="text" id="cnpjCpf" name="" readonly>
                         </div>
-                
+
                         <div id="div-razoSocial">
-                            <label for="razao_social">Razão Social / nome</label>
-                            <input type="text" id="razao_social" name="razao_social">
+                            <label id="label_razao">Razão Social / Nome</label>
+                            <input type="text" id="razao_social" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-ie">
-                            <label for="inscricao_estadual">Inscrição Estadual:</label>
-                            <input type="text" id="inscricao_estadual" name="inscricao_estadual">
+                            <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual:</label>
+                            <select id="inscricaoEstadual" disabled>
+                                <option value="">Selecione</option>
+                                <option value="contribuinte">Contribuinte</option>
+                                <option value="isento">Isento</option>
+                            </select>
                         </div>
                         <div id="div-ie">
                             <label for="inscricao_estadual">Numero IE::</label>
-                            <input type="text" id="inscricao_estadual" name="inscricao_estadual">
+                            <input type="text" id="inscricao_estadual" name="inscricao_estadual"
+                            readonly>
                         </div>
                         <div id="div-fantasia">
                             <label for="nome_fantasia">Nome Fantasia:</label>
@@ -99,13 +108,12 @@
                             <label for="endereco">Endereço:</label>
                             <input type="text" id="endereco" name="endereco">
                         </div>
-                
+
                         <div id="div-numero">
                             <label for="numero">Número:</label>
                             <input type="text" id="numero" name="numero">
                         </div>
                     </div>
-                
                     <div class="form-group">
                         <div id="div-bairro">
                             <label for="bairro">Bairro:</label>
@@ -113,7 +121,7 @@
                         </div>
                         <div id="div-uf">
                             <label for="estado">Estado:</label>
-                            <select type="text" id="estado" name="estado"></select>
+                            <select type="text" id="uf" name="estado"></select>
                         </div>
                         <div id="div-cidade">
                             <label for="cidade">Cidade:</label>
@@ -134,10 +142,10 @@
                             <input type="url" id="site" name="site">
                         </div>
                     </div>
-                
-                    <div class="form-group" >
+
+                    <div class="form-group">
                         <div id="div-slogan">
-                            <label for="slogan">Slogan:</label>
+                            <label for="slogan">Slogan para o cupom não fiscal:</label>
                             <input type="text" id="slogan" name="slogan">
                         </div>
                         <div id="div-usuario">
@@ -148,71 +156,21 @@
                             <label for="senha">Senha:</label>
                             <input type="password" id="senha" name="senha">
                         </div>
-                        
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <div class="div-qr_code_img">
                             <label for="qr_code_img">QR Code (URL da imagem):</label>
                             <input type="url" id="qr_code_img" name="qr_code_img">
-                        </div>
-                    </div> -->
-                </section>
-                <section class="div-form-img">
-                    <p class="titulo-img">Espelho Cupom não Fiscal</p>
-                    <div class="cupom">
-                        <div class="cabecalho">
-                            <div class="div-titulo">
-                                <!-- <img class="imgLogo" alt="Logo da Loja"> -->
-                                <h3>
-                                    <span class="titulo-cupom" id="">Nome Fantásia</span>
-                                </h3>
-                            </div>
-                            <span id="razaoSocial">Razão Social</span>
-                            <span id="endereco">Endereço - numero - bairro - cidade </span>
-                            <span id="contato">Contato</span>
-                            <span id="cnpj">CNPJ</span>
-                        </div>
-                        <div class="dados">
-                            <span><strong>Cliente:</strong> <span id="cliente"></span></span>
-                            <span><strong>Data e Hora:</strong> <span id="dataVenda"></span></span>
-                            <span><strong>Pedido Nº:</strong> <span id="numeroVenda"></span></span>
-                            <span><strong>Doc. Auliar de Venda:</strong> <span id="naoFiscal">'Não é documento Fiscal'</span></span>
-                        </div>
-                        <div class="itens-venda">
-                            <div style="display: flex; justify-content: space-between;">
-                                <strong>CÓDIGO</strong>
-                                <strong>DESCRIÇÃO</strong>
-                                <strong>VALOR R$</strong>
-                            </div>
-                            <div id="listaItens">
-                            </div> <!-- Aqui vamos adicionar os itens -->
-                        </div>
-                        <div class="total">
-                            <span class="total-span"><span>Desconto:</span><span id="cuponDesconto"></span></span>
-                            <span class="total-span"><span>Total da Nota:</span><span id="totalNota"></span></span>
-                            <span class="total-span"><span>Valor Recebido:</span> <span id="valorRecebidoCupom"></span></span>
-                            <span class="total-span"><span>Troco:</span> <span id="trocoCupom"></span></span>
-                            <span class="total-span"><span>Forma de Pagamento:</span> <span id="formaPgto"></span></span>
-                        </div>
-                        <div class="assinatura">
-                            <span class="text-recebi">Recebi os produto(s) conforme descrito(s) acima.</span>
-                            <hr>
-                            <span class="text-assinatura">ASSINATURA DO CLIENTE</span>
-                        </div>
-                        <div class="rodape">
-                            <!-- <img class="imgQr" src="../style/img/qrcode.png" alt="QR Code"> -->
-                             <span class="">@new_sunshine_lanhause</span>
-                            <span class="text-acesse">Acesse nossas redes sociais pelo <!-- QR Code --> </span>
-                            <span class="text-slogan">Sempre fazendo o melhor para nossos clientes!</span>
                         </div>
                     </div>
                 </section>
             </div>
             <footer class="div-form__footer">
-                <p class="informativo">⚠️ <strong> Atenção: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea placeat atque porro soluta aliquid deleniti accusantium nesciunt non tenetur sint.</strong></p>
-                    <button id="btn-estoque"><img class="img-disquete" src="../style//img/disquete.png">Gravar</button>
-                  <button id="limparButton"><img class="img-excluir"
-                      src="../style//img/excluir.png" alt="">Limpar</button>
+                <p class="informativo">⚠️ <strong> Atenção: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
+                        placeat atque porro soluta aliquid deleniti accusantium nesciunt non tenetur sint.</strong></p>
+                <button id="btn-user"><img class="img-disquete" src="../style//img/disquete.png">Gravar</button>
+                <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
+                        alt="">Limpar</button>
             </footer>
         </div>
 </body>
@@ -220,6 +178,7 @@
 <script src="../Renderer/services/alertMsg.js"></script>
 <script src="../Renderer/services/converte_moeda.js"></script>
 <script src="../Renderer/services/formatters.js"></script>
+<script src="../Renderer/services/cidadesPorEstados.js"></script>
 <script src="../config/config.js"></script>
-
+<script src="../config/apiUser.js"></script>
 </html>

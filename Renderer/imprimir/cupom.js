@@ -80,7 +80,7 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
             itemDiv.innerHTML = `
                 <span>${item.codigo_ean}</span>
                 <span>${item.produto_nome}</span>  
-                <span>${item.quantidade}${item.unidade_estoque_nome} ${formatarValorReal(item.preco)}</span>
+                <span>${item.quantidade}${item.unidade_estoque_nome} x ${formatarValorReal(item.preco)}</span>
             `;
             listaItens.appendChild(itemDiv);
         });

@@ -89,9 +89,7 @@
    padding: .5%;
     width: 50%;
 }
-#label-desconto{
-    font-size: 1.8rem;
-}
+
 /* Estilo para quando as divs estão visíveis */
 .div-qtd.active,
 .desconto-venda.active,
@@ -103,7 +101,6 @@
 }
 
 /* Estilo básico para o texto */
-label, 
 p {
     font-size: 1.2rem; /* 14px em rem */
     color: #333;

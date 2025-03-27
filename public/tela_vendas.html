@@ -33,7 +33,7 @@
             <span><strong>CPF:</strong> <span id="CPFCli"></span> </span>
             <span><strong>Data e Hora:</strong> <span id="dataVenda"></span></span>
             <span><strong>Pedido Nº:</strong> <span id="numeroVenda"></span></span>
-            <span><strong>Doc. Auliar de Venda:</strong> <span id="naoFiscal"></span></span>
+            <span><strong>Doc. auxiliar de venda :</strong> <span id="naoFiscal"></span></span>
         </div>
         <div class="itens-venda">
             <div style="display: flex; justify-content: space-between;">
@@ -303,7 +303,7 @@
         <!-- Totais -->
         <section class="totals-section">
             <div class="atalhos">
-                <H3 style="position:absolute; top: 3%; left: 1.5%;">Selecione o Pagamento</H3>
+                <H3 style="position:absolute; top: 3%; left:3%;">Selecione o Pagamento</H3>
                 <div class="pagamento">
                     <p class="atalhos-p">F1 = Pagamento Dinheiro</p>
                     <p class="atalhos-p">F2 = Pagamento PIX</p>
@@ -327,23 +327,26 @@
 
             <div class="payment-summary">
                 <div class="div-total-liquido">
-                    <div class="div-liquido">
-                        <label class="label-total-liquido" id="label-desconto">Desconto (%)</label>
-                        <input id="mostrarDesconto" type="text" value="0%" readonly>
+                    <div class="valores">
+
+                        <div class=" val-div">
+                            <label class="label">Desconto (%) :</label>
+                            <input id="mostrarDesconto" type="text" value="0%" readonly>
+                        </div>
+
+                        <div class=" val-div"> 
+                            <label class="label">Valores Pagos:</label>
+                            <input id="total-pago" value="0,00" type="text" readonly>
+                        </div>
+                        <div class=" val-div"> 
+                            <label class="label">Troco:</label>
+                            <input id="troco" value="0,00" type="text" readonly>
+                        </div>
+
                     </div>
                     <div class="div-liquido">
-                        <label class="label-total-liquido" for="total-liquido">Subtotal</label>
+                        <label class="label-total-liquido">Subtotal</label>
                         <input id="total-liquido" type="text" value="0,00" readonly>
-                    </div>
-                </div>
-                <div class="div-total-pago">
-                    <div class="div-total-recebido">
-                        <label class="label-total-recebido" for="total-pago">Valores Pagos</label>
-                        <input id="total-pago" value="0,00" type="text">
-                    </div>
-                    <div class="div-troco">
-                        <label class="label-troco" for="troco">Troco</label>
-                        <input id="troco" value="0,00" type="text" readonly>
                     </div>
                 </div>
             </div>
