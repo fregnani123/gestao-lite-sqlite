@@ -56,11 +56,8 @@
                     <div class="form-group">
                         <div id="div-ativo">
                             <label for="ativo">Ativo:</label>
-                            <select id="ativo" name="ativo">
-                                <option value=""></option>
-                                <option value="1">Sim</option>
-                                <option value="0">Não</option>
-                            </select>
+                            <input id="ativo" value="1">
+                            </input>
                         </div>
                         <div id="div-tipo_usuario">
                             <label class="labelFornecedor" for="tipoPessoa">Pessoa</label>
@@ -95,36 +92,36 @@
                             readonly>
                         </div>
                         <div id="div-fantasia">
-                            <label for="nome_fantasia">Nome Fantasia:</label>
-                            <input type="text" id="nome_fantasia" name="nome_fantasia">
+                            <label id="labelNomeFantasia">Nome Fantasia / Titulo Cupom:</label>
+                            <input type="text" id="nome_fantasia" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-cep">
-                            <label class="labelFornecedor" for="endereco">Cep</label>
-                            <input type="text" id="endereco">
+                            <label class="labelFornecedor" for="endereco"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Cep</label>
+                            <input type="text" id="cep">
                         </div>
                         <div id="div-logradouro">
-                            <label for="endereco">Endereço:</label>
+                            <label for="endereco"><img class="img-impressao" src="../style/img/impressora.png" alt="">  Endereço:</label>
                             <input type="text" id="endereco" name="endereco">
                         </div>
 
                         <div id="div-numero">
-                            <label for="numero">Número:</label>
+                            <label for="numero"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Número:</label>
                             <input type="text" id="numero" name="numero">
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-bairro">
-                            <label for="bairro">Bairro:</label>
+                            <label for="bairro"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Bairro:</label>
                             <input type="text" id="bairro" name="bairro">
                         </div>
                         <div id="div-uf">
-                            <label for="estado">Estado:</label>
+                            <label for="estado"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Estado:</label>
                             <select type="text" id="uf" name="estado"></select>
                         </div>
                         <div id="div-cidade">
-                            <label for="cidade">Cidade:</label>
+                            <label for="cidade"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Cidade:</label>
                             <select type="text" id="cidade" name="cidade"></select>
                         </div>
                     </div>
@@ -134,8 +131,14 @@
                             <input type="email" id="email" name="email">
                         </div>
                         <div id="div-tel">
-                            <label for="contato">Contato:</label>
+                            <label for="contato"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Contato:</label>
                             <input type="text" id="contato" name="contato">
+                        </div>
+                        <div id="div-atividade">
+                            <label for=""><img class="img-impressao" src="../style/img/impressora.png" alt=""> Ramos de atividade:</label>
+                            <select name="" id="atividade">
+
+                            </select>
                         </div>
                         <div class="div-site">
                             <label for="site">Site:</label>
@@ -145,29 +148,30 @@
 
                     <div class="form-group">
                         <div id="div-slogan">
-                            <label for="slogan">Slogan para o cupom não fiscal:</label>
+                            <label for="slogan"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Slogan - Frase curta que representa a empresa:</label>
                             <input type="text" id="slogan" name="slogan">
                         </div>
                         <div id="div-usuario">
-                            <label for="usuario">Usuário:</label>
+                            <label >Usuário:</label>
                             <input type="text" id="usuario" name="usuario">
                         </div>
                         <div id="div-senha">
                             <label for="senha">Senha:</label>
                             <input type="password" id="senha" name="senha">
                         </div>
-                    </div>
-                    <div class="form-group" style="display: none;">
-                        <div class="div-qr_code_img">
-                            <label for="qr_code_img">QR Code (URL da imagem):</label>
-                            <input type="url" id="qr_code_img" name="qr_code_img">
+                        <div id="div-qr_code_img">
+                            <label style="font-size: .9rem;"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Compartilhe seu @usuario rede social:</label>
+                            <input type="text" id="qr_code_img" name="qr_code_img">
                         </div>
                     </div>
                 </section>
             </div>
             <footer class="div-form__footer">
-                <p class="informativo">⚠️ <strong> Atenção: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
-                        placeat atque porro soluta aliquid deleniti accusantium nesciunt non tenetur sint.</strong></p>
+                    <p class="informativo">
+                        ⚠️ <strong>Atenção: Antes de cadastrar, verifique todas as informações cuidadosamente.
+                            <img class="img-impressao" src="../style/img/impressora.png" alt=""> Este ícone identifica as informações que aparecerão no cupom. Elas serão gravadas no sistema e impressas no cupom não fiscal.</strong>   
+                    </p>                    
+                            
                 <button id="btn-user"><img class="img-disquete" src="../style//img/disquete.png">Gravar</button>
                 <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
                         alt="">Limpar</button>
@@ -178,6 +182,7 @@
 <script src="../Renderer/services/alertMsg.js"></script>
 <script src="../Renderer/services/converte_moeda.js"></script>
 <script src="../Renderer/services/formatters.js"></script>
+<script src="../Renderer/services/ramos_atividades.js"></script>
 <script src="../Renderer/services/cidadesPorEstados.js"></script>
 <script src="../config/config.js"></script>
 <script src="../config/apiUser.js"></script>

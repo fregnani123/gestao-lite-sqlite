@@ -27,12 +27,14 @@ async function initializeDB(db) {
               site TEXT,
               usuario TEXT UNIQUE NOT NULL,
               senha TEXT NOT NULL,
-              tipo_usuario TEXT CHECK(tipo_usuario IN ('empresa', 'cliente')) NOT NULL,
+              tipo_usuario TEXT NOT NULL,
               slogan TEXT,
               path_img TEXT,
               ativo INTEGER DEFAULT 1,
-              data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
-                );`,
+              data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+              contribuinte TEXT NOT NULL DEFAULT 'isento',
+              atividade TEXT
+               );`,
 
             // Criar Tabela Serial_Key
             `CREATE TABLE IF NOT EXISTS Serial_Key (
@@ -111,7 +113,7 @@ async function initializeDB(db) {
                 email TEXT NOT NULL,
                 observacoes TEXT,
                 pessoa TEXT NOT NULL DEFAULT 'Jurídica',
-                contribuinte TEXT NOT NULL DEFAULT 'contribuinte',
+                contribuinte TEXT NOT NULL DEFAULT 'isento',
                 numero TEXT NOT NULL DEFAULT '0',
                 ramos_de_atividade TEXT NOT NULL DEFAULT 'Outros',
                 forma_de_Pgto TEXT NOT NULL DEFAULT 'Boleto',

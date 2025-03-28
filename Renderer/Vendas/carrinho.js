@@ -18,6 +18,7 @@ function rendererCarrinho(carrinho, ulDescricaoProduto, createSpan) {
 
         // Adiciona o produto à lista
         ulDescricaoProduto.appendChild(produto);
+        
     });
 
     carrinho.forEach((item) => {

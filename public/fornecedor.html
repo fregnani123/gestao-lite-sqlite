@@ -21,6 +21,7 @@
     </style>
     <title>Cadastro Fornecedor</title>
 </head>
+
 <body>
     <header>
         <nav style="background-color: rgb(0, 38, 87);">
@@ -54,7 +55,7 @@
                             <select name="tipoPessoa" id="tipoPessoa">
                                 <option value="">Selecione</option>
                                 <option value="juridica">Jurídica</option>
-                                <option value="fisica">Física</option> 
+                                <option value="fisica">Física</option>
                             </select>
                         </div>
                         <div id="div-cnpj">
@@ -63,19 +64,20 @@
                         </div>
 
                         <div id="div-razoSocial">
-                            <label class="labelFornecedor" id="label_razao" for="razaoSocial">Razão Social / Nome</label>
+                            <label class="labelFornecedor" id="label_razao" for="razaoSocial">Razão Social /
+                                Nome</label>
                             <input type="text" id="razaoSocial" readonly>
                         </div>
                     </div>
                     <div class="form-group">
-                                <div id="div-ie">
-                                    <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual:</label>
-                                    <select name="inscricaoEstadual" id="inscricaoEstadual" disabled>
-                                        <option value="">Selecione</option>
-                                        <option value="contribuinte">Contribuinte</option>
-                                        <option value="isento">Isento</option>
-                                    </select>
-                                </div>
+                        <div id="div-ie">
+                            <label class="labelFornecedor" for="inscricaoEstadual">Inscrição Estadual:</label>
+                            <select name="inscricaoEstadual" id="inscricaoEstadual" disabled>
+                                <option value="">Selecione</option>
+                                <option value="contribuinte">Contribuinte</option>
+                                <option value="isento">Isento</option>
+                            </select>
+                        </div>
                         <div id="div-ie">
                             <label class="labelFornecedor" for="ie">numero IE:</label>
                             <input type="text" id="ie" readonly>
@@ -127,22 +129,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                     <div  id="div-atividade">
+                        <div id="div-atividade">
                             <label for="">Ramos de atividade:</label>
                             <select name="" id="atividade">
-                               
+
                             </select>
                         </div>
                         <div id="div-atividade">
                             <label for="">Forma de Pgto:</label>
                             <select name="" id="formaPgto">
-                              
+
                             </select>
                         </div>
-                        <div id="div-atividade">                
+                        <div id="div-atividade">
                             <label for="">Condições Pgto:</label>
                             <select name="" id="condicoesPgto">
-                              
+
                             </select>
                         </div>
                     </div>
@@ -162,8 +164,8 @@
                 </p>
                 <button id="btn-cad-fornecedor"><img class="img-disquete"
                         src="../style//img/disquete.png">Gravar</button>
-                <button id="limparButton"><img class="img-excluir"
-                    src="../style//img/excluir.png" alt="">Limpar</button>
+                <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
+                        alt="">Limpar</button>
             </footer>
         </div>
     </div>
@@ -177,4 +179,5 @@
 <script src="../Renderer/services/ramos_atividades.js"></script>
 <script src="../Renderer/services/forma_pgto.js"></script>
 <script src="../Renderer/services/condicoesPag.js"></script>
+
 </html>

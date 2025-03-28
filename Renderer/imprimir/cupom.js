@@ -33,11 +33,11 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         }
         const data = await response.json();
 
-        const nomeFantasia = 'NEW SUN SHINE SHOP SERVICE';
-        const razaoSocial = 'Impressões - Informática';
-        const endereco = 'R. Henrique Lage - 222, Centro - Içara/SC';
-        const contato = 'Contato (48) 3432-5672';
-        const cnpj = '07.833.865/0001-88';
+        const nomeFantasia = nomeFantasiaUser;
+        const ramoAtuacao = ramoAtuacaoUser;
+        const endereco = `${enderecoUser} - ${numeroUser},${bairroUser} -${cidadeUser}/${ufUser}`;
+        const contato = contatoUser;
+        const cnpj = cnpjCpfDecoded;
         const cliente = data[0].cliente_nome;
         const CPF = data[0].cpf;
         const dataVenda = formatarDataISO(data[0].data_venda);
@@ -45,18 +45,15 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         const naoFiscal = 'Não é documento Fiscal'
         const cuponDesconto = data[0].desconto_venda;
         const totalNota = formatarValorReal(data[0].total_liquido);
-      
+        const slogan = sloganUser;
+        const redeSocial = redeSocialUser;
         const valorRecebido = data[0].tipo_pagamento.trim() === 'Crediário' ? '(Crediário Loja)' : formatarValorReal(data[0].valor_recebido);
         const troco = formatarValorReal(data[0].troco);
         const formaPgto = data[0].tipo_pagamento;
 
-        // Set logo image source - desativado
-        // const logoSrc = '../style/img/logo.jpeg';  
-        // imgLogo.src = logoSrc;
-
         // Update other elements
         document.querySelector('.titulo-cupom').textContent = nomeFantasia;
-        document.querySelector('#razaoSocial').textContent = razaoSocial;
+        document.querySelector('#razaoSocial').textContent = ramoAtuacao;
         document.querySelector('#endereco').textContent = endereco;
         document.querySelector('#contato').textContent = contato;
         document.querySelector('#cnpj').textContent = `CNPJ: ${cnpj}`;
@@ -71,6 +68,8 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         document.querySelector('.total #valorRecebidoCupom').textContent = valorRecebido;
         document.querySelector('.total #trocoCupom').textContent = troco;
         document.querySelector('.total #formaPgto').textContent = formaPgto;
+        document.querySelector('.text-slogan').textContent = slogan;
+        document.querySelector('.redeSocial').textContent = redeSocial;
 
         // Add items to the list
         const listaItens = document.querySelector('#listaItens');

@@ -1,20 +1,21 @@
 const path = require('path');
 const {
-    postNewUsuario
+    postNewUsuario,
+    getUsuario
 } = require(path.join(__dirname, '../../db/model/modelUsuario'));
 
 
 const controllersUsuario = {
 
-    //    getCorProduto: async (req, res) => {
-    //        try {
-    //            const corProduto = await getCorProduto();
-    //            res.json(corProduto);
-    //        } catch (error) {
-    //            console.error('Erro ao buscar Cor do Produto:', error);
-    //            res.status(500).json({ error: 'Erro ao buscar Cor do Produto' });
-    //        }
-    //    },
+    getUsuario: async (req, res) => {
+           try {
+               const usuario = await getUsuario();
+               res.json(usuario);
+           } catch (error) {
+               console.error('Erro ao buscar usuário:', error);
+               res.status(500).json({ error: 'Erro ao buscar usuário:' });
+           }
+       },
  
     postNewUsuario: async (req, res) => {
          try {
@@ -32,7 +33,5 @@ const controllersUsuario = {
      },
  
  }
- 
-  
  
  module.exports = controllersUsuario;

@@ -16,6 +16,7 @@ const { getLicenca } = require('../../db/mongoDB');
 const controllersUsuario = require('../Controller/usuario');
 
 // Definições de rotas
+Router.get('/getUsuario', controllersUsuario.getUsuario);
 Router.get('/produtos', controllersProduto.getAllProducts);
 Router.get('/grupos', controllersGruposProduto.getGrupo);
 Router.get('/subGrupos', controllersGruposProduto.getSubGrupo);
