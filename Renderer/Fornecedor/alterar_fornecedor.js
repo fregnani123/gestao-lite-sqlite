@@ -12,7 +12,7 @@ const cidade = document.getElementById('cidade');
 const uf = document.getElementById('uf');
 const observacoes = document.getElementById('observacoes');
 const linkID_8 = document.querySelector('.list-a8');
-const btnAtualizar = document.getElementById('btn-cad-fornecedor');
+const btnAtualizar = document.getElementById('atualizar-fornecedor');
 
 const pessoa = document.getElementById('tipoPessoa');
 const contribuinte = document.getElementById('inscricaoEstadual');

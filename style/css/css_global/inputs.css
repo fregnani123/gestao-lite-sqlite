@@ -148,7 +148,7 @@ background-color:var(--input-readonly);}
 #div-cidade{width: 35%;}
 .div-codigoDeBarras{width: 28%;}
 #div-ie{width: 25%;}
-#div-pessoa{width: 25%;}
+#div-pessoa,#div-alterar{width: 20%;}
 #div-ativo{width: 25%;}
 #div-tipo_usuario{width: 20%;}
 #div-razoSocial{width: 55%;}
@@ -156,3 +156,4 @@ background-color:var(--input-readonly);}
 #div-fantasia{width: 55%;}
 #div-ocupação{width: 30%;}
 
+#cnpjInfo{font-size: 1rem;}

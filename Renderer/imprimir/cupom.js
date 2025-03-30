@@ -1,3 +1,4 @@
+getUser();
 const divCupon = document.querySelector('.cupom');
 const imgLogo = document.querySelector('.imgLogo');
 
@@ -46,6 +47,7 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         const cuponDesconto = data[0].desconto_venda;
         const totalNota = formatarValorReal(data[0].total_liquido);
         const slogan = sloganUser;
+        const cep = cepUser;
         const redeSocial = redeSocialUser;
         const valorRecebido = data[0].tipo_pagamento.trim() === 'Crediário' ? '(Crediário Loja)' : formatarValorReal(data[0].valor_recebido);
         const troco = formatarValorReal(data[0].troco);
@@ -54,6 +56,7 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
         // Update other elements
         document.querySelector('.titulo-cupom').textContent = nomeFantasia;
         document.querySelector('#razaoSocial').textContent = ramoAtuacao;
+        document.querySelector('#cep').textContent = `CEP: ${cep}`;
         document.querySelector('#endereco').textContent = endereco;
         document.querySelector('#contato').textContent = contato;
         document.querySelector('#cnpj').textContent = `CNPJ: ${cnpj}`;

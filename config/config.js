@@ -1,3 +1,4 @@
+
 const nomeFantasia = document.getElementById('nome_fantasia');
 const razaoSocial = document.getElementById('razao_social');
 const cep = document.getElementById('cep');
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputMaxCaracteres(estado, 2);
     inputMaxCaracteres(slogan, 48);
     inputMaxCaracteres(pathImg, 30);
+    getUserAtualizar();
 })
 
 // Ocultar elementos do menu secundário se existirem
@@ -73,14 +75,6 @@ tipoUsuario.addEventListener('change', () => {
     cnpjCpf.value = '';
     // Criando a imagem do ícone de impressão
 
-    const criarIconeImpressora = () => {
-        let imgImpressora = document.createElement('img');
-        imgImpressora.classList.add('img-impressao');
-        imgImpressora.src = '../style/img/impressora.png';
-        imgImpressora.alt = 'Ícone indicando que esta informação será impressa';
-        return imgImpressora;
-    };
-
     if (tipoUsuario.value === "juridica") {
         cnpjCpf.removeAttribute('readonly');
         razaoSocial.removeAttribute('readonly');
@@ -93,19 +87,15 @@ tipoUsuario.addEventListener('change', () => {
 
         formatarCNPJ(cnpjCpf);
         inputMaxCaracteres(cnpjCpf, 18);
-
         labelCnpjCPF.innerHTML = '';
-        labelCnpjCPF.prepend(criarIconeImpressora());
         labelCnpjCPF.append('CNPJ');
         labelRazao.innerHTML = 'Razão Social';
         labelNomeFantasia.innerHTML = '';
-        labelNomeFantasia.prepend(criarIconeImpressora());
         labelNomeFantasia.append('Nome Fantasia');
         cnpjCpf.focus();
 
     } else if (tipoUsuario.value === "fisica") {
         labelNomeFantasia.innerHTML = '';
-        labelNomeFantasia.prepend(criarIconeImpressora());
         labelNomeFantasia.append('Título do Cupom (Substitui o nome fantasia');
         cnpjCpf.removeAttribute('readonly');
         razaoSocial.removeAttribute('readonly');
@@ -119,10 +109,8 @@ tipoUsuario.addEventListener('change', () => {
 
         labelCnpjCPF.innerHTML = 'CPF';
         labelRazao.innerHTML = 'Nome';
-
-        
-
         cnpjCpf.focus();
+
     } else if (tipoUsuario.value === "") {  // Se a pessoa apagar o valor do select
         cnpjCpf.setAttribute('readonly', 'true');
         razaoSocial.setAttribute('readonly', 'true');
@@ -235,3 +223,28 @@ function limparFormulario() {
     contribuinte.value = '';
     atividade.value = '';
 };
+
+function atualizarUsuario(){
+
+    nomeFantasia.value = nomeFantasiaUser || '';
+    razaoSocial.value = razaoSocialUser || '';
+    // cep =
+    // endereco = 
+    // numero = 
+    // bairro = 
+    // cidade =
+    // estado =
+    // contato = 
+    // cnpjCpf =
+    // ie =
+    // email = 
+    // site = 
+    // usuarioInput = 
+    // senhaInput = 
+    // tipoUsuario = 
+    // atividade =
+    // slogan =
+    // pathImg = 
+    // ativo =
+    // contribuinte = 
+    }

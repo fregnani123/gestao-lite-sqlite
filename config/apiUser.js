@@ -33,6 +33,7 @@ async function postConfigUser(usuario) {
         throw error;
     }
 }
+
 // Função para inverter a string
 function reverseString(str) {
     return str.split('').reverse().join('');
@@ -73,6 +74,9 @@ let cidadeUser = '';
 let ufUser = '';
 let sloganUser = '';
 let redeSocialUser = '';
+let razaoSocialUser = '';
+let cepUser = '';
+
 
 async function getUser() {
     const getUserApi = apiEndpointUsers.getApiUser;
@@ -109,6 +113,8 @@ async function getUser() {
         ufUser = data[0].estado;
         sloganUser = data[0].slogan;
         redeSocialUser = data[0].path_img;
+        razaoSocialUser = data[0].razao_social;
+        cepUser = data[0].cep
 
         console.log('Usuário obtido com sucesso:', data);
 
@@ -121,5 +127,59 @@ async function getUser() {
     }
 }
 
-getUser();
+async function getUserAtualizar() {
+    const getUserApi = apiEndpointUsers.getApiUser;
+
+    try {
+        const response = await fetch(getUserApi, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(errorResponse.error);
+        }
+
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            console.log('Nenhum usuário encontrado');
+            return [];
+        }
+
+        // Verifique se 'data[0]' existe antes de tentar acessar suas propriedades
+        cnpjCpfDecoded = data[0] && data[0].cnpj_cpf ? decodeCnpjCpf(data[0].cnpj_cpf) : null;
+        contatoUser = data[0].contato;
+        nomeFantasiaUser = data[0].nome_fantasia;
+        ramoAtuacaoUser = data[0].atividade;
+        enderecoUser =  data[0].endereco;
+        numeroUser = data[0].numero;
+        bairroUser = data[0].bairro;
+        cidadeUser = data[0].cidade;
+        ufUser = data[0].estado;
+        sloganUser = data[0].slogan;
+        redeSocialUser = data[0].path_img;
+        razaoSocialUser = data[0].razao_social;
+        cepUser = data[0].cep
+
+        atualizarUsuario()
+        console.log('Usuário obtido com sucesso:', data);
+
+        // Retorne o usuário com o CNPJ/CPF decodificado, se disponível
+        return { ...data, cnpj_cpf: cnpjCpfDecoded };
+    } catch (error) {
+        console.error('Erro ao obter usuário:', error.message);
+        alertMsg(error.message, 'error', 4000);
+        return [];  // Return an empty array in case of error
+    }
+}
+
+
+
+
+
+
 

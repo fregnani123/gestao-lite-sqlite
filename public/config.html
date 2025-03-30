@@ -33,7 +33,7 @@
         <nav class="nav-menu-2">
             <ul class="menu-secundario">
                 <li id="cadastro-usuario">
-                    <a href="" id="btn-flex">Informações do usuário</a>
+                    <a href="" id="btn-flex">Configurações do usuário / Impressão</a>
                 </li>
                 <li id="alterar-fornecedor">
                     <a href="">Alterar usuário e senha de acesso</a>
@@ -49,8 +49,8 @@
         <div class="div-form" role="form">
             <div class="div-form-display">
                 <section class="div-form-img">
-                    <p class="titulo-img">Configurações</p>
-                    <img class="img-produto" src="../style/img/configuracoes.png" alt="Produto sem imagem.">
+                    <p class="titulo-img">usuário / Impressão</p>
+                    <img class="img-produto" src="../style/img/impressora.png" alt="Produto sem imagem.">
                 </section>
                 <section class="div-form__body">
                     <div class="form-group">
@@ -68,7 +68,7 @@
                             </select>
                         </div>
                         <div id="div-cnpj">
-                            <label  id="label_cnpj_cpf">CNPJ / CPF</label>
+                            <label id="label_cnpj_cpf">CNPJ / CPF</label>
                             <input type="text" id="cnpjCpf" name="" readonly>
                         </div>
 
@@ -88,8 +88,7 @@
                         </div>
                         <div id="div-ie">
                             <label for="inscricao_estadual">Numero IE::</label>
-                            <input type="text" id="inscricao_estadual" name="inscricao_estadual"
-                            readonly>
+                            <input type="text" id="inscricao_estadual" name="inscricao_estadual" readonly>
                         </div>
                         <div id="div-fantasia">
                             <label id="labelNomeFantasia">Nome Fantasia / Titulo Cupom:</label>
@@ -98,30 +97,34 @@
                     </div>
                     <div class="form-group">
                         <div id="div-cep">
-                            <label class="labelFornecedor" for="endereco"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Cep</label>
+                            <label class="labelFornecedor" for="endereco">Cep</label>
                             <input type="text" id="cep">
                         </div>
                         <div id="div-logradouro">
-                            <label for="endereco"><img class="img-impressao" src="../style/img/impressora.png" alt="">  Endereço:</label>
+                            <label for="endereco">
+                                Endereço:</label>
                             <input type="text" id="endereco" name="endereco">
                         </div>
 
                         <div id="div-numero">
-                            <label for="numero"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Número:</label>
+                            <label for="numero">
+                                Número:</label>
                             <input type="text" id="numero" name="numero">
                         </div>
                     </div>
                     <div class="form-group">
                         <div id="div-bairro">
-                            <label for="bairro"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Bairro:</label>
+                            <label for="bairro">Bairro</label>
                             <input type="text" id="bairro" name="bairro">
                         </div>
                         <div id="div-uf">
-                            <label for="estado"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Estado:</label>
+                            <label for="estado">
+                                Estado:</label>
                             <select type="text" id="uf" name="estado"></select>
                         </div>
                         <div id="div-cidade">
-                            <label for="cidade"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Cidade:</label>
+                            <label for="cidade">
+                                Cidade:</label>
                             <select type="text" id="cidade" name="cidade"></select>
                         </div>
                     </div>
@@ -131,11 +134,13 @@
                             <input type="email" id="email" name="email">
                         </div>
                         <div id="div-tel">
-                            <label for="contato"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Contato:</label>
+                            <label for="contato">
+                                Contato:</label>
                             <input type="text" id="contato" name="contato">
                         </div>
                         <div id="div-atividade">
-                            <label for=""><img class="img-impressao" src="../style/img/impressora.png" alt=""> Ramos de atividade:</label>
+                            <label for="">Ramos de
+                                atividade:</label>
                             <select name="" id="atividade">
 
                             </select>
@@ -148,11 +153,12 @@
 
                     <div class="form-group">
                         <div id="div-slogan">
-                            <label for="slogan"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Slogan - Frase curta que representa a empresa:</label>
+                            <label for="slogan">
+                                Slogan - Frase curta que representa a empresa:</label>
                             <input type="text" id="slogan" name="slogan">
                         </div>
                         <div id="div-usuario">
-                            <label >Usuário:</label>
+                            <label>Usuário:</label>
                             <input type="text" id="usuario" name="usuario">
                         </div>
                         <div id="div-senha">
@@ -160,19 +166,21 @@
                             <input type="password" id="senha" name="senha">
                         </div>
                         <div id="div-qr_code_img">
-                            <label style="font-size: .9rem;"><img class="img-impressao" src="../style/img/impressora.png" alt=""> Compartilhe seu @usuario rede social:</label>
+                            <label style="font-size: .9rem;">Compartilhe seu @usuario rede
+                                social:</label>
                             <input type="text" id="qr_code_img" name="qr_code_img">
                         </div>
                     </div>
                 </section>
             </div>
             <footer class="div-form__footer">
-                    <p class="informativo">
-                        ⚠️ <strong>Atenção: Antes de cadastrar, verifique todas as informações cuidadosamente.
-                            <img class="img-impressao" src="../style/img/impressora.png" alt=""> Este ícone identifica as informações que aparecerão no cupom. Elas serão gravadas no sistema e impressas no cupom não fiscal.</strong>   
-                    </p>                    
-                            
-                <button id="btn-user"><img class="img-disquete" src="../style//img/disquete.png">Gravar</button>
+                <p class="informativo">
+                 <strong>⚠️ Atenção: Antes de cadastrar, verifique todas as informações cuidadosamente. Elas serão gravadas no sistema e impressas no cupom não fiscal.</strong>
+                </p>
+                <button id="btn-atualizar-user"><img class="img-disquete"
+                        src="../style//img/troca.png">Atualizar</button>
+                <button id="btn-user" style="display: none;"><img class="img-disquete"
+                        src="../style//img/disquete.png">Gravar</button>
                 <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
                         alt="">Limpar</button>
             </footer>
@@ -186,4 +194,5 @@
 <script src="../Renderer/services/cidadesPorEstados.js"></script>
 <script src="../config/config.js"></script>
 <script src="../config/apiUser.js"></script>
+
 </html>
