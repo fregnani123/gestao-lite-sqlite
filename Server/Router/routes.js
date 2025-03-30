@@ -63,6 +63,7 @@ Router.patch('/UpdateFornecedor', controllersFornecedor.UpdateFornecedor);
 Router.patch('/updateCrediario', controllersCrediario.updateCrediario);
 Router.patch('/updateCliente', controllersCliente.updateCliente);
 Router.patch('/updateCredito', controllersCliente.updateCreditoCliente);
+Router.patch('/UpdateUsuario', controllersUsuario.updateUsuario);
 
 
 // Rota para buscar cliente por CPF

@@ -1,7 +1,8 @@
 const path = require('path');
 const {
     postNewUsuario,
-    getUsuario
+    getUsuario,
+    updateUsuario
 } = require(path.join(__dirname, '../../db/model/modelUsuario'));
 
 
@@ -31,6 +32,29 @@ const controllersUsuario = {
              res.status(500).json({ error: 'Erro ao inserir novo usúario.' });
          }
      },
+
+     updateUsuario: async (req, res) => {
+        try {
+            const usuario = req.body;
+    
+            // Verificar se o CNPJ foi enviado
+            if (!usuario.id) {
+                return res.status(400).json({ error: 'O campo id é obrigatório.' });
+            }
+    
+            const changes = await  updateUsuario(usuario);
+    
+            if (changes > 0) {
+                res.json({ message: 'Usuário atualizado com sucesso!' });
+            } else {
+                res.status(404).json({ error: 'Usuário não encontrado ou nenhuma alteração realizada.' });
+            }
+    
+        } catch (error) {
+            console.error('Erro ao alterar Usuário:', error);
+            res.status(500).json({ error: 'Erro ao alterar Usuário.' });
+        }
+    }
  
  }
  

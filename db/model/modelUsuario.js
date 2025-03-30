@@ -98,9 +98,76 @@ async function postNewUsuario(usuario) {
         console.error('Erro ao inserir usuário:', err.message);
         throw err;
     }
-}
+};
+
+
+async function updateUsuario(dadosUser) {
+    await ensureDBInitialized();
+
+    try {
+        const query = `
+        UPDATE usuario
+        SET 
+            nome_fantasia = ?, 
+            razao_social = ?, 
+            cep = ?, 
+            endereco = ?, 
+            numero = ?, 
+            bairro = ?, 
+            cidade = ?, 
+            estado = ?, 
+            contato = ?, 
+            cnpj_cpf = ?, 
+            inscricao_estadual = ?, 
+            email = ?, 
+            site = ?, 
+            usuario = ?, 
+            senha = ?, 
+            tipo_usuario = ?, 
+            slogan = ?, 
+            path_img = ?, 
+            ativo = ?, 
+            contribuinte = ?, 
+            atividade = ?
+        WHERE id = ?
+        `;
+
+        const result = db.prepare(query).run(
+            dadosUser.nome_fantasia,
+            dadosUser.razao_social,
+            dadosUser.cep,
+            dadosUser.endereco,
+            dadosUser.numero,
+            dadosUser.bairro,
+            dadosUser.cidade,
+            dadosUser.estado,
+            dadosUser.contato,
+            encodeCnpjCpf(dadosUser.cnpj_cpf), // Codifica o CNPJ/CPF antes de salvar
+            dadosUser.inscricao_estadual || null,
+            dadosUser.email,
+            dadosUser.site || null,
+            dadosUser.usuario,
+            dadosUser.senha,
+            dadosUser.tipo_usuario,
+            dadosUser.slogan || null,
+            dadosUser.path_img || null,
+            dadosUser.ativo ?? 1,
+            dadosUser.contribuinte,
+            dadosUser.atividade,
+            dadosUser.id // O ID precisa estar no final para corresponder ao WHERE id = ?
+        );
+
+        console.log('Usuário atualizado com sucesso:', result.changes);
+        return result.changes;
+
+    } catch (error) {
+        console.error('Erro ao atualizar usuário:', error.message);
+        throw error;
+    }
+};
 
 module.exports = {
     postNewUsuario,
-    getUsuario
+    getUsuario,
+    updateUsuario // Agora exporta corretamente a função updateUsuario
 };

@@ -1,4 +1,5 @@
 
+const id = document.getElementById('id');
 const nomeFantasia = document.getElementById('nome_fantasia');
 const razaoSocial = document.getElementById('razao_social');
 const cep = document.getElementById('cep');
@@ -20,11 +21,87 @@ const slogan = document.getElementById('slogan');
 const pathImg = document.getElementById('qr_code_img');
 const ativo = document.getElementById('ativo');
 const btnUser = document.getElementById('btn-user');
+const btnAtualizarUser = document.getElementById('btn-atualizar-user');
 const labelCnpjCPF = document.getElementById('label_cnpj_cpf');
 const labelNomeFantasia = document.getElementById('labelNomeFantasia');
 const labelRazao = document.getElementById('label_razao');
 const contribuinte = document.getElementById('inscricaoEstadual');
 const limparButtonFilter = document.getElementById('limparButton');
+
+tipoUsuario.addEventListener('change', () => {
+    if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
+
+ 
+    if (tipoUsuario.value === "juridica") {
+        cnpjCpf.removeAttribute('readonly');
+        razaoSocial.removeAttribute('readonly');
+        nomeFantasia.removeAttribute('readonly');
+
+        if (contribuinte) {
+            contribuinte.removeAttribute('disabled');
+        }
+
+        formatarCNPJ(cnpjCpf);
+        inputMaxCaracteres(cnpjCpf, 18);
+        labelCnpjCPF.innerHTML = '';
+        labelCnpjCPF.append('CNPJ');
+        labelRazao.innerHTML = 'Razão Social';
+        labelNomeFantasia.innerHTML = '';
+        labelNomeFantasia.append('Nome Fantasia');
+        cnpjCpf.focus();
+
+    } else if (tipoUsuario.value === "fisica") {
+
+        const valor = cnpjCpf.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+        if (tipoUsuario.value === "fisica" && valor.length !== 11) {
+            cnpjCpf.value = ''; // Limpa apenas se estiver incorreto ao perder o foco
+        }
+
+        labelNomeFantasia.innerHTML = '';
+        labelNomeFantasia.append('Título do Cupom Substitui o nome fantasia');
+        cnpjCpf.removeAttribute('readonly');
+        razaoSocial.removeAttribute('readonly');
+        nomeFantasia.removeAttribute('readonly');
+        if (contribuinte) {
+            contribuinte.value = 'isento';
+        }
+
+        formatarEVerificarCPF(cnpjCpf);
+        inputMaxCaracteres(cnpjCpf, 14);
+
+        labelCnpjCPF.innerHTML = 'CPF';
+        labelRazao.innerHTML = 'Nome';
+        cnpjCpf.focus();
+
+    } else if (tipoUsuario.value === "") {  // Se a pessoa apagar o valor do select
+        cnpjCpf.setAttribute('readonly', 'true');
+        razaoSocial.setAttribute('readonly', 'true');
+        nomeFantasia.setAttribute('readonly', 'true');
+
+        if (contribuinte) {
+            contribuinte.setAttribute('disabled', 'true');
+            contribuinte.value = ''; // Reseta para vazio
+        }
+
+        cnpjCpf.value = '';
+        razaoSocial.value = '';
+        nomeFantasia.value = '';
+
+        labelCnpjCPF.innerHTML = 'CNPJ / CPF';
+        labelRazao.innerHTML = 'Razão Social / Nome';
+    }
+});
+
+
+contribuinte.addEventListener('change', () => {
+    if (contribuinte.value === 'contribuinte') {
+        ie.removeAttribute('readonly');
+    } else {
+        ie.value = '';
+        ie.setAttribute('readonly', true);
+    }
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,76 +146,6 @@ if (linkID_11) {
     estilizarLinkAtivo(linkID_11);
 }
 
-tipoUsuario.addEventListener('change', () => {
-    if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
-
-    cnpjCpf.value = '';
-    // Criando a imagem do ícone de impressão
-
-    if (tipoUsuario.value === "juridica") {
-        cnpjCpf.removeAttribute('readonly');
-        razaoSocial.removeAttribute('readonly');
-        nomeFantasia.removeAttribute('readonly');
-
-        if (contribuinte) {
-            contribuinte.removeAttribute('disabled');
-            contribuinte.value = 'isento';
-        }
-
-        formatarCNPJ(cnpjCpf);
-        inputMaxCaracteres(cnpjCpf, 18);
-        labelCnpjCPF.innerHTML = '';
-        labelCnpjCPF.append('CNPJ');
-        labelRazao.innerHTML = 'Razão Social';
-        labelNomeFantasia.innerHTML = '';
-        labelNomeFantasia.append('Nome Fantasia');
-        cnpjCpf.focus();
-
-    } else if (tipoUsuario.value === "fisica") {
-        labelNomeFantasia.innerHTML = '';
-        labelNomeFantasia.append('Título do Cupom (Substitui o nome fantasia');
-        cnpjCpf.removeAttribute('readonly');
-        razaoSocial.removeAttribute('readonly');
-        nomeFantasia.removeAttribute('readonly');
-        if (contribuinte) {
-            contribuinte.value = 'isento';
-        }
-
-        formatarEVerificarCPF(cnpjCpf);
-        inputMaxCaracteres(cnpjCpf, 14);
-
-        labelCnpjCPF.innerHTML = 'CPF';
-        labelRazao.innerHTML = 'Nome';
-        cnpjCpf.focus();
-
-    } else if (tipoUsuario.value === "") {  // Se a pessoa apagar o valor do select
-        cnpjCpf.setAttribute('readonly', 'true');
-        razaoSocial.setAttribute('readonly', 'true');
-        nomeFantasia.setAttribute('readonly', 'true');
-
-        if (contribuinte) {
-            contribuinte.setAttribute('disabled', 'true');
-            contribuinte.value = ''; // Reseta para vazio
-        }
-
-        cnpjCpf.value = '';
-        razaoSocial.value = '';
-        nomeFantasia.value = '';
-
-        labelCnpjCPF.innerHTML = 'CNPJ / CPF';
-        labelRazao.innerHTML = 'Razão Social / Nome';
-    }
-});
-
-contribuinte.addEventListener('change', () => {
-    if (contribuinte.value === 'contribuinte') {
-        ie.removeAttribute('readonly');
-    } else {
-        ie.value = '';
-        ie.setAttribute('readonly', true);
-    }
-});
-
 function estilizarLinkAtivo(linkID) {
     linkID.style.background = '#ffcc00';
     linkID.style.textShadow = 'none';
@@ -164,8 +171,22 @@ btnUser.addEventListener('click', (e) => {
     if (!tipoUsuario.value) missingFields.push('Tipo de Usuário');
     if (!slogan.value) missingFields.push('Slogan');
 
+    // Verifica se existem campos obrigatórios faltando
     if (missingFields.length > 0) {
         alertMsg(`Os seguintes campos são obrigatórios: ${missingFields.join(', ')}`, 'info', 4000);
+        return;
+    }
+
+    let cnpjCpfNum = cnpjCpf.value.replace(/\D/g, '');
+
+    // Verificação de CPF (14 caracteres incluindo formatação) e CNPJ (18 caracteres incluindo formatação)
+    if (tipoUsuario.value === "fisica" && cnpjCpf.value.length !== 14) {
+        alertMsg('CPF inválido. O CPF deve ter 14 caracteres.', 'error', 4000);
+        return;
+    }
+
+    if (tipoUsuario.value === "juridica" && cnpjCpf.value.length !== 18) {
+        alertMsg('CNPJ inválido. O CNPJ deve ter 18 caracteres.', 'error', 4000);
         return;
     }
 
@@ -183,8 +204,8 @@ btnUser.addEventListener('click', (e) => {
         inscricao_estadual: ie.value,
         email: email.value,
         site: site.value || null,
-        usuario: usuarioInput.value || 'adm',
-        senha: senhaInput.value || 'adm',
+        usuario: usuarioInput.value || '',
+        senha: senhaInput.value || '',
         tipo_usuario: tipoUsuario.value,
         slogan: slogan.value,
         path_img: pathImg.value,
@@ -194,11 +215,11 @@ btnUser.addEventListener('click', (e) => {
     };
 
     postConfigUser(usuario);
+    setTimeout(() =>{
+        location.reload();
+       },2000);
 });
 
-limparButtonFilter.addEventListener('click', () => {
-    location.reload();
-});
 
 function limparFormulario() {
     nomeFantasia.value = '';
@@ -214,8 +235,8 @@ function limparFormulario() {
     ie.value = '';
     email.value = '';
     site.value = '';
-    usuarioInput.value = 'adm';
-    senhaInput.value = 'adm';
+    usuarioInput.value = '';
+    senhaInput.value = '';
     tipoUsuario.value = '';
     slogan.value = '';
     pathImg.value = '';
@@ -224,27 +245,3 @@ function limparFormulario() {
     atividade.value = '';
 };
 
-function atualizarUsuario(){
-
-    nomeFantasia.value = nomeFantasiaUser || '';
-    razaoSocial.value = razaoSocialUser || '';
-    // cep =
-    // endereco = 
-    // numero = 
-    // bairro = 
-    // cidade =
-    // estado =
-    // contato = 
-    // cnpjCpf =
-    // ie =
-    // email = 
-    // site = 
-    // usuarioInput = 
-    // senhaInput = 
-    // tipoUsuario = 
-    // atividade =
-    // slogan =
-    // pathImg = 
-    // ativo =
-    // contribuinte = 
-    }
