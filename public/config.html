@@ -35,8 +35,8 @@
                 <li id="cadastro-usuario">
                     <a href="" id="btn-flex">Configurações do usuário / Impressão</a>
                 </li>
-                <li id="alterar-fornecedor">
-                    <a href="">Alterar usuário e senha de acesso</a>
+                <li>
+                    <a id="alterar-user-senha">Alterar usuário e senha de acesso</a>
                 </li>
                 <li id="">
                     <a href="">Alterar senha para sair da tela de vendas</a>
@@ -45,6 +45,26 @@
         </nav>
     </header>
     <div class="container">
+        <div id="div-acesso">
+            <div id="div-form">
+                <span id="btn-exit">x</span>
+                <p class="titulo-senha"><strong>Alterar Usuário e
+                        Senha</strong></p>
+                <label class="label-acess" for="usuario"><img class="img-cadeado" src="../style/img/user.png" alt="">Usuário:</label>
+                <input type="text" id="novoUsuario" name="usuario">
+
+                <label class="label-acess" for="nova-senha"><img class="img-cadeado" src="../style/img/cadeado.png" alt="">Nova Senha:</label>
+                <input type="password" id="nova-senha" name="nova-senha">
+                <label class="label-acess" for="repetir-senha"><img class="img-cadeado" src="../style/img/cadeado.png" alt="">Repita a Nova Senha:</label>
+                <input type="password" id="repetir-senha" name="repetir-senha">
+               <div class="div-btn">
+                <button id="btn-senha"><img class="img-disquete"
+                    src="../style//img/troca.png">Atualizar</button>
+            <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
+                    alt="">Limpar</button>
+               </div> 
+            </div>
+        </div>
         <div class="container-register"></div>
         <div class="div-form" role="form">
             <div class="div-form-display">
@@ -160,11 +180,11 @@
                         </div>
                         <div id="div-usuario">
                             <label>Usuário:</label>
-                            <input type="text" id="usuario" name="usuario">
+                            <input type="text" id="usuario" name="usuario" value="adm">
                         </div>
                         <div id="div-senha">
                             <label for="senha">Senha:</label>
-                            <input type="password" id="senha" name="senha">
+                            <input type="password" id="senha" name="senha" value="adm">
                         </div>
                         <div id="div-qr_code_img">
                             <label style="font-size: .9rem;">Compartilhe seu @usuario rede
@@ -175,8 +195,9 @@
                 </section>
             </div>
             <footer class="div-form__footer">
-                <p class="informativo">
-                 <strong>⚠️ Atenção: Antes de cadastrar, verifique todas as informações cuidadosamente. Elas serão gravadas no sistema e impressas no cupom não fiscal.</strong>
+                <p class="informativo" id="info">
+                    <strong>⚠️ Atenção: Antes de cadastrar, verifique todas as informações cuidadosamente. Elas serão
+                        gravadas no sistema e impressas no cupom não fiscal.</strong>
                 </p>
                 <button id="btn-atualizar-user"><img class="img-disquete"
                         src="../style//img/troca.png">Atualizar</button>

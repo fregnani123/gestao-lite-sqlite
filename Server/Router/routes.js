@@ -65,13 +65,7 @@ Router.patch('/updateCliente', controllersCliente.updateCliente);
 Router.patch('/updateCredito', controllersCliente.updateCreditoCliente);
 Router.patch('/UpdateUsuario', controllersUsuario.updateUsuario);
 
-
-// Rota para buscar cliente por CPF
-
-
-
 // Rota para obter licença
 Router.get('/getLicenca/:userID/:serialKey', getLicenca);
-
 
 module.exports = Router;

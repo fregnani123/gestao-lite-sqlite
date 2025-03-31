@@ -27,6 +27,49 @@ const labelNomeFantasia = document.getElementById('labelNomeFantasia');
 const labelRazao = document.getElementById('label_razao');
 const contribuinte = document.getElementById('inscricaoEstadual');
 const limparButtonFilter = document.getElementById('limparButton');
+const informativo = document.getElementById('info');
+const btnAlterarSenha = document.getElementById('alterar-user-senha');
+const divAlterarSenha = document.getElementById('div-acesso');
+const btnExit = document.getElementById('btn-exit');
+const novoUsuario = document.getElementById('novoUsuario');
+const novaSenha = document.getElementById('nova-senha');
+const repetirSenha = document.getElementById('repetir-senha');
+const btnSenha = document.getElementById('btn-senha');
+
+
+btnAlterarSenha.addEventListener('click', () => {
+    function estilizarLinkAtivo(elemento) {
+        elemento.style.cssText = `
+            background: #ffcc00;
+            text-shadow: none;
+            color: black;
+            border-bottom: 2px solid black;
+        `;
+    }
+
+    estilizarLinkAtivo(btnAlterarSenha);
+    // Exibir o elemento diretamente sem alternância
+    divAlterarSenha.style.display = 'flex';
+    novoUsuario.value = ''
+    novaSenha.value = ''
+    repetirSenha.value = ''
+    novoUsuario.focus();
+});
+
+btnExit.addEventListener('click', () => {
+    function estilizarLinkInativo(elemento) {
+        elemento.style.cssText = `
+            background:'';
+            text-shadow: '';
+            color: '';
+            border-bottom: '';
+        `;
+    }
+
+    estilizarLinkInativo(btnAlterarSenha);
+    location.reload();
+   
+});
 
 tipoUsuario.addEventListener('change', () => {
     if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
@@ -204,7 +247,7 @@ btnUser.addEventListener('click', (e) => {
         inscricao_estadual: ie.value,
         email: email.value,
         site: site.value || null,
-        usuario: usuarioInput.value || '',
+        usuario: usuarioInput.value,
         senha: senhaInput.value || '',
         tipo_usuario: tipoUsuario.value,
         slogan: slogan.value,
@@ -218,6 +261,78 @@ btnUser.addEventListener('click', (e) => {
     setTimeout(() =>{
         location.reload();
        },2000);
+});
+
+btnSenha.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (!novaSenha.value || !repetirSenha.value) {
+        alertMsg("Os campos de senha não podem estar vazios", "info", 4000);
+        return;
+    }
+    
+    if (repetirSenha.value !== novaSenha.value) {
+        alertMsg("As senhas são diferentes", "info", 4000);
+        return;
+    }
+    
+    const usuarioAtualizar = {
+        nome_fantasia: nomeFantasia.value,
+        razao_social: razaoSocial.value,
+        cep: cep.value,
+        endereco: endereco.value,
+        numero: numero.value || null,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        contato: contato.value,
+        cnpj_cpf: cnpjCpf.value,
+        inscricao_estadual: ie.value || null,
+        email: email.value,
+        site: site.value || null,
+        usuario: novoUsuario.value,
+        senha: novaSenha.value,
+        tipo_usuario: tipoUsuario.value,
+        slogan: slogan.value || null,
+        path_img: pathImg.value || null,
+        ativo: ativo.value ?? 1,
+        contribuinte: contribuinte.value,
+        atividade: atividade.value,
+        id: id.value
+    };
+
+    updateUsuario(usuarioAtualizar);
+});
+
+btnAtualizarUser.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const usuarioAtualizar = {
+        nome_fantasia: nomeFantasia.value,
+        razao_social: razaoSocial.value,
+        cep: cep.value,
+        endereco: endereco.value,
+        numero: numero.value || null,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        contato: contato.value,
+        cnpj_cpf: cnpjCpf.value,
+        inscricao_estadual: ie.value || null,
+        email: email.value,
+        site: site.value || null,
+        usuario: novoUsuario.value,
+        senha: novaSenha.value,
+        tipo_usuario: tipoUsuario.value,
+        slogan: slogan.value || null,
+        path_img: pathImg.value || null,
+        ativo: ativo.value ?? 1,
+        contribuinte: contribuinte.value,
+        atividade: atividade.value,
+        id: id.value // Certifique-se de ter um input escondido ou variável contendo o ID
+    };
+
+    updateUsuario(usuarioAtualizar);
 });
 
 

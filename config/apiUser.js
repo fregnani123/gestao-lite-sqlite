@@ -151,7 +151,8 @@ async function getUserAtualizar() {
             console.log('Nenhum usuário encontrado');
             return [];
         } else {
-            btnAtualizarUser.style.display = 'flex'
+            btnAtualizarUser.style.display = 'flex';
+            informativo.innerHTML = `<strong>⚠️ Atenção: Antes de alterar os dados do usuário, verifique todas as informações cuidadosamente. Elas serão sobrescritas no sistema e impressas no cupom não fiscal.</strong> `;
         }
 
         cnpjCpf.value = data[0] && data[0].cnpj_cpf ? decodeCnpjCpf(data[0].cnpj_cpf) : "";
@@ -166,8 +167,8 @@ async function getUserAtualizar() {
         ie.value = data[0].inscricao_estadual || "";
         email.value = data[0].email || "";
         site.value = data[0].site || "";
-        usuarioInput.value = data[0].usuario || "";
-        senhaInput.value = data[0].senha || "";
+        novoUsuario.value = data[0].usuario || "";
+        novaSenha.value = data[0] && data[0].senha ? decodeCnpjCpf(data[0].senha) : "";
         tipoUsuario.value = data[0].tipo_usuario || "";
         atividade.value = data[0].atividade || "";
         slogan.value = data[0].slogan || "";
@@ -235,33 +236,3 @@ async function updateUsuario(usuarioId) {
     }
 };
 
-btnAtualizarUser.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const usuarioAtualizar = {
-        nome_fantasia: nomeFantasia.value,
-        razao_social: razaoSocial.value,
-        cep: cep.value,
-        endereco: endereco.value,
-        numero: numero.value || null,
-        bairro: bairro.value,
-        cidade: cidade.value,
-        estado: estado.value,
-        contato: contato.value,
-        cnpj_cpf: cnpjCpf.value,
-        inscricao_estadual: ie.value || null,
-        email: email.value,
-        site: site.value || null,
-        usuario: usuarioInput.value,
-        senha: senhaInput.value,
-        tipo_usuario: tipoUsuario.value,
-        slogan: slogan.value || null,
-        path_img: pathImg.value || null,
-        ativo: ativo.value ?? 1,
-        contribuinte: contribuinte.value,
-        atividade: atividade.value,
-        id: id.value // Certifique-se de ter um input escondido ou variável contendo o ID
-    };
-
-    updateUsuario(usuarioAtualizar);
-});

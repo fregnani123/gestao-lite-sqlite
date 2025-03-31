@@ -43,12 +43,13 @@ function reverseString(str) {
 }
 
 // Função para codificar o CNPJ/CPF antes de salvar
-function encodeCnpjCpf(cnpjCpf) {
+function encode(cod) {
     const randomNumber = generateRandomNumber(); // Gerar número aleatório de 3 dígitos
-    const cnpjCpfWithRandom = cnpjCpf.replace('.', `.${randomNumber}.`); // Inserir número aleatório
-    const valorComPrefixo = "fgl" + reverseString(cnpjCpfWithRandom || "") + "1969"; // Inverter string e adicionar prefixo
+    const codRandom = cod.replace('.', `.${randomNumber}.`); // Inserir número aleatório
+    const valorComPrefixo = "fgl" + reverseString(codRandom || "") + "1969"; // Inverter string e adicionar prefixo
     return Buffer.from(valorComPrefixo).toString('base64'); // Codificar em base64
 }
+
 
 async function postNewUsuario(usuario) {
     await ensureDBInitialized();
@@ -79,11 +80,11 @@ async function postNewUsuario(usuario) {
             usuario.cidade,
             usuario.estado,
             usuario.contato,
-            encodeCnpjCpf(usuario.cnpj_cpf), // Codifica o CNPJ/CPF antes de salvar
+            encode(usuario.cnpj_cpf), // Codifica o CNPJ/CPF antes de salvar
             usuario.inscricao_estadual || null,
             usuario.email,
             usuario.site || null,
-            usuario.usuario,
+            encode(usuario.usuario),
             usuario.senha,
             usuario.tipo_usuario,
             usuario.slogan || null,
@@ -142,12 +143,12 @@ async function updateUsuario(dadosUser) {
             dadosUser.cidade,
             dadosUser.estado,
             dadosUser.contato,
-            encodeCnpjCpf(dadosUser.cnpj_cpf), // Codifica o CNPJ/CPF antes de salvar
+            encode(dadosUser.cnpj_cpf), // Codifica o CNPJ/CPF antes de salvar
             dadosUser.inscricao_estadual || null,
             dadosUser.email,
             dadosUser.site || null,
             dadosUser.usuario,
-            dadosUser.senha,
+            encode(dadosUser.senha),
             dadosUser.tipo_usuario,
             dadosUser.slogan || null,
             dadosUser.path_img || null,

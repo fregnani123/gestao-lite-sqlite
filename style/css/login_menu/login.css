@@ -240,3 +240,11 @@ button:hover {
 .Logo{
    margin-top: -30px;
 }
+
+.label-acess  {
+    margin-top: 5%;
+    font-weight: normal;
+    width: 100%;
+    justify-content: left;
+   
+}

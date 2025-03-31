@@ -19,3 +19,48 @@
 #btn-atualizar-user,#btn-user{
  display: none;
 }
+
+#div-acesso{
+    position: absolute;
+    /* background-color: rgba(0, 38, 87, 0.432); */
+    background-color: rgb(249, 249, 249);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    top: 17%;
+    padding: 3%;
+    padding-bottom: 3%;
+    display: flex;
+    justify-content: center;
+    display: none;
+}
+#div-form{
+    position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 3rem 1rem; /* 20px em rem */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+    border-radius: 0.5rem; /* 8px em rem */
+    background-color:  rgb(255, 255, 255);
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+.label-acess  {
+    margin-top: 5%;
+    font-weight: normal;
+    width: 100%;
+    justify-content: left;
+    margin-left: 50%;
+    color: black;
+}
+
+.titulo-senha{
+    border-bottom: 2px solid gray;
+    padding:2%;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-reveal {
+    display: block;
+}

@@ -36,7 +36,7 @@ transform: scale(1.05);
 font-size: 1rem;
 width: 10rem;
 }
-.btn-alterar-produto,#btn_atualizar,#atualizar-fornecedor,#btn-atualizar-user {
+.btn-alterar-produto,#btn_atualizar,#atualizar-fornecedor,#btn-atualizar-user,#btn-senha {
 background-color: #002558;
 color: #fff;
 padding: 10px 16px;
@@ -52,7 +52,7 @@ align-items: center;
 margin-right: 1%;
 justify-content: center;
 }
-.btn-alterar-produto:hover,#btn_atualizar:hover,#atualizar-fornecedor:hover,#btn-atualizar-user:hover{
+.btn-alterar-produto:hover,#btn_atualizar:hover,#atualizar-fornecedor:hover,#btn-atualizar-user:hover,#btn-senha:hover{
 background-color: #00214e;
 transform: scale(1.05);
 font-size: 1rem;
@@ -85,6 +85,11 @@ font-size: 1rem;
 }
 
 button img {
+width: 20px;
+height: 20px;
+margin-right: 10px;
+}
+.img-cadeado {
 width: 20px;
 height: 20px;
 margin-right: 10px;
@@ -137,4 +142,11 @@ background-color: #157347;
 transform: scale(1.05);
 font-size: 1rem;
 width: 10rem;
+}
+
+.div-btn{
+    display: flex;
+    margin-top: 10%;
+    width: 100%;
+    gap: 2%;
 }

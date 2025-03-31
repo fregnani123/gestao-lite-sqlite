@@ -99,8 +99,7 @@
         right: 10px;
         pointer-events: none;
     }
-
-
+    
     .div-grupo,.div-subGrupo,.div-Cor{
         position: absolute;
         z-index: 9999;
