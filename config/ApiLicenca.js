@@ -21,7 +21,7 @@ async function verificaDadosSerial(userID, serialKey) {
         }
 
         const mongoData = await response.json();
-        console.log('Dados obtidos do MongoDB:', mongoData);
+        // console.log('Dados obtidos do MongoDB:', mongoData);
 
         const formatDate = (date) => {
             const d = new Date(date);
@@ -36,7 +36,7 @@ async function verificaDadosSerial(userID, serialKey) {
             ativado: mongoData.ativado ? 1 : 0, // Converter booleano para inteiro
         };
 
-        console.log('Dados formatados para a ativação:', ativacaoData);
+        // console.log('Dados formatados para a ativação:', ativacaoData);
 
         const postResponse = await fetch(postAtivacaoDbEndpoint, {
             method: 'POST',
@@ -51,7 +51,7 @@ async function verificaDadosSerial(userID, serialKey) {
         }
 
         const mysqlData = await postResponse.json();
-        console.log('Ativação registrada no MySQL com sucesso:', mysqlData);
+        // console.log('Ativação registrada no MySQL com sucesso:', mysqlData);
         location.reload();
 
     } catch (error) {
@@ -75,7 +75,7 @@ async function fetchAtivacaoMysql() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         ativado = data.length > 0 && data[0]?.ativado === 1;
 
@@ -106,7 +106,7 @@ async function verificaAtivacaoMysql() {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        console.log('Dados do MySQL:', data);
+        // console.log('Dados do MySQL:', data);
 
         if (data.length > 0) {
             const { userID, serialKey } = data[0]; // Extrai os campos necessários
@@ -118,7 +118,7 @@ async function verificaAtivacaoMysql() {
             const licencaResponse = await fetch(getLicencaEndpoint);
             const licencaData = await licencaResponse.json();
 
-            console.log('Dados do MongoDB:', licencaData);
+            // console.log('Dados do MongoDB:', licencaData);
 
             // Verifica se há mudanças entre os dados do MySQL e MongoDB
             const hasChanges =
@@ -144,7 +144,7 @@ async function verificaAtivacaoMysql() {
                     }),
                 });
                 const updateResult = await updateResponse.json();
-                console.log('Resultado da atualização no MySQL:', updateResult);
+                // console.log('Resultado da atualização no MySQL:', updateResult);
                 location.reload();
             } else {
                 console.log('Nenhuma mudança detectada, nenhuma atualização necessária.');
@@ -171,7 +171,7 @@ async function verificaValidadeDate() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         if (data.length > 0) {
             const { startedDate, expirationDate } = data[0];

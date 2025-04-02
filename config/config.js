@@ -30,47 +30,76 @@ const limparButtonFilter = document.getElementById('limparButton');
 const informativo = document.getElementById('info');
 const btnAlterarSenha = document.getElementById('alterar-user-senha');
 const divAlterarSenha = document.getElementById('div-acesso');
+const divAlterVenda = document.getElementById('div-sair-vendas');
 const btnExit = document.getElementById('btn-exit');
+const btnExitVenda = document.getElementById('btn-exit-venda');
 const novoUsuario = document.getElementById('novoUsuario');
 const novaSenha = document.getElementById('nova-senha');
 const repetirSenha = document.getElementById('repetir-senha');
 const btnSenha = document.getElementById('btn-senha');
+const btnAlterSenhaVenda = document.getElementById('altererar-senha-venda');
 
+
+function estilizarLinkAtivo(elemento) {
+    document.querySelectorAll('.btn').forEach(btn => estilizarLinkInativo(btn));
+    elemento.style.cssText = `
+        background: #ffcc00;
+        text-shadow: none;
+        color: black;
+        border-bottom: 2px solid black;
+    `;
+}
+
+function estilizarLinkInativo(elemento) {
+    elemento.style.cssText = `
+        background: ''; 
+        text-shadow: ''; 
+        color: ''; 
+        border-bottom: '' ; 
+    `;
+}
+
+function toggleSection(button, sectionToShow) {
+    const sections = [divAlterarSenha, divAlterVenda];
+    
+    // Verifica se alguma seção já está aberta
+    const isAnyOpen = sections.some(section => section.style.display === 'flex');
+    
+    if (isAnyOpen && sectionToShow.style.display !== 'flex') {
+        return; // Não abre outra seção se uma já estiver aberta
+    }
+    
+    sections.forEach(section => {
+        if (section !== sectionToShow) {
+            section.style.display = 'none';
+        }
+    });
+    
+    estilizarLinkAtivo(button);
+    sectionToShow.style.display = 'flex';
+}
 
 btnAlterarSenha.addEventListener('click', () => {
-    function estilizarLinkAtivo(elemento) {
-        elemento.style.cssText = `
-            background: #ffcc00;
-            text-shadow: none;
-            color: black;
-            border-bottom: 2px solid black;
-        `;
-    }
-
-    estilizarLinkAtivo(btnAlterarSenha);
-    // Exibir o elemento diretamente sem alternância
-    divAlterarSenha.style.display = 'flex';
-    novoUsuario.value = ''
-    novaSenha.value = ''
-    repetirSenha.value = ''
+    toggleSection(btnAlterarSenha, divAlterarSenha);
+    novoUsuario.value = '';
+    novaSenha.value = '';
+    repetirSenha.value = '';
     novoUsuario.focus();
 });
 
-btnExit.addEventListener('click', () => {
-    function estilizarLinkInativo(elemento) {
-        elemento.style.cssText = `
-            background:'';
-            text-shadow: '';
-            color: '';
-            border-bottom: '';
-        `;
-    }
-
-    estilizarLinkInativo(btnAlterarSenha);
-    location.reload();
-   
+btnAlterSenhaVenda.addEventListener('click', () => {
+    toggleSection(btnAlterSenhaVenda, divAlterVenda);
 });
 
+[btnExit, btnExitVenda].forEach(btn => {
+    btn.addEventListener('click', () => {
+        divAlterarSenha.style.display = 'none';
+        divAlterVenda.style.display = 'none';
+        estilizarLinkInativo(btnAlterarSenha)
+        estilizarLinkInativo(btnAlterSenhaVenda)
+        document.querySelectorAll('.btn').forEach(btn => estilizarLinkInativo(btn));
+    });
+});
 tipoUsuario.addEventListener('change', () => {
     if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
 

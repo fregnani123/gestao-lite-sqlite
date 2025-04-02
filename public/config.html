@@ -38,8 +38,11 @@
                 <li>
                     <a id="alterar-user-senha">Alterar usuário e senha de acesso</a>
                 </li>
+                <li>
+                    <a id="altererar-senha-venda">Selecione a senha para sair da tela de vendas</a>
+                </li>
                 <li id="">
-                    <a href="">Alterar senha para sair da tela de vendas</a>
+                    <a>Configurar Multa e Juros</a>
                 </li>
             </ul>
         </nav>
@@ -50,19 +53,57 @@
                 <span id="btn-exit">x</span>
                 <p class="titulo-senha"><strong>Alterar Usuário e
                         Senha</strong></p>
-                <label class="label-acess" for="usuario"><img class="img-cadeado" src="../style/img/user.png" alt="">Usuário:</label>
+                <label class="label-acess" for="usuario"><img class="img-cadeado" src="../style/img/user.png"
+                        alt="">Usuário:</label>
                 <input type="text" id="novoUsuario" name="usuario">
 
-                <label class="label-acess" for="nova-senha"><img class="img-cadeado" src="../style/img/cadeado.png" alt="">Nova Senha:</label>
+                <label class="label-acess" for="nova-senha"><img class="img-cadeado" src="../style/img/cadeado.png"
+                        alt="">Nova Senha:</label>
                 <input type="password" id="nova-senha" name="nova-senha">
-                <label class="label-acess" for="repetir-senha"><img class="img-cadeado" src="../style/img/cadeado.png" alt="">Repita a Nova Senha:</label>
+                <label class="label-acess" for="repetir-senha"><img class="img-cadeado" src="../style/img/cadeado.png"
+                        alt="">Repita a Nova Senha:</label>
                 <input type="password" id="repetir-senha" name="repetir-senha">
-               <div class="div-btn">
-                <button id="btn-senha"><img class="img-disquete"
-                    src="../style//img/troca.png">Atualizar</button>
-            <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
-                    alt="">Limpar</button>
-               </div> 
+                <div class="div-btn">
+                    <button id="btn-senha"><img class="img-disquete" src="../style//img/troca.png">Atualizar</button>
+                    <button id="limparButton"><img class="img-excluir" src="../style//img/excluir.png"
+                            alt="">Limpar</button>
+                </div>
+            </div>
+        </div>
+        <div id="div-sair-vendas">
+            <div id="div-form-venda">
+                <span id="btn-exit-venda">x</span>
+                <p class="titulo-senha"><strong>Selecione a senha</strong></p>
+                <div class="password-options">
+                    <div class="div-senha">
+                        <input type="radio" id="senha1" name="senha" value="senha1">
+                        <label for="senha1">adm</label>
+                    </div>
+                    
+                    <div class="div-senha">
+                        <input type="radio" id="senha2" name="senha" value="senha2">
+                        <label for="senha2">adm1</label>
+                    </div>
+                    
+                    <div class="div-senha">
+                        <input type="radio" id="senha3" name="senha" value="senha3">
+                        <label for="senha3">adm123</label>
+                    </div>
+                    
+                    <div class="div-senha">
+                        <input type="radio" id="senha4" name="senha" value="senha4">
+                        <label for="senha4">admloja</label>
+                    </div>
+                    
+                    <div class="div-senha">
+                        <input type="radio" id="senha5" name="senha" value="senha5">
+                        <label for="senha5">admvenda</label>
+                    </div>
+                </div>
+                <div class="">
+                    <button id="btn-senha-venda"><img class="img-disquete"
+                            src="../style//img/troca.png">Atualizar</button>
+                </div>
             </div>
         </div>
         <div class="container-register"></div>

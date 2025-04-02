@@ -157,3 +157,10 @@ background-color:var(--input-readonly);}
 #div-ocupação{width: 30%;}
 
 #cnpjInfo{font-size: 1rem;}
+
+input[type="radio"] {
+    transform: scale(0.8); /* Reduz o tamanho em 80% */
+    margin-right: 2%;
+    width: 10%;
+    height: 1rem;
+}

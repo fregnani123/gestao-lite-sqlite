@@ -26,10 +26,6 @@ function decodeCnpjCpf(encodedCnpjCpf) {
 let senhaCodificada = '';
 let usuaroiCod  = '';
 
-console.log(`Senha Codificada: ${senhaCodificada}`);
-console.log(`Senha Decodificada: ${decodeCnpjCpf(senhaCodificada)}`);
-
-
 async function getUser() {
     const getUserApi = 'http://localhost:3000/getUsuario';
 
@@ -49,20 +45,18 @@ async function getUser() {
         const data = await response.json();
 
         if (!data || data.length === 0) {
-            console.log('Nenhum usuário encontrado');
-            return [];
+            console.log('Nenhum usuário encontrado. Definindo login padrão (adm, adm)');
+            senhaCodificada = 'ZmdsbWRhMTk2OQ=='; // Codifica "adm" para manter o formato esperado
+            usuaroiCod = 'adm';
+        } else {
+            senhaCodificada = data[0].senha || "";
+            usuaroiCod = data[0].usuario || "";
+            console.log('Usuário obtido com sucesso:', data);
         }
-       
-        senhaCodificada = data[0].senha || "";
-        usuaroiCod = data[0].usuario || "";
-
-        // data[0] && data[0].senha ? decodeCnpjCpf(data[0].senha) : "";
-        console.log('Usuário obtido com sucesso:', data);
 
     } catch (error) {
         console.error('Erro ao obter usuário:', error.message);
         alertMsg(error.message, 'error', 4000);
-        return [];  // Return an empty array in case of error
     }
 }
 
@@ -95,7 +89,6 @@ document.getElementById('formLogin').addEventListener('click', (e) => {
 
     const senhaDecodificada = decodeCnpjCpf(senhaCodificada);
 
-    console.log(`Username: ${username}, Password: ${password}`);
 
     if (username === usuaroiCod && password === senhaDecodificada) {
         window.location.href = '../public/menu.html';

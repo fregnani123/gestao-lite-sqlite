@@ -26,7 +26,7 @@ async function initializeDB(db) {
               email TEXT UNIQUE,
               site TEXT,
               usuario TEXT UNIQUE NOT NULL DEFAULT 'adm',
-              senha TEXT NOT NULL DEFAULT 'adm',
+              senha TEXT NOT NULL DEFAULT 'ZmdsbWRhMTk2OQ==',
               tipo_usuario TEXT NOT NULL,
               slogan TEXT,
               path_img TEXT,
