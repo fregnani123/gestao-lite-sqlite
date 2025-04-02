@@ -22,7 +22,7 @@ async function postConfigUser(usuario) {
             const errorResponse = await response.json();
             throw new Error(errorResponse.error);
         }
-         
+
         const data = await response.json();
         console.log('Usuário adicionado com sucesso:', data);
         alertMsg('Usuário adicionado com sucesso', 'success', 4000);
@@ -77,6 +77,7 @@ let sloganUser = '';
 let redeSocialUser = '';
 let razaoSocialUser = '';
 let cepUser = '';
+let senhaVendaUser = '';
 
 
 async function getUser() {
@@ -107,7 +108,7 @@ async function getUser() {
         contatoUser = data[0].contato;
         nomeFantasiaUser = data[0].nome_fantasia;
         ramoAtuacaoUser = data[0].atividade;
-        enderecoUser =  data[0].endereco;
+        enderecoUser = data[0].endereco;
         numeroUser = data[0].numero;
         bairroUser = data[0].bairro;
         cidadeUser = data[0].cidade;
@@ -115,7 +116,8 @@ async function getUser() {
         sloganUser = data[0].slogan;
         redeSocialUser = data[0].path_img;
         razaoSocialUser = data[0].razao_social;
-        cepUser = data[0].cep
+        cepUser = data[0].cep;
+        senhaVendaUser = data[0].senha_venda;
 
         console.log('Usuário obtido com sucesso:', data);
 
@@ -148,6 +150,7 @@ async function getUserAtualizar() {
 
         if (!data || data.length === 0) {
             btnUser.style.display = 'flex'
+            btnLimparInputs.style.display = 'flex';
             console.log('Nenhum usuário encontrado');
             return [];
         } else {
@@ -175,6 +178,15 @@ async function getUserAtualizar() {
         pathImg.value = data[0].path_img || "";
         ativo.value = data[0].ativo || "";
         contribuinte.value = data[0].contribuinte || "";
+        // Supondo que senhaVendaUser já tem um valor
+        const senhaVendaUser = data[0].senha_venda;
+
+        // Seleciona o input correspondente e marca como checked
+        const radioSelecionado = document.querySelector(`input[name="senha"][value="${senhaVendaUser}"]`);
+        if (radioSelecionado) {
+            radioSelecionado.checked = true;
+        }
+
         id.value = data[0].id || "";
 
         // Dispara o evento para carregar as cidades com base no estado
@@ -197,7 +209,7 @@ async function getUserAtualizar() {
                     break;  // Sai do loop assim que encontrar a cidade
                 }
             }
-            
+
         }, 500); // Pequeno delay para garantir que as cidades já foram carregadas
 
         console.log('Usuário obtido com sucesso:', data);
@@ -211,7 +223,7 @@ async function getUserAtualizar() {
 }
 
 async function updateUsuario(usuarioId) {
-    const UpdateUser =  apiEndpointUsers.updateApiUser;
+    const UpdateUser = apiEndpointUsers.updateApiUser;
 
     try {
         const patchResponse = await fetch(UpdateUser, {
@@ -226,6 +238,32 @@ async function updateUsuario(usuarioId) {
             alertMsg('Erro ao atualizar usuário', 'info', 3000);
         } else {
             alertMsg('Usuário atualizado com sucesso', 'success', 3000);
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+    } catch (error) {
+        alertMsg('Erro durante a atualização do usuário:', 'error', 2000);
+        consol.log('Erro durante a atualização do usuário:', error);
+    }
+};
+
+async function updateUsuarioSenha(usuarioId) {
+    const UpdateUser = apiEndpointUsers.updateApiUser;
+
+    try {
+        const patchResponse = await fetch(UpdateUser, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuarioId),
+        });
+
+        if (!patchResponse.ok) {
+            alertMsg('Erro ao atualizar Usuário e Senha', 'info', 3000);
+        } else {
+            alertMsg('Usuário e Senha atualizado com sucesso', 'success', 3000);
             setTimeout(() => {
                 location.reload();
             }, 3000);

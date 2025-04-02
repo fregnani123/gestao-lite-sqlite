@@ -1,5 +1,6 @@
 
 const id = document.getElementById('id');
+const senha1 = document.getElementById('senha1');
 const nomeFantasia = document.getElementById('nome_fantasia');
 const razaoSocial = document.getElementById('razao_social');
 const cep = document.getElementById('cep');
@@ -26,7 +27,7 @@ const labelCnpjCPF = document.getElementById('label_cnpj_cpf');
 const labelNomeFantasia = document.getElementById('labelNomeFantasia');
 const labelRazao = document.getElementById('label_razao');
 const contribuinte = document.getElementById('inscricaoEstadual');
-const limparButtonFilter = document.getElementById('limparButton');
+const btnLimparInputs = document.getElementById('limparInputs');
 const informativo = document.getElementById('info');
 const btnAlterarSenha = document.getElementById('alterar-user-senha');
 const divAlterarSenha = document.getElementById('div-acesso');
@@ -38,6 +39,11 @@ const novaSenha = document.getElementById('nova-senha');
 const repetirSenha = document.getElementById('repetir-senha');
 const btnSenha = document.getElementById('btn-senha');
 const btnAlterSenhaVenda = document.getElementById('altererar-senha-venda');
+const btnAtulizarSenha = document.getElementById('btn-senha-venda');
+const cadastroUsuario = document.getElementById('btn-flex');
+const divJuros = document.getElementById('div-juros');
+const btnAlterarJuros = document.getElementById('juros');
+const btnExitJuros = document.getElementById('btn-exit-juros');
 
 
 function estilizarLinkAtivo(elemento) {
@@ -60,7 +66,7 @@ function estilizarLinkInativo(elemento) {
 }
 
 function toggleSection(button, sectionToShow) {
-    const sections = [divAlterarSenha, divAlterVenda];
+    const sections = [divAlterarSenha, divAlterVenda, divJuros];
     
     // Verifica se alguma seção já está aberta
     const isAnyOpen = sections.some(section => section.style.display === 'flex');
@@ -80,7 +86,13 @@ function toggleSection(button, sectionToShow) {
 }
 
 btnAlterarSenha.addEventListener('click', () => {
+    if(id.value === ''){
+        alertMsg("Não é possível modificar usuário e senha padrão sem antes cadastrar um usuário.", "info", 5000);
+        return;
+    };
     toggleSection(btnAlterarSenha, divAlterarSenha);
+    estilizarLinkInativo(cadastroUsuario);
+
     novoUsuario.value = '';
     novaSenha.value = '';
     repetirSenha.value = '';
@@ -88,18 +100,36 @@ btnAlterarSenha.addEventListener('click', () => {
 });
 
 btnAlterSenhaVenda.addEventListener('click', () => {
+    if(id.value === ''){
+        alertMsg("Não é possível modificar a senha padrão sem antes cadastrar um usuário.", "info", 5000);
+        return;
+    };
     toggleSection(btnAlterSenhaVenda, divAlterVenda);
+    estilizarLinkInativo(cadastroUsuario);
 });
 
-[btnExit, btnExitVenda].forEach(btn => {
+btnAlterarJuros.addEventListener('click', () => {
+    if(id.value === ''){
+        alertMsg("Não é possível modificar a senha padrão sem antes cadastrar um usuário.", "info", 5000);
+        return;
+    };
+    toggleSection(btnAlterarJuros, divJuros);
+    estilizarLinkInativo(cadastroUsuario);
+});
+
+[btnExit, btnExitVenda,btnExitJuros].forEach(btn => {
     btn.addEventListener('click', () => {
         divAlterarSenha.style.display = 'none';
         divAlterVenda.style.display = 'none';
+        divJuros.style.display = 'none';
         estilizarLinkInativo(btnAlterarSenha)
         estilizarLinkInativo(btnAlterSenhaVenda)
+        estilizarLinkInativo(btnAlterarJuros)
         document.querySelectorAll('.btn').forEach(btn => estilizarLinkInativo(btn));
+        estilizarLinkAtivo(cadastroUsuario);
     });
 });
+
 tipoUsuario.addEventListener('change', () => {
     if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
 
@@ -178,6 +208,11 @@ contribuinte.addEventListener('change', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    if( divAlterarSenha.style.display !== 'flex' ||  divAlterVenda.style.display !== 'flex' || divJuros.style.display !== 'flex'){
+        estilizarLinkAtivo(cadastroUsuario)
+    }
+   
+
     formatarTelefone(contato);
     inputMaxCaracteres(contato, 15);
 
@@ -249,8 +284,6 @@ btnUser.addEventListener('click', (e) => {
         return;
     }
 
-    let cnpjCpfNum = cnpjCpf.value.replace(/\D/g, '');
-
     // Verificação de CPF (14 caracteres incluindo formatação) e CNPJ (18 caracteres incluindo formatação)
     if (tipoUsuario.value === "fisica" && cnpjCpf.value.length !== 14) {
         alertMsg('CPF inválido. O CPF deve ter 14 caracteres.', 'error', 4000);
@@ -277,13 +310,14 @@ btnUser.addEventListener('click', (e) => {
         email: email.value,
         site: site.value || null,
         usuario: usuarioInput.value,
-        senha: senhaInput.value || '',
+        senha: senhaInput.value,
         tipo_usuario: tipoUsuario.value,
         slogan: slogan.value,
         path_img: pathImg.value,
         ativo: ativo.value,
         contribuinte: contribuinte.value,
         atividade: atividade.value,
+        senha_venda: senha1.value,
     };
 
     postConfigUser(usuario);
@@ -327,14 +361,18 @@ btnSenha.addEventListener('click', (e) => {
         ativo: ativo.value ?? 1,
         contribuinte: contribuinte.value,
         atividade: atividade.value,
+        senha_venda: vendaSenha.value,
         id: id.value
     };
-
-    updateUsuario(usuarioAtualizar);
+    updateUsuarioSenha(usuarioAtualizar);
+   
 });
 
-btnAtualizarUser.addEventListener('click', (e) => {
+btnAtulizarSenha.addEventListener('click', (e) => {
     e.preventDefault();
+
+    // Seleciona o input radio que está marcado
+const senhaSelecionada = document.querySelector('input[name="senha"]:checked')?.value;
     
     const usuarioAtualizar = {
         nome_fantasia: nomeFantasia.value,
@@ -358,6 +396,7 @@ btnAtualizarUser.addEventListener('click', (e) => {
         ativo: ativo.value ?? 1,
         contribuinte: contribuinte.value,
         atividade: atividade.value,
+        senha_venda: senhaSelecionada, // Aqui pega a senha do radio selecionado
         id: id.value // Certifique-se de ter um input escondido ou variável contendo o ID
     };
 

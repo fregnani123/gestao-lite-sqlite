@@ -306,7 +306,7 @@ inputQtd.addEventListener('input', function (e) {
 });
 const handleInputExit = (e) => {
     if (e.key === 'Enter') { // Verifica se a tecla pressionada foi Enter
-        if (inputExitVenda.value === 'adm') {
+        if (inputExitVenda.value === senhaVendaUser) {
             window.location.href = '../public/menu.html';
         } else {
             alertMsg('Senha incorreta, tente novamente.', 'error', 3000);

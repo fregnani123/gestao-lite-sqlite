@@ -65,8 +65,8 @@ async function postNewUsuario(usuario) {
             INSERT INTO usuario (
                 nome_fantasia, razao_social, cep, endereco, numero, bairro, cidade, estado, contato, 
                 cnpj_cpf, inscricao_estadual, email, site, usuario, senha, tipo_usuario, slogan, 
-                path_img, ativo, data_cadastro, contribuinte , atividade
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ? , ? )`;
+                path_img, ativo, data_cadastro, contribuinte , atividade , senha_venda
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ? , ? , ?)`;
 
         const stmt = db.prepare(insertQuery);
 
@@ -84,14 +84,15 @@ async function postNewUsuario(usuario) {
             usuario.inscricao_estadual || null,
             usuario.email,
             usuario.site || null,
-            encode(usuario.usuario),
-            usuario.senha,
+            usuario.usuario,
+            encode(usuario.senha),
             usuario.tipo_usuario,
             usuario.slogan || null,
             usuario.path_img || null,
             usuario.ativo ?? 1,
             usuario.contribuinte,
-            usuario.atividade
+            usuario.atividade,
+            usuario.senha_venda 
         );
 
         return { insertId: result.lastInsertRowid };
@@ -129,7 +130,8 @@ async function updateUsuario(dadosUser) {
             path_img = ?, 
             ativo = ?, 
             contribuinte = ?, 
-            atividade = ?
+            atividade = ?,
+            senha_venda = ?
         WHERE id = ?
         `;
 
@@ -155,7 +157,8 @@ async function updateUsuario(dadosUser) {
             dadosUser.ativo ?? 1,
             dadosUser.contribuinte,
             dadosUser.atividade,
-            dadosUser.id // O ID precisa estar no final para corresponder ao WHERE id = ?
+            dadosUser.senha_venda,
+            dadosUser.id // O ID precisa estar no final para corresponder ao WHERE id = ?,
         );
 
         console.log('Usuário atualizado com sucesso:', result.changes);

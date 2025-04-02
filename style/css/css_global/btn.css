@@ -36,7 +36,7 @@ transform: scale(1.05);
 font-size: 1rem;
 width: 10rem;
 }
-.btn-alterar-produto,#btn_atualizar,#atualizar-fornecedor,#btn-atualizar-user,#btn-senha,#btn-senha-venda {
+.btn-alterar-produto,#btn_atualizar,#atualizar-fornecedor,#btn-atualizar-user,#btn-senha,#btn-senha-venda,#atualizar-juros {
 background-color: #002558;
 color: #fff;
 padding: 10px 16px;
@@ -52,13 +52,13 @@ align-items: center;
 margin-right: 1%;
 justify-content: center;
 }
-.btn-alterar-produto:hover,#btn_atualizar:hover,#atualizar-fornecedor:hover,#btn-atualizar-user:hover,#btn-senha:hover,#btn-senha-venda:hover{
+.btn-alterar-produto:hover,#btn_atualizar:hover,#atualizar-fornecedor:hover,#btn-atualizar-user:hover,#btn-senha:hover,#atualizar-juros:hover,#btn-senha-venda:hover{
 background-color: #00214e;
 transform: scale(1.05);
 font-size: 1rem;
 width: 10rem;
 }
-#limparButton,#filterButtonLimpar,#limparButton-info {
+#limparButton,#filterButtonLimpar,#limparButton-info,#limparInputs {
 background-color: #f1c40f;
 color: #333;
 padding: 10px 16px;
@@ -73,7 +73,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-#limparButton:hover,#filterButtonLimpar:hover,#limparButton-info:hover {
+#limparButton:hover,#filterButtonLimpar:hover,#limparButton-info:hover,#limparInputs:hover {
 background-color: #e1b80d;
 transform: scale(1.05);
 width: 10rem;
@@ -83,7 +83,9 @@ font-size: 1rem;
     width: 20px;
     height: 20px;
 }
-
+#atualizar-juros{
+    margin-top: 15%;
+}
 button img {
 width: 20px;
 height: 20px;
@@ -93,9 +95,10 @@ margin-right: 10px;
 width: 20px;
 height: 20px;
 margin-right: 10px;
+margin-left: 1%;
 }
 
-#btn-exit,#btn-exit-venda{
+#btn-exit,#btn-exit-venda,#btn-exit-juros{
 color: black;
 font-size: 1.2rem;
 font-weight: bold;
@@ -113,7 +116,7 @@ cursor: pointer;
 transition: background 0.2s ease-in-out;
 border-radius: 5px;
 }
-#btn-exit:hover,#btn-exit-venda:hover{
+#btn-exit:hover,#btn-exit-venda:hover,#btn-exit-juros:hover{
 background-color: #ea3748;
 color: white;
 }

@@ -46,7 +46,7 @@ async function getUser() {
 
         if (!data || data.length === 0) {
             console.log('Nenhum usuário encontrado. Definindo login padrão (adm, adm)');
-            senhaCodificada = 'ZmdsbWRhMTk2OQ=='; // Codifica "adm" para manter o formato esperado
+            senhaCodificada = 'ZmdsbWRhMTk2OQ==';
             usuaroiCod = 'adm';
         } else {
             senhaCodificada = data[0].senha || "";

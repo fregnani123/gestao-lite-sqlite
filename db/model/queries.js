@@ -33,7 +33,8 @@ async function initializeDB(db) {
               ativo INTEGER DEFAULT 1,
               data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
               contribuinte TEXT NOT NULL DEFAULT 'isento',
-              atividade TEXT
+              atividade TEXT,
+              senha_venda TEXT NOT NULL DEFAULT 'adm'
                );`,
 
             // Criar Tabela Serial_Key
@@ -215,6 +216,16 @@ async function initializeDB(db) {
             FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id),
             FOREIGN KEY (venda_id) REFERENCES venda(venda_id)
            );`,
+
+            //Criar Tabela taxas crediário
+            `CREATE TABLE IF NOT EXISTS taxa (
+             taxa_id INTEGER PRIMARY KEY AUTOINCREMENT,
+             juros_parcela_acima TEXT NOT NULL DEFAULT '0',
+             juros_crediario_venda DECIMAL(10, 2) DEFAULT 0.00,
+             valor_multa_atraso DECIMAL(10, 2) DEFAULT 0.00,
+             juros_crediario_atraso DECIMAL(10, 2) DEFAULT 0.00
+            );
+            `,
 
             //Criar Tabela agendamento
             `CREATE TABLE IF NOT EXISTS agendamento (
