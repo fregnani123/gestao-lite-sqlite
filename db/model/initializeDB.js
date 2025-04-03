@@ -162,6 +162,20 @@ async function insertClienteDefault(db) {
     }
 }
 
+async function insertTaxaDefault(db) {
+    try {
+        const query = `INSERT OR IGNORE INTO taxa (juros_parcela_acima, juros_crediario_venda, valor_multa_atraso, juros_crediario_atraso) 
+        VALUES ('0', '0', '0', '0')`;
+        const info = db.prepare(query).run();
+
+        console.log('Cliente padrão inserido com sucesso.');
+        return info.changes;
+    } catch (error) {
+        console.error('Erro ao inserir cliente padrão:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     insertGrupo,
     insertSubGrupo,
@@ -174,6 +188,7 @@ module.exports = {
     insertUnidadeEstoque,
     insertFornecedorPadrao,
     insertClienteDefault,
+    insertTaxaDefault
 };
 
 

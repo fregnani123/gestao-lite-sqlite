@@ -37,6 +37,7 @@ Router.get('/getHistoricoVendas', controllersVenda.getHistoricoDeVenda);
 Router.get('/getCrediario/:cpf', controllersCrediario.getCrediario);
 Router.get('/getCrediariosMesVigente', controllersCrediario.getCrediariosMesVigente);
 Router.get('/getCrediariosVencidos', controllersCrediario.getCrediariosVencidos);
+Router.get('/getTaxas', controllersCrediario.getTaxas);
 Router.get('/getVendaPorNumeroPedido/:numero_pedido', controllersVenda.getVendasPorNumeroVenda);
 
 Router.post('/postNewProduto', controllersProduto.postNewProductWithImage);
@@ -64,6 +65,7 @@ Router.patch('/updateCrediario', controllersCrediario.updateCrediario);
 Router.patch('/updateCliente', controllersCliente.updateCliente);
 Router.patch('/updateCredito', controllersCliente.updateCreditoCliente);
 Router.patch('/UpdateUsuario', controllersUsuario.updateUsuario);
+Router.patch('/updateTaxas', controllersCrediario.updateTaxas);
 
 // Rota para obter licença
 Router.get('/getLicenca/:userID/:serialKey', getLicenca);

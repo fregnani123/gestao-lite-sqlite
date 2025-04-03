@@ -67,26 +67,26 @@ function estilizarLinkInativo(elemento) {
 
 function toggleSection(button, sectionToShow) {
     const sections = [divAlterarSenha, divAlterVenda, divJuros];
-    
+
     // Verifica se alguma seção já está aberta
     const isAnyOpen = sections.some(section => section.style.display === 'flex');
-    
+
     if (isAnyOpen && sectionToShow.style.display !== 'flex') {
         return; // Não abre outra seção se uma já estiver aberta
     }
-    
+
     sections.forEach(section => {
         if (section !== sectionToShow) {
             section.style.display = 'none';
         }
     });
-    
+
     estilizarLinkAtivo(button);
     sectionToShow.style.display = 'flex';
 }
 
 btnAlterarSenha.addEventListener('click', () => {
-    if(id.value === ''){
+    if (id.value === '') {
         alertMsg("Não é possível modificar usuário e senha padrão sem antes cadastrar um usuário.", "info", 5000);
         return;
     };
@@ -100,7 +100,7 @@ btnAlterarSenha.addEventListener('click', () => {
 });
 
 btnAlterSenhaVenda.addEventListener('click', () => {
-    if(id.value === ''){
+    if (id.value === '') {
         alertMsg("Não é possível modificar a senha padrão sem antes cadastrar um usuário.", "info", 5000);
         return;
     };
@@ -109,7 +109,7 @@ btnAlterSenhaVenda.addEventListener('click', () => {
 });
 
 btnAlterarJuros.addEventListener('click', () => {
-    if(id.value === ''){
+    if (id.value === '') {
         alertMsg("Não é possível modificar a senha padrão sem antes cadastrar um usuário.", "info", 5000);
         return;
     };
@@ -117,7 +117,7 @@ btnAlterarJuros.addEventListener('click', () => {
     estilizarLinkInativo(cadastroUsuario);
 });
 
-[btnExit, btnExitVenda,btnExitJuros].forEach(btn => {
+[btnExit, btnExitVenda, btnExitJuros].forEach(btn => {
     btn.addEventListener('click', () => {
         divAlterarSenha.style.display = 'none';
         divAlterVenda.style.display = 'none';
@@ -133,7 +133,7 @@ btnAlterarJuros.addEventListener('click', () => {
 tipoUsuario.addEventListener('change', () => {
     if (!cnpjCpf || !labelCnpjCPF || !labelRazao) return;
 
- 
+
     if (tipoUsuario.value === "juridica") {
         cnpjCpf.removeAttribute('readonly');
         razaoSocial.removeAttribute('readonly');
@@ -208,10 +208,10 @@ contribuinte.addEventListener('change', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    if( divAlterarSenha.style.display !== 'flex' ||  divAlterVenda.style.display !== 'flex' || divJuros.style.display !== 'flex'){
+    if (divAlterarSenha.style.display !== 'flex' || divAlterVenda.style.display !== 'flex' || divJuros.style.display !== 'flex') {
         estilizarLinkAtivo(cadastroUsuario)
     }
-   
+
 
     formatarTelefone(contato);
     inputMaxCaracteres(contato, 15);
@@ -321,9 +321,9 @@ btnUser.addEventListener('click', (e) => {
     };
 
     postConfigUser(usuario);
-    setTimeout(() =>{
+    setTimeout(() => {
         location.reload();
-       },2000);
+    }, 2000);
 });
 
 btnSenha.addEventListener('click', (e) => {
@@ -333,12 +333,12 @@ btnSenha.addEventListener('click', (e) => {
         alertMsg("Os campos de senha não podem estar vazios", "info", 4000);
         return;
     }
-    
+
     if (repetirSenha.value !== novaSenha.value) {
         alertMsg("As senhas são diferentes", "info", 4000);
         return;
     }
-    
+
     const usuarioAtualizar = {
         nome_fantasia: nomeFantasia.value,
         razao_social: razaoSocial.value,
@@ -361,19 +361,15 @@ btnSenha.addEventListener('click', (e) => {
         ativo: ativo.value ?? 1,
         contribuinte: contribuinte.value,
         atividade: atividade.value,
-        senha_venda: vendaSenha.value,
+        senha_venda: document.querySelector('input[name="senha"]:checked')?.value || null, // Obtém o valor do rádio 
         id: id.value
     };
     updateUsuarioSenha(usuarioAtualizar);
-   
+
 });
 
 btnAtulizarSenha.addEventListener('click', (e) => {
     e.preventDefault();
-
-    // Seleciona o input radio que está marcado
-const senhaSelecionada = document.querySelector('input[name="senha"]:checked')?.value;
-    
     const usuarioAtualizar = {
         nome_fantasia: nomeFantasia.value,
         razao_social: razaoSocial.value,
@@ -396,7 +392,41 @@ const senhaSelecionada = document.querySelector('input[name="senha"]:checked')?.
         ativo: ativo.value ?? 1,
         contribuinte: contribuinte.value,
         atividade: atividade.value,
-        senha_venda: senhaSelecionada, // Aqui pega a senha do radio selecionado
+        senha_venda: document.querySelector('input[name="senha"]:checked')?.value || null, // Obtém o valor do rádio 
+        id: id.value // Certifique-se de ter um input escondido ou variável contendo o ID
+    };
+
+    updateUsuario(usuarioAtualizar);
+});
+
+btnAtualizarUser.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Seleciona o input radio que está marcado
+  
+   
+    const usuarioAtualizar = {
+        nome_fantasia: nomeFantasia.value,
+        razao_social: razaoSocial.value,
+        cep: cep.value,
+        endereco: endereco.value,
+        numero: numero.value || null,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        contato: contato.value,
+        cnpj_cpf: cnpjCpf.value,
+        inscricao_estadual: ie.value || null,
+        email: email.value,
+        site: site.value || null,
+        usuario: novoUsuario.value,
+        senha: novaSenha.value,
+        tipo_usuario: tipoUsuario.value,
+        slogan: slogan.value || null,
+        path_img: pathImg.value || null,
+        ativo: ativo.value ?? 1,
+        contribuinte: contribuinte.value,
+        atividade: atividade.value,
+        senha_venda: document.querySelector('input[name="senha"]:checked')?.value || null, // Obtém o valor do rádio selecionado
         id: id.value // Certifique-se de ter um input escondido ou variável contendo o ID
     };
 

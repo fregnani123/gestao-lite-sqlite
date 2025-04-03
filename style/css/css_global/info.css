@@ -33,3 +33,16 @@
     align-items: center;
     text-align: center;
 }
+.info-cred{
+    background-color: rgb(233, 233, 233);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 2%;
+    padding: .5%;
+}
+
+.info-cred p {
+    font-weight: normal;
+}

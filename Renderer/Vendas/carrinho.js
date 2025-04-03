@@ -67,6 +67,8 @@ async function alteraEstoqueEVendido(carrinho) {
     }
 }
 
+let desconto = parseFloat(inputdescontoPorcentagem.value.replace(',', '.')) || 0;
+
 function calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQtd, inputdescontoPorcentagem) {
     if (textSelecionarQtd) textSelecionarQtd.innerHTML = ''; // Atualiza o texto, se fornecido
 
@@ -76,8 +78,6 @@ function calCarrinho(carrinho, converteMoeda, inputTotalLiquido, textSelecionarQ
         );
         return acc + precoFormatado * parseInt(item.Qtd, 10);
     }, 0);
-
-    let desconto = parseFloat(inputdescontoPorcentagem.value.replace(',', '.')) || 0;
 
     if (desconto > 100) {
         desconto = 100; // Evita desconto maior que 100%

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../style/css/venda/tela_vendas.css">
     <link rel="stylesheet" href="../style/css/venda/cupon.css">
     <link rel="stylesheet" href="../style/css/css_global/inputs.css">
+    <link rel="stylesheet" href="../style/css/css_global/info.css">
     <title>Tela de Vendas</title>
 </head>
 
@@ -164,7 +165,7 @@
                             <div class="pagamento-default-1" id="div-Crediario">
                                 <div class="inputs-container">
 
-                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                    <div style="display: flex; flex-direction: row; gap: 1%; margin-top: 2%;">
                                         <div style="width: 50%">
                                             <label for="Crediario" style="width: 100%; margin-bottom: -1%;">CPF
                                                 Cliente: </label>
@@ -175,22 +176,23 @@
                                         <div>
                                             <label for="" style="width: 100%;  margin-bottom: -1%;">Cliente:</label>
                                             <div style="max-width: 100%;"><input id="nomeCliente" type="text"
-                                                    type="text" value="" readonly></div>
+                                                    type="text" value="" readonly>
+                                                </div>
                                         </div>
                                     </div>
-                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                    <div style="display: flex; flex-direction: row; gap: 1%; margin-top: 2%;">
                                         <div>
                                             <label for="Crediario" style="width: 100%;  margin-bottom: -1%;">Numero de
                                                 Parcelas:</label>
                                             <div style="max-width: 100%;"><input id="Crediario-parcela" type="number"
                                                     value="">
                                             </div>
-                                        </div><span style="margin-top: 2.5%;">X</span>
+                                        </div>
                                         <div>
                                             <label for="" style="width: 100%;  margin-bottom: -1%;">Taxa de Juros
                                                 %:</label>
-                                            <div style="max-width: 100%;"><input id="taxa-juros" type="number"
-                                                    value="1.5" readonly>
+                                            <div style="max-width: 100%;"><input id="taxa-juros" type="number" value=""
+                                                    readonly>
                                             </div>
                                         </div>
                                         <div>
@@ -200,28 +202,29 @@
                                                     value="" readonly>
                                             </div>
                                         </div>
-                                        <span style="margin-top: 2.5%;">=</span>
                                         <div>
                                             <label for="Crediario" style="width: 100%;  margin-bottom: -1%;">Subtotal
+                                                Crediário
                                             </label>
                                             <div style="max-width: 100%;"><input id="Crediario" type="text" value="0,00"
                                                     readonly></div>
                                         </div>
                                     </div>
-                                    <div style="display: flex; flex-direction: row; gap: 1%;">
+                                    <div style="display: flex; flex-direction: row; gap: 1%; margin-top: 2%;">
                                         <div>
-                                            <label style="width: 100%;  margin-bottom: -.5%;">Vencimentos para o dia:
+                                            <label style="width: 100%;">1º Vencimento para o dia:
                                             </label>
-                                            <div style="max-width: 70%;"><input id="vencimentos" type="date"></div>
+                                            <div style="max-width: 80%;"><input id="vencimentos" type="date">
+                                            </div>
                                         </div>
                                         <div>
-                                            <label style="width: 100%;  margin-bottom: -.5%;">Crédito liberado:
+                                            <label style="width: 100%;">Crédito liberado:
                                             </label>
                                             <div style="max-width: 100%;"> <input id="creditoLimite" value="0,00"
                                                     style="background-color: #e9ecef;" readonly></div>
                                         </div>
                                         <div>
-                                            <label style="width: 100%;  margin-bottom: -.5%;">Crédito utilizado:
+                                            <label style="width: 100%;">Crédito utilizado:
                                             </label>
                                             <div style="max-width: 100%;"> <input id="creditoUtilizado" value="0,00"
                                                     readonly></div>
@@ -232,10 +235,12 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="info-pag">Ao optar pelo pagamento parcelado, será aplicada uma taxa de X% de juros
-                            sobre o valor total da compra.</p>
-                        <p class="info-pag">
-                            Pressione <strong>Shift + Atalho</strong> Pgto para adicionar mais opções de Pgto
+                        <div class="info-cred" id="info-cred">
+                            <p><strong>Atenção:</strong> Parcelamentos no crediário acima de <strong><span id="spanMaxParcelas"></span>X</strong> parcelas terão uma taxa de X% de juros, definida pelo setor financeiro nas configurações do sistema.<input id="numeroParcela" type="hidden" type="number" value="12" readonly >
+                            </p>
+                        </div>
+                        <p class="info-pag" id="info-pag">
+                            Pressione (Shift + Atalho Pgto) para adicionar mais opções de Pgto
                         </p>
                     </div>
                 </div>
@@ -334,11 +339,11 @@
                             <input id="mostrarDesconto" type="text" value="0%" readonly>
                         </div>
 
-                        <div class=" val-div"> 
+                        <div class=" val-div">
                             <label class="label">Valores Pagos:</label>
                             <input id="total-pago" value="0,00" type="text" readonly>
                         </div>
-                        <div class=" val-div"> 
+                        <div class=" val-div">
                             <label class="label">Troco:</label>
                             <input id="troco" value="0,00" type="text" readonly>
                         </div>

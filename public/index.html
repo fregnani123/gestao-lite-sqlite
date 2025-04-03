@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000;">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000;">
     <link rel="stylesheet" href="../style/css/login_menu/login.css">
     <link rel="stylesheet" href="../style/css/login_menu/login.css">
     <link rel="stylesheet" href="../style/css/css_global/info.css">
@@ -18,36 +19,36 @@
         <!-- ativar-produto inicialmente começa display none, enquanto verifica a ativação do produto. -->
         <div class="ativar-produto">
             <img src="../style/img/logoLogin.png" alt="Logo">
-            <h2>Obrigado por adquirir nosso Gerenciador de Estoque! Por favor, insira os dados de ativação do produto.</h2>
-        
+            <h2>Obrigado por adquirir nosso Gerenciador de Estoque! Por favor, insira os dados de ativação do produto.
+            </h2>
             <label for="cliente">Cliente</label>
             <input type="text" id="cliente">
             <label for="serial-key">Chave Serial</label>
             <input type="text" id="serial-key">
-        
             <!-- Termos de Uso -->
             <div class="termos-uso">
                 <input type="checkbox" id="termos">
                 <label for="termos">Eu aceito os <a href="#">termos de uso</a>.</label>
             </div>
-        
             <!-- Botão desabilitado inicialmente -->
             <button id="ativar-btn" disabled>Ativar Produto</button>
         </div>
-        
         <img class="img-logo" src="../style/img/logoLogin.png" alt="GestãoLite">
         <div class="login-container">
             <h1>Login</h1>
-            <form >
+            <form>
                 <div class="form-group">
                     <label class="label-acess" for="username">Usuário:</label>
-                    <img class="img-cadeado" style="position: absolute; margin-top: .5%;" src="../style/img/user.png" alt="">  <input type="text" id="username" name="username" required autocomplete="off">
+                    <img class="img-cadeado" style="position: absolute; margin-top: .7%;" src="../style/img/user.png"
+                        alt=""> <input type="text" id="username" name="username" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                   Senha:</label>
-                   <label class="label-acess" for="password"><img class="img-cadeado" style="position: absolute;" src="../style/img/cadeado.png" alt=""><input  type="password" id="password" name="password" required autocomplete="off">
+                    Senha:</label>
+                    <label class="label-acess" for="password"><img class="img-cadeado" style="position: absolute;"
+                            src="../style/img/cadeado.png" alt=""><input type="password" id="password" name="password"
+                            required autocomplete="off">
                 </div>
-                <button id="formLogin" >Login</button>
+                <button id="formLogin">Login</button>
             </form>
             <div id="mensagem-licenca"></div>
         </div>
@@ -62,3 +63,5 @@
 </body>
 
 </html>
+
+

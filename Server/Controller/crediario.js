@@ -5,6 +5,8 @@ const {
     updateCrediario,
     getCrediariosMesVigente,
     getCrediariosVencidos,
+    getTaxas,
+    updateTaxas
 } = require(path.join(__dirname, '../../db/model/modelCrediario'));
 
 const controllersCrediario = {
@@ -85,6 +87,17 @@ const controllersCrediario = {
             res.status(500).json({ error: 'Erro ao buscar Crediários' });
         }
     },
+
+    getTaxas: async (req, res) => {
+        try {
+            const taxas = await  getTaxas();  
+            res.json(taxas);
+        } catch (error) {
+            console.error('Erro ao buscar Taxas:', error);
+            res.status(500).json({ error: 'Erro ao buscar Taxas' });
+        }
+    },
+
     getCrediariosVencidos: async (req, res) => {
         try {
             const allCrediario = await  getCrediariosVencidos();  
@@ -105,6 +118,19 @@ const controllersCrediario = {
         } catch (error) {
             console.error('Erro ao alterar Parcela crediário:', error);
             res.status(500).json({ error: 'Erro ao alterar UpdateEstoque.' });
+        }
+    },
+
+    updateTaxas : async (req, res) => {
+        try {
+            const alterTaxa = req.body;
+            await  updateTaxas(alterTaxa); 
+            res.json({
+                message: 'Alterado taxas do Crediario com sucesso!',
+            });
+        } catch (error) {
+            console.error('Erro ao alterar taxas crediário:', error);
+            res.status(500).json({ error: 'Erro ao alterar Updatetaxas.' });
         }
     },
     

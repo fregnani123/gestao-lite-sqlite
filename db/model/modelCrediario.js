@@ -141,7 +141,6 @@ async function getCrediariosMesVigente() {
 
 async function getCrediariosVencidos() {
     await ensureDBInitialized();
-
     try {
         const query = `
             SELECT c.cliente_id, c.nome, c.cpf, c.credito_limite,
@@ -163,4 +162,54 @@ async function getCrediariosVencidos() {
     }
 }
 
-module.exports = { registrarCrediario, getCrediarioByCPF, updateCrediario, getCrediariosMesVigente, getCrediariosVencidos};
+async function getTaxas() {
+    await ensureDBInitialized();
+
+    try {
+        const query = `
+            SELECT * FROM taxa
+        `;
+
+        const stmt = db.prepare(query);
+        const rows = stmt.all();
+        return rows;
+    } catch (error) {
+        console.error('Erro ao buscar crediários pendentes e vencidos:', error.message);
+        throw error;
+    }
+}
+
+async function updateTaxas(dadosTaxas) {
+    await ensureDBInitialized();
+
+    try {
+        const query = `
+          UPDATE taxa 
+          SET 
+          juros_parcela_acima = ?, 
+          juros_crediario_venda = ?,
+          valor_multa_atraso = ?,
+          juros_crediario_atraso = ? 
+          WHERE taxa_id = ?;
+        `;
+
+        const result = db.prepare(query).run(
+            dadosTaxas.juros_parcela_acima,
+            dadosTaxas.juros_crediario_venda,
+            dadosTaxas.valor_multa_atraso,
+            dadosTaxas.juros_crediario_atraso,
+            dadosTaxas.taxa_id
+        );
+
+        console.log('Taxas do crediário atualizado com sucesso:', result.changes);
+        return result.changes;
+    
+    } catch (error) {
+        console.error('Erro ao executar atualizações taxas crediário:', error.message);
+        throw error;
+    }
+
+};
+
+
+module.exports = { registrarCrediario, getCrediarioByCPF, updateCrediario, getCrediariosMesVigente, getCrediariosVencidos, getTaxas,  updateTaxas};

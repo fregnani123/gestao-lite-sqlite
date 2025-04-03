@@ -45,14 +45,15 @@
     margin-bottom: 0.625rem;
     color: #000000;
     width: 100%; 
-    display: inline-block; /* Garante que o texto fique em linha */
+    display: inline-block; 
     text-align: center;
     background-color: rgb(229, 229, 229);
     padding: 2%; 
     margin-top: 3%;
     border-radius: 5px;
     font-weight: normal;
-    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    white-space: nowrap;
+    justify-content: center;
 }
 
 .div-choose {
@@ -202,3 +203,4 @@ h3 {
     font-size: 1.3rem;
     border-bottom: 1px solid white;
 }
+

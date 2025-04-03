@@ -5,6 +5,30 @@ const parcelaValor = document.getElementById('Crediario-valor');
 const nomeClienteShow = document.getElementById('nomeCliente');
 const inputTaxaJuros = document.getElementById('taxa-juros'); // Pegando a taxa de juros
 const vencimentosCrediario = document.getElementById('vencimentos');
+let jurosParcelaAcima = ''
+
+async function getTaxas() {
+    try {
+        const response = await fetch('http://localhost:3000/getTaxas', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        const data = await response.json();
+        inputTaxaJuros.value = data[0].juros_crediario_venda;
+        jurosParcelaAcima = Number(data[0].juros_parcela_acima);
+        inputMaxParcelas.value = jurosParcelaAcima;
+        spanMaxParcelas.innerText = inputMaxParcelas.value;
+       
+        console.log('Taxas Crediário: ', data)
+
+    } catch (error) {
+        console.error('Erro ao buscar Taxas Crediario:', error);
+        return [];
+    }
+};
+
+getTaxas()
 
 async function findCliente(cpf, nomeElemento) {
     const findOneClient = `http://localhost:3000/getCliente/${cpf}`;
@@ -87,8 +111,6 @@ cpfCliente.addEventListener('input', (e) => {
     }
 });
 
-
-
 // Evento para limpar os inputs ao pressionar ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
@@ -111,11 +133,9 @@ function parseCurrency(value) {
 
 function parseCurrency(value) {
     if (!value) return 0;
-
     // Remove pontos e substitui a vírgula pelo ponto para converter corretamente
     return parseFloat(value.replace(/\./g, '').replace(',', '.'));
 }
-
 
 let totalComJuros; // Declara a variável globalmente
 let totalLiquidoOriginal = parseCurrency(inputTotalLiquido.value); // Armazena o valor original antes da alteração
@@ -123,23 +143,32 @@ let totalLiquidoOriginal = parseCurrency(inputTotalLiquido.value); // Armazena o
 parcela.addEventListener('input', (e) => {
     const numeroParcelas = Number(e.target.value.trim());
     const totalLiquido = parseCurrency(inputTotalLiquido.value);
-    let taxaJuros = inputTaxaJuros.value.replace(",", "."); // Corrige a vírgula
-    taxaJuros = parseFloat(taxaJuros) / 100; // Converte para decimal
+    let taxaJuros = parseFloat(inputTaxaJuros.value.replace(",", ".")) || 0.000001; // Garante que seja um número válido
+
+    if (numeroParcelas > jurosParcelaAcima) {
+        taxaJuros = parseFloat(inputTaxaJuros.value.replace(",", ".")) / 100;
+    } else {
+        taxaJuros = 0; // Sem juros se for menor ou igual à quantidade configurada
+    }
 
     if (!isNaN(numeroParcelas) && numeroParcelas > 0 && !isNaN(totalLiquido) && !isNaN(taxaJuros)) {
         // Salva o valor antes de calcular os juros
         totalLiquidoOriginal = totalLiquido;
 
         // Aplica a fórmula correta para o cálculo de juros compostos
-        const fatorJuros = Math.pow(1 + taxaJuros, numeroParcelas);
-        const parcelaValorCalculada = (totalLiquido * (fatorJuros * taxaJuros) / (fatorJuros - 1)).toFixed(2);
+        if (taxaJuros > 0) {
+            const fatorJuros = Math.pow(1 + taxaJuros, numeroParcelas);
+            parcelaValor.value = ((totalLiquido * (fatorJuros * taxaJuros)) / (fatorJuros - 1)).toFixed(2);
+        } else {
+            parcelaValor.value = (totalLiquido / numeroParcelas).toFixed(2); // Caso não tenha juros
+        }
 
-        parcelaValor.value = parcelaValorCalculada;
-        totalComJuros = parcelaValorCalculada * numeroParcelas;
+        totalComJuros = parseFloat(parcelaValor.value) * numeroParcelas;
         Crediario.value = converteMoeda(totalComJuros);
     } else {
         parcelaValor.value = "";
         totalComJuros = null;
+        Crediario.value = "";
     }
 });
 

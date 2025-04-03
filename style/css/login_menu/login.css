@@ -248,3 +248,6 @@ button:hover {
     justify-content: left;
    
 }
+#username,#password{
+    padding: 5%;    
+    }

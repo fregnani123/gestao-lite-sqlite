@@ -55,6 +55,11 @@ const divDesconto = document.querySelector('.desconto-venda');
 const divPagamento = document.querySelector('.payment-form-section');
 const divAlterarCliente = document.querySelector('.alterarCliente')
 const nomeProduto = document.querySelector('.nomeProduto');
+const infoPag = document.getElementById('info-pag');
+const infoPagCred = document.getElementById('info-cred');
+const inputMaxParcelas = document.getElementById('numeroParcela');
+const spanMaxParcelas= document.getElementById('spanMaxParcelas');
+
 // Estado do carrinho
 let carrinho = [];
 
@@ -62,6 +67,7 @@ let carrinho = [];
 codigoEan.focus();
 
 document.addEventListener('DOMContentLoaded', () => {
+    inputMaxCaracteres(CrediarioParcela,2)
     const numeroPedido = document.querySelector('#numero-pedido');
     getVenda(numeroPedido);
     const codigoEan = document.querySelector('#codigo');
@@ -111,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     divPagamento.style.display = 'block';
                     showOnlyThisDiv(divValorDinheiro);
                     valorDinheiro.focus();
+                    infoPag.style.display = 'flex';
+                    infoPagCred.style.display = 'none'
                 }
                 break;
 
@@ -122,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showOnlyThisDiv(divPIX);
                     PIX.value = inputTotalLiquido.value;
                     PIX.focus();
+                    infoPag.style.display = 'flex';
+                    infoPagCred.style.display = 'none'
                 }
                 break;
 
@@ -133,6 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showOnlyThisDiv(divCartaoCredito);
                     CartaoCredito.value = inputTotalLiquido.value
                     CartaoCredito.focus();
+                    infoPag.style.display = 'flex';
+                    infoPagCred.style.display = 'none'
                 }
                 break;
 
@@ -144,6 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showOnlyThisDiv(divCartaoDebito);
                     CartaoDebito.value = inputTotalLiquido.value
                     CartaoDebito.focus();
+                    infoPag.style.display = 'flex';
+                    infoPagCred.style.display = 'none'
                 }
                 break;
 
@@ -175,9 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     vencimentosCrediario.value = `${ano}-${mes}-${dia}`;
 
                     CrediarioCliente.focus();
-                    informacaoCred.innerHTML = 'Informe o CPF do cliente já cadastrado no sistema.';
-                    informacaoCred.style.backgroundColor = 'yellow';
+                    informacaoCred.innerHTML = '⚠️ Informe o CPF do cliente já cadastrado no sistema.';
+                    informacaoCred.style.backgroundColor = 'rgba(255, 255, 0, 0.196)';
                     informacaoCred.style.color = 'black';
+                    infoPag.style.display = 'none';
+                    infoPagCred.style.display = 'flex'
                 }
                 break;
 
