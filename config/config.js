@@ -44,7 +44,12 @@ const cadastroUsuario = document.getElementById('btn-flex');
 const divJuros = document.getElementById('div-juros');
 const btnAlterarJuros = document.getElementById('juros');
 const btnExitJuros = document.getElementById('btn-exit-juros');
-
+const numeroMaxParcela = document.getElementById('numero-max-parcela');
+const taxaJuros = document.getElementById('taxa-juros');
+const multaParcela = document.getElementById('multaParcela');
+const taxaJurosAtraso = document.getElementById('taxaJurosAtraso');
+const idTaxas = document.getElementById('idTaxas');
+const btnAtualizarTaxas = document.getElementById('atualizar-juros');
 
 function estilizarLinkAtivo(elemento) {
     document.querySelectorAll('.btn').forEach(btn => estilizarLinkInativo(btn));
@@ -240,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputMaxCaracteres(slogan, 48);
     inputMaxCaracteres(pathImg, 30);
     getUserAtualizar();
+    getTaxasConfig();
 })
 
 // Ocultar elementos do menu secundário se existirem
@@ -365,7 +371,6 @@ btnSenha.addEventListener('click', (e) => {
         id: id.value
     };
     updateUsuarioSenha(usuarioAtualizar);
-
 });
 
 btnAtulizarSenha.addEventListener('click', (e) => {
@@ -431,6 +436,68 @@ btnAtualizarUser.addEventListener('click', (e) => {
     };
 
     updateUsuario(usuarioAtualizar);
+});
+
+btnSenha.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (!novaSenha.value || !repetirSenha.value) {
+        alertMsg("Os campos de senha não podem estar vazios", "info", 4000);
+        return;
+    }
+
+    if (repetirSenha.value !== novaSenha.value) {
+        alertMsg("As senhas são diferentes", "info", 4000);
+        return;
+    }
+
+    const usuarioAtualizar = {
+        nome_fantasia: nomeFantasia.value,
+        razao_social: razaoSocial.value,
+        cep: cep.value,
+        endereco: endereco.value,
+        numero: numero.value || null,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        contato: contato.value,
+        cnpj_cpf: cnpjCpf.value,
+        inscricao_estadual: ie.value || null,
+        email: email.value,
+        site: site.value || null,
+        usuario: novoUsuario.value,
+        senha: novaSenha.value,
+        tipo_usuario: tipoUsuario.value,
+        slogan: slogan.value || null,
+        path_img: pathImg.value || null,
+        ativo: ativo.value ?? 1,
+        contribuinte: contribuinte.value,
+        atividade: atividade.value,
+        senha_venda: document.querySelector('input[name="senha"]:checked')?.value || null, // Obtém o valor do rádio 
+        id: id.value
+    };
+    updateUsuarioSenha(usuarioAtualizar);
+});
+
+formatarMoedaBRL(multaParcela);
+
+btnAtualizarTaxas.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Função para converter o formato brasileiro para número
+    function converterParaNumero(valor) {
+        return parseFloat(valor.replace(/\./g, '').replace(',', '.')) || 0;
+    }
+
+    const atualizarTaxas = {
+        juros_parcela_acima: numeroMaxParcela.value,
+        juros_crediario_venda: taxaJuros.value,
+        valor_multa_atraso: converterParaNumero(multaParcela.value), // Converte antes de enviar
+        juros_crediario_atraso: taxaJurosAtraso.value,
+        taxa_id: idTaxas.value
+    };
+
+    updateTaxas(atualizarTaxas);
 });
 
 

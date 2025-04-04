@@ -142,8 +142,6 @@ function formatarCPF(valor) {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
-
-// Função para limitar caracteres no campo de entrada
 // Função para limitar caracteres e impedir números negativos
 function inputMaxCaracteres(input, maxLength) {
     input.addEventListener("input", function () {
@@ -158,7 +156,6 @@ function inputMaxCaracteres(input, maxLength) {
         }
     });
 }
-
 
 // Função para formatar o CNPJ (ex: XX.XXX.XXX/XXXX-XX)
 function formatarCNPJ(input) {

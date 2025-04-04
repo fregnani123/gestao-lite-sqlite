@@ -5,19 +5,51 @@ const credito = document.getElementById('credito');
 const creditoUtilizado = document.getElementById('credito-utilizado');
 const linkID_5 = document.querySelector('.list-a5');
 const limparButtonFilter = document.getElementById('limparButton');
+const multaSpan = document.getElementById('multaSpan');
+const moraSpan = document.getElementById('moraSpan');
 
 function estilizarLinkAtivo(linkID) {
     linkID.style.background = '#ffcc00'; // Cor de fundo
     linkID.style.textShadow = 'none'; // Sem sombra de texto
     linkID.style.color = 'black'; // Cor do texto
     linkID.style.borderBottom = '2px solid black'; // Borda inferior
-    
+
 }
 estilizarLinkAtivo(linkID_5);
 
 
+let multaParcela = '';
+let taxaJurosAtraso = '';
+
+
+async function getTaxasCred() {
+    try {
+        const response = await fetch('http://localhost:3000/getTaxas', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        const data = await response.json();
+
+        multaParcela =  data[0].valor_multa_atraso;
+        taxaJurosAtraso = data[0].juros_crediario_atraso;
+      
+        moraSpan.innerText = taxaJurosAtraso;
+        multaSpan.innerText =converteMoeda(multaParcela);
+
+        console.log('Taxas Crediário: ', data)
+
+    } catch (error) {
+        console.error('Erro ao buscar Taxas Crediario:', error);
+        return [];
+    }
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
     inputCpfCliente.focus();
+    getTaxasCred()
+   
 });
 
 formatarEVerificarCPF(inputCpfCliente);
@@ -42,7 +74,7 @@ async function getCrediarioCpf(cpf) {
         nomeClienteFiltrado.value = data[0].nome || 'N/A';
         credito.value = data[0].credito_limite ? converteMoeda(data[0].credito_limite) : '0,00';
         creditoUtilizado.value = data[0].credito_utilizado ? converteMoeda(data[0].credito_utilizado) : '0,00';
-    
+
 
         renderizarTabela(); // Atualiza a tabela imediatamente
 
@@ -160,40 +192,61 @@ function renderizarTabela() {
         // Se os status forem iguais, ordenar por data de vencimento
         return new Date(a.data_vencimento) - new Date(b.data_vencimento);
     });
-    
+
     parcelas.forEach((p) => {
         GlobalClienteID = p.cliente_id;
         const tr = document.createElement('tr');
-        let multaComJuros = 0;
+    
+        let multa = 0;
+        let juros = 0;
+        let totalComMulta = p.valor_parcela;
         const dataVencimento = new Date(p.data_vencimento);
         const hoje = new Date();
-
+    
         if (dataVencimento < hoje) {
-            const mesesDeAtraso = Math.floor((hoje - dataVencimento) / (1000 * 60 * 60 * 24 * 30));
-            const juros = p.valor_parcela * (0.01 * mesesDeAtraso);
-            const multaFixa = 2.0;
-            multaComJuros = (juros + multaFixa).toFixed(2);
+            multa = parseFloat(multaParcela); // Multa fixa (aplicada uma vez)
+    
+            // Cálculo de meses completos de atraso
+            let mesesAtraso = (hoje.getFullYear() - dataVencimento.getFullYear()) * 12 +
+                              (hoje.getMonth() - dataVencimento.getMonth());
+    
+            // Se o dia do mês atual for menor que o do vencimento, considera que ainda não fechou o mês
+            if (hoje.getDate() < dataVencimento.getDate()) {
+                mesesAtraso--;
+            }
+    
+            // Garante que o número de meses não fique negativo
+            mesesAtraso = Math.max(0, mesesAtraso);
+    
+            juros = p.valor_parcela * (taxaJurosAtraso / 100) * mesesAtraso;
+    
+            totalComMulta = p.valor_parcela + multa + juros;
+    
+            console.log(`Venda ${p.venda_id} | Parcela ${p.parcela_numero}`);
+            console.log(`Meses de atraso: ${mesesAtraso}`);
+            console.log(`Multa: R$ ${multa.toFixed(2)} | Juros: R$ ${juros.toFixed(2)} | Total: R$ ${totalComMulta.toFixed(2)}`);
         }
-
+    
         tr.innerHTML = `
             <td>${p.venda_id}</td>
             <td>${p.parcela_numero}</td>
             <td>R$ ${p.valor_parcela.toFixed(2)}</td>
-            <td>R$ ${multaComJuros || '0.00'}</td>
-           <td>R$ ${((parseFloat(multaComJuros) || 0) + p.valor_parcela).toFixed(2)}</td>
+            <td>R$ ${converteMoeda(multa)}</td>
+            <td>R$ ${converteMoeda(totalComMulta)}</td>
             <td>${validarDataVenda(p.data_vencimento)}</td>
             <td>${p.data_pagamento ? validarDataVenda(p.data_pagamento) : '-'}</td>
             <td>${p.status}</td>
             <td>${p.status === 'PENDENTE' ? `<div class='divBtn'><button class="pagar-btn" data-id="${p.crediario_id}">Baixar</button>` : '-'}</div></td>
         `;
-
+    
         tbody.appendChild(tr);
-
+    
         if (dataVencimento < hoje && p.status !== 'Paga') {
             tr.style.background = 'red';
             tr.style.color = 'white';
         }
     });
+    
 
     table.appendChild(tbody);
     div.appendChild(table);
@@ -201,46 +254,46 @@ function renderizarTabela() {
     function formatarParaNumero(valor) {
         return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
     }
-    
 
     document.querySelectorAll('.pagar-btn').forEach((button) => {
-    button.addEventListener('click', async function () {
-        const crediarioId = this.getAttribute('data-id');
-        const tr = this.closest('tr'); // Pega a linha correspondente ao botão
-        const valorParcela = parseFloat(tr.children[2].textContent.replace('R$ ', '').replace(',', '.')); // Obtém o valor correto da parcela
+        button.addEventListener('click', async function () {
+            const crediarioId = this.getAttribute('data-id');
+            const tr = this.closest('tr'); // Pega a linha correspondente ao botão
+            const valorParcela = parseFloat(tr.children[2].textContent.replace('R$ ', '').replace(',', '.')); // Obtém o valor correto da parcela
 
-        const dataVencimento = tr.children[5].textContent;
-        const multa = tr.children[3].textContent.replace('R$ ', '').replace(',', '.');
+            const dataVencimento = tr.children[5].textContent;
+            const multa = tr.children[3].textContent.replace('R$ ', '').replace(',', '.');
 
-        const dataParcela = {
-            data_pagamento: dataVencimento,
-            status: 'Paga',
-            multa_atraso: parseFloat(multa) || 0,
-            crediario_id: parseInt(crediarioId),
-        };
+            const dataParcela = {
+                data_pagamento: dataVencimento,
+                status: 'Paga',
+                multa_atraso: parseFloat(multa) || 0,
+                crediario_id: parseInt(crediarioId),
+            };
 
-        const retornarSaldoCli = {
-            credito_limite: formatarParaNumero(credito.value),
-            credito_utilizado: (formatarParaNumero(creditoUtilizado.value) - valorParcela).toFixed(2),
-            cliente_id: GlobalClienteID,
-        };
-        
+            const retornarSaldoCli = {
+                credito_limite: formatarParaNumero(credito.value),
+                credito_utilizado: (formatarParaNumero(creditoUtilizado.value) - valorParcela).toFixed(2),
+                cliente_id: GlobalClienteID,
+            };
 
-        console.log('Enviando dados para atualização:', dataParcela);
 
-        alertMsg('Parcela paga!', 'success', 3000);
-       await baixarCrediario(dataParcela);
-       await updateCredito(retornarSaldoCli);
+            console.log('Enviando dados para atualização:', dataParcela);
 
-          // Aguarda um tempo para garantir que o banco de dados foi atualizado antes de atualizar a tela
-          setTimeout(() => {
-            btnFiltrarCrediario.click();
-        }, 2000); // Tempo de 1 segundo (ajuste conforme necessário)
+            alertMsg('Parcela paga!', 'success', 3000);
+            await baixarCrediario(dataParcela);
+            await updateCredito(retornarSaldoCli);
+
+            // Aguarda um tempo para garantir que o banco de dados foi atualizado antes de atualizar a tela
+            setTimeout(() => {
+                btnFiltrarCrediario.click();
+            }, 2000); // Tempo de 1 segundo (ajuste conforme necessário)
+        });
     });
-});
 
 };
 
-limparButtonFilter.addEventListener('click',()=>{
+limparButtonFilter.addEventListener('click', () => {
     location.reload();
 });
+

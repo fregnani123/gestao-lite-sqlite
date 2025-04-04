@@ -119,10 +119,11 @@
         </div>
         <div id="div-juros">
             <div id="div-form-venda">
+                <input type="hidden" id="idTaxas" value="0,00" readonly >
                 <span id="btn-exit-juros">x</span>
                 <p class="titulo-senha"><strong>Alterar Taxas Crediário</strong></p>
                 <label class="label-juros" for="">Aplicar juros na venda Crediário:</label>
-                <select name="" id="">
+                <select name="" id="numero-max-parcela">
                     <option value="0">Acima de 0x</option>
                     <option value="1">Acima de 1x</option>
                     <option value="2">Acima de 2x</option>
@@ -151,32 +152,33 @@
                 </select>
 
                 <label class="label-juros" for="usuario">Juros aplicados sobre a venda:</label>
-                <select name="" id="">
+                <select name="" id="taxa-juros">
                     <option value="0">Taxa de juros 0.0%</option>
                     <option value="0.5">Taxa de juros 0.5%</option>
-                    <option value="1.0">Taxa de juros 1.0%</option>
+                    <option value="1">Taxa de juros 1.0%</option>
                     <option value="1.5">Taxa de juros 1.5%</option>
                     <option value="1.6">Taxa de juros 1.6%</option>
                     <option value="1.7">Taxa de juros 1.7%</option>
                     <option value="1.8">Taxa de juros 1.8%</option>
                     <option value="1.9">Taxa de juros 1.9%</option>
-                    <option value="2.0">Taxa de juros 2.0%</option>
+                    <option value="2">Taxa de juros 2.0%</option>
                 </select>
 
-                <label class="label-juros" for="nova-senha">Multa por Atraso:</label>
-                <input type="" id="" value="0,00">
+                <label class="label-juros" for="nova-senha">Multa por Atraso (R$):</label>
+                <input type="" id="multaParcela" value="0,00">
+
 
                 <label class="label-juros" for="">Juros de Mora:</label>
-                <select name="" id="">
+                <select name="" id="taxaJurosAtraso">
                     <option value="0">Taxa de juros 0.0%</option>
                     <option value="0.5">Taxa de juros 0.5%</option>
-                    <option value="1.0">Taxa de juros 1.0%</option>
+                    <option value="1">Taxa de juros 1.0%</option>
                     <option value="1.5">Taxa de juros 1.5%</option>
                     <option value="1.6">Taxa de juros 1.6%</option>
                     <option value="1.7">Taxa de juros 1.7%</option>
                     <option value="1.8">Taxa de juros 1.8%</option>
                     <option value="1.9">Taxa de juros 1.9%</option>
-                    <option value="2.0">Taxa de juros 2.0%</option>
+                    <option value="2">Taxa de juros 2.0%</option>
                 </select>
                 <div class="">
                     <button id="atualizar-juros"><img class="img-disquete"

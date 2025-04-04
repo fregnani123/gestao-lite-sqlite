@@ -2,6 +2,7 @@ const apiEndpointUsers = {
     postApiUser: 'http://localhost:3000/postNewUsuario',
     getApiUser: 'http://localhost:3000/getUsuario',
     updateApiUser: 'http://localhost:3000/UpdateUsuario',
+    updateTaxas: 'http://localhost:3000/updateTaxas',
 };
 
 
@@ -258,6 +259,59 @@ async function updateUsuarioSenha(usuarioId) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(usuarioId),
+        });
+
+        if (!patchResponse.ok) {
+            alertMsg('Erro ao atualizar Usuário e Senha', 'info', 3000);
+        } else {
+            alertMsg('Usuário e Senha atualizado com sucesso', 'success', 3000);
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+    } catch (error) {
+        alertMsg('Erro durante a atualização do usuário:', 'error', 2000);
+        consol.log('Erro durante a atualização do usuário:', error);
+    }
+};
+
+
+async function getTaxasConfig() {
+    try {
+        const response = await fetch('http://localhost:3000/getTaxas', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        const data = await response.json();
+        let valorMoeda = data[0].valor_multa_atraso;
+       
+        numeroMaxParcela.value =  Number(data[0].juros_parcela_acima);
+        taxaJuros.value = data[0].juros_crediario_venda;
+        multaParcela.value = converteMoeda(valorMoeda)
+        taxaJurosAtraso.value = data[0].juros_crediario_atraso;
+        idTaxas.value = data[0].taxa_id;
+
+
+        console.log('Taxas Crediário: ', data)
+
+    } catch (error) {
+        console.error('Erro ao buscar Taxas Crediario:', error);
+        return [];
+    }
+};
+
+
+async function updateTaxas(taxas) {
+    const UpdateTaxas = apiEndpointUsers.updateTaxas;
+
+    try {
+        const patchResponse = await fetch(UpdateTaxas, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(taxas),
         });
 
         if (!patchResponse.ok) {
