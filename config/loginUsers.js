@@ -27,12 +27,14 @@ let senhaCodificada = '';
 let usuaroiCod  = '';
 
 async function getUser() {
+    
     const getUserApi = 'http://localhost:3000/getUsuario';
 
     try {
         const response = await fetch(getUserApi, {
             method: 'GET',
             headers: {
+                'x-api-key':  'segredo123',
                 'Content-Type': 'application/json',
             },
         });

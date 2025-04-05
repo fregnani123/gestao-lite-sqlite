@@ -4,6 +4,7 @@ async function postNewGrupoProduto(newGrupoData) {
     fetch(postNewGrupoProdutoData, {
         method: 'POST',
         headers: {
+              'x-api-key': 'segredo123',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(newGrupoData),
@@ -31,6 +32,7 @@ async function postNewSubGrupoProduto(newSubGrupoData) {
     fetch(postNewSubGrupoProdutoData, {
         method: 'POST',
         headers: {
+              'x-api-key': 'segredo123',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(newSubGrupoData),
@@ -56,6 +58,7 @@ async function postNewCorProduto(newCorData) {
     fetch(postNewCorProdutoData, {
         method: 'POST',
         headers: {
+              'x-api-key': 'segredo123',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(newCorData),

@@ -283,7 +283,12 @@ filtrarHistorico.addEventListener('click', async (e) => {
 
     try {
         // Busca os agendamentos na API
-        const response = await fetch('http://localhost:3000/getAgenda');
+        const response = await fetch('http://localhost:3000/getAgenda', {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123'
+            }
+        });
         if (!response.ok) {
             throw new Error(`Erro na requisição: ${response.status}`);
         }

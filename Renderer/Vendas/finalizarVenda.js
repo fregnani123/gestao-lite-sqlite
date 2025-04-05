@@ -14,7 +14,10 @@ async function findClienteAlterar(cpf) {
     try {
         const response = await fetch(findOneClient, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+               'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
+            }
         });
 
         // Verifica se a resposta não está OK antes mesmo de tentar convertê-la

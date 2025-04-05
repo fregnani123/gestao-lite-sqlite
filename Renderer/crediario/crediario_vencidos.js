@@ -4,7 +4,13 @@ async function getCrediariosVencidos() {
     const dataCliente = `http://localhost:3000/getCrediariosVencidos`;
 
     try {
-        const response = await fetch(dataCliente);
+        const response = await fetch(dataCliente, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
+            }
+        });
 
         if (!response.ok) {
             alertMsg('CPF digitado não foi encontrado para compras no crediário.', 'info', 4000);

@@ -17,7 +17,13 @@ let produtoFilter = []; // Array para armazenar os produtos retornados da API
 
 // Função para buscar todos os produtos
 function fetchAllProdutos() {
-    fetch(apiEndpointsAlterar.getAllProdutos)
+    fetch(apiEndpointsAlterar.getAllProdutos, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             produtoFilter = data; // Armazena os produtos no array global
@@ -114,7 +120,13 @@ function filterProdutoEan(codigoEan) {
 function getFornecedor(fornecedorId) {
     const url = 'http://localhost:3000/fornecedor';
 
-    fetch(url)
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
 
@@ -236,6 +248,7 @@ async function updateProduto(produto) {
         const patchResponse = await fetch(apiEndpointsAlterar.updateProduto, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(produto),
@@ -260,7 +273,11 @@ async function uploadImagem(imagemFile) {
 
         const uploadResponse = await fetch(apiEndpointsAlterar.uploadImagem, {
             method: 'POST',
-            body: formData,
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
+            },
+            body: formData
         });
 
         if (!uploadResponse.ok) {
@@ -273,6 +290,7 @@ async function uploadImagem(imagemFile) {
         console.log('Erro no envio da imagem:', error);
     }
 }
+
 
 
 let inputFile = document.getElementById('produto-imagem');

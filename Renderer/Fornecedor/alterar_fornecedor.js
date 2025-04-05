@@ -69,7 +69,13 @@ cnpj.addEventListener('input', () => {
 function getFornecedores() {
     const getFornecedor = 'http://localhost:3000/fornecedor';
 
-    fetch(getFornecedor)
+    fetch(getFornecedor, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const fornecedorEncontrado = data.find(fornecedor => fornecedor.cnpj === cnpj.value);
@@ -172,6 +178,7 @@ async function UpdateFornecedor(fornecedorId) {
         const patchResponse = await fetch(UpdateFornecedorUrl, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(fornecedorId),

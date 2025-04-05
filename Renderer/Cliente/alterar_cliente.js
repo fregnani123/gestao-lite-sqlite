@@ -53,43 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// pessoa.addEventListener('change', () => {
-//     const labelCnpjCPF = document.getElementById('label_cnpj_cpf');
-//     const label_razao = document.getElementById('label_razao');
-
-//     if (pessoa.value === "juridica") {
-//         cnpj.value = '';
-//         cnpj.removeAttribute('readonly'); 
-//         razaoSocial.removeAttribute('readonly'); 
-//         formatarCNPJ(cnpj);
-//         inputMaxCaracteres(cnpj, 18);
-//         labelCnpjCPF.innerHTML = 'CNPJ';
-//         label_razao.innerHTML = 'Razão Social';
-//         contribuinte.removeAttribute('disabled');
-//         nomeFantasia.removeAttribute('readonly');
-//         contribuinte.value = 'isento';
-//         cnpj.focus();
-//     } else if (pessoa.value === "fisica") {
-//         cnpj.value = '';
-//         cnpj.removeAttribute('readonly'); // Remove o atributo readonly
-//         razaoSocial.removeAttribute('readonly'); 
-//         nomeFantasia.setAttribute('readonly',true);
-//         nomeFantasia.value = razaoSocial.value
-//         contribuinte.value = 'isento';
-//         formatarEVerificarCPF(cnpj);
-//         inputMaxCaracteres(cnpj, 14);
-//         labelCnpjCPF.innerHTML = 'CPF';
-//         label_razao.innerHTML = 'Nome';
-//         cnpj.focus();
-//     } else {
-//         cnpj.value = '';
-//         labelCnpjCPF.innerHTML = 'CNPJ / CPF';
-//         label_razao.innerHTML = 'Razão Social / Nome';
-//         cnpj.setAttribute('readonly', 'true'); // Corrigido para ativar readonly corretamente
-//     }
-// });
-
-
 creditoLiberado.addEventListener('input', () => {
     let valor = creditoLiberado.value.replace(/\D/g, ""); // Remove tudo que não for número
     let numero = Number(valor) / 100; // Converte para decimal
@@ -106,7 +69,9 @@ async function findCliente(cpf) {
     try {
         const response = await fetch(findOneClient, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' }
         });
 
         if (!response.ok) {
@@ -215,6 +180,7 @@ async function updateCliente(clienteId) {
         const patchResponse = await fetch(updateCliente, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(clienteId), // Apenas serialize aqui

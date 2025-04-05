@@ -21,7 +21,14 @@ const apiEndpoints = {
 function getGrupo(renderer) {
     const getGrupo = apiEndpoints.getGrupo;
 
-    fetch(getGrupo)
+    fetch(getGrupo, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             // Ordenar os dados em ordem alfabética com base no nome do grupo
@@ -39,12 +46,18 @@ function getGrupo(renderer) {
         .catch(error => {
             console.error('Erro ao buscar dados:', error);
         });
-}
-
+} 
 function getSubGrupo(renderer) {
     const getSubGrupo = apiEndpoints.getSubGrupo;
 
-    fetch(getSubGrupo)
+    fetch(getSubGrupo, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             // Ordenar os subgrupos em ordem alfabética com base no nome do subgrupo
@@ -67,7 +80,14 @@ function getSubGrupo(renderer) {
 function getunidadeEstoque(renderer) {
     const getEstoque = apiEndpoints.getunidadeEstoque;
 
-    fetch(getEstoque)
+    fetch(getEstoque, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((unidadeEstoque) => {
@@ -87,7 +107,14 @@ function getunidadeEstoque(renderer) {
 function getFornecedor(renderer, cnpjFilter) {
     const getFornecedor = apiEndpoints.getFornecedor;
 
-    fetch(getFornecedor)
+    fetch(getFornecedor, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             // Limpa as opções anteriores do select
@@ -113,7 +140,14 @@ function getFornecedor(renderer, cnpjFilter) {
 function getTamanhoLetras(renderer) {
     const getTamanho = apiEndpoints.getTamanhoLetras;
 
-    fetch(getTamanho)
+    fetch(getTamanho, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((tamanho) => {
@@ -132,7 +166,14 @@ function getTamanhoLetras(renderer) {
 function getunidadeDeMassa(renderer) {
     const getunidadeDeMassa = apiEndpoints.getunidadeDeMassa;
 
-    fetch(getunidadeDeMassa)
+    fetch(getunidadeDeMassa, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((unMassa) => {
@@ -152,7 +193,14 @@ function getunidadeDeMassa(renderer) {
 function getTamanhoNumeros(renderer) {
     const getTamanho = apiEndpoints.getTamanhoNumeros;
 
-    fetch(getTamanho)
+    fetch(getTamanho, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((tamanho) => {
@@ -171,7 +219,14 @@ function getTamanhoNumeros(renderer) {
 function getunidadeComprimento(renderer) {
     const getComprimento = apiEndpoints.getunidadeComprimento;
 
-    fetch(getComprimento)
+    fetch(getComprimento, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((comprimento) => {
@@ -190,7 +245,14 @@ function getunidadeComprimento(renderer) {
 function getunidadeEstoque(renderer) {
     const getEstoque = apiEndpoints.getunidadeEstoque;
 
-    fetch(getEstoque)
+    fetch(getEstoque, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((unidadeEstoque) => {
@@ -209,7 +271,14 @@ function getunidadeEstoque(renderer) {
 function getMedidaVolume(renderer) {
     const getVolume = apiEndpoints.getMedidaVolume;
 
-    fetch(getVolume)
+    fetch(getVolume, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.forEach((medida) => {
@@ -228,7 +297,14 @@ function getMedidaVolume(renderer) {
 function getCorProduto(renderer) {
     const getCorProduto = apiEndpoints.getCorProduto;
 
-    fetch(getCorProduto)
+    fetch(getCorProduto, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             // Ordenar os dados em ordem alfabética com base no nome da cor
@@ -259,7 +335,10 @@ async function postNewProdutoWithImage(produtoData, selectedFile) {
     try {
         const response = await fetch(apiEndpoint, {
             method: 'POST',
-            body: formData,
+            headers: {
+                'x-api-key': 'segredo123'
+            },
+            body: formData
         });
 
         if (!response.ok) {

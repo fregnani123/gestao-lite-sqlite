@@ -6,7 +6,9 @@ async function getProdutoEstoque(codigoDeBarras) {
         // Faz a requisição para o endpoint
         const response = await fetch(getOneProductUrl, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' },
         });
 
         // Verifica se a resposta não está OK
@@ -63,6 +65,7 @@ async function postMovimentarEstoque(movimentacaoEstoque) {
         const response = await fetch(postEstoqueDbEndpoint, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(movimentacaoEstoque), 
@@ -87,6 +90,7 @@ async function updateEstoque(produto) {
         const patchResponse = await fetch( updateEstoque, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(produto), // Apenas serialize aqui
@@ -108,6 +112,7 @@ async function UpdateValores(produto) {
         const patchResponse = await fetch( updateEstoque, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(produto), // Apenas serialize aqui

@@ -28,7 +28,13 @@ async function getUltimoPedidoImprimirFolha(numero_pedido_imprimir) {
     }
 
     try {
-        const response = await fetch(ultimoPedidoImprimir);
+        const response = await fetch(ultimoPedidoImprimir, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

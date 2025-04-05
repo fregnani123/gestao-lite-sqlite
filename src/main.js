@@ -112,3 +112,4 @@ ipcMain.handle('imprimir-venda', () => {
         }
     });
 });
+

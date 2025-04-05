@@ -53,7 +53,13 @@ btnFiltrar.addEventListener('click', () => {
 
 // Ajuste em `fetchAllProdutos`
 function fetchAllProdutos(callback) {
-    fetch(apiEndpoints.getAllProdutos)
+    fetch(apiEndpoints.getAllProdutos, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             allProducts = data;
@@ -68,6 +74,7 @@ async function desativarProduto(produto) {
      const patchResponse = await fetch(apiEndpoints.updateDesativarProduto , {
          method: 'PATCH',
          headers: {
+             'x-api-key': 'segredo123',
              'Content-Type': 'application/json',
          },
          body: JSON.stringify(produto), // Apenas serialize aqui

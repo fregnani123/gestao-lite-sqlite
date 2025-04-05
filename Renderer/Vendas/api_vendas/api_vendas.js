@@ -10,7 +10,13 @@ const apiEndpoints = {
 
 async function getunidadeEstoqueVendas(id) {
     try {
-        const response = await fetch(apiEndpoints.getunidadeEstoque);
+        const response = await fetch(apiEndpoints.getunidadeEstoque, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
+            }
+        });
         const data = await response.json();
 
         const unidadeEstoque = data.find(unidade => unidade.unidade_estoque_id === id);
@@ -28,7 +34,11 @@ const path = require('path');
 async function getProduto(descricaoElement, codigoEan, precoVendaElement) {
     try {
         const getOneProduct = `${apiEndpoints.findOneProduct}/${codigoEan}`;
-        const response = await fetch(getOneProduct, { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch(getOneProduct, 
+            { method: 'GET', 
+              headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' } });
 
         if (!response.ok) {
             alertMsg('Produto não encontrado. Por favor, verifique se o item está cadastrado corretamente.', 'orange', 4000);
@@ -113,7 +123,8 @@ async function postVendaDb(vendaData) {
         const response = await fetch(postVendaDbEndpoint, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(vendaData), // Envia os dados de venda no corpo da requisição
         });
@@ -143,7 +154,13 @@ async function getVenda(inputElement) {
     const getVendaEndpoint = apiEndpoints.getVenda;
 
     try {
-        const response = await fetch(getVendaEndpoint);
+        const response = await fetch(getVendaEndpoint, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
+            }
+        });
 
         if (!response.ok) {
             throw new Error(`Erro na resposta da API: ${response.status} ${response.statusText}`);
@@ -187,7 +204,8 @@ async function updateEstoque(produto) {
         const patchResponse = await fetch(apiEndpoints.updateEstoque, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+               'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(produto), // Apenas serialize aqui
         });
@@ -205,7 +223,13 @@ async function updateEstoque(produto) {
 async function getUltimoPedidoImprimir(numero_pedido_imprimir) {
     const ultimoPedidoImprimir = `http://localhost:3000/getVendaPorNumeroPedido/${numero_pedido_imprimir}`;
 
-    fetch(ultimoPedidoImprimir)
+    fetch(ultimoPedidoImprimir, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

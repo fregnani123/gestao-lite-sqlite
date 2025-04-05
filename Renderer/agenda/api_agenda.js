@@ -103,7 +103,13 @@ async function buscarAgendamentos() {
     const urlAgendamentos = 'http://localhost:3000/getAgenda';
 
     try {
-        const response = await fetch(urlAgendamentos);
+        const response = await fetch(urlAgendamentos, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json'
+            }
+        });
         if (!response.ok) {
             throw new Error(`Erro na requisição: ${response.status}`);
         }
@@ -126,7 +132,9 @@ async function findCliente(cpf) {
     try {
         const response = await fetch(findOneClient, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' }
         });
 
         if (!response.ok) {
@@ -172,6 +180,7 @@ async function postNewAgendamento(produtoData) {
         const response = await fetch(apiEndpoint, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(produtoData),
@@ -205,6 +214,7 @@ async function updateCliente(agendamentoId) {
         const patchResponse = await fetch(updateCliente, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(agendamentoId), // Apenas serialize aqui

@@ -5,7 +5,6 @@ const apiEndpointUsers = {
     updateTaxas: 'http://localhost:3000/updateTaxas',
 };
 
-
 // Função para adicionar o usuário
 async function postConfigUser(usuario) {
     const postUser = apiEndpointUsers.postApiUser;
@@ -14,6 +13,7 @@ async function postConfigUser(usuario) {
         const response = await fetch(postUser, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(usuario),
@@ -88,6 +88,7 @@ async function getUser() {
         const response = await fetch(getUserApi, {
             method: 'GET',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
         });
@@ -138,6 +139,7 @@ async function getUserAtualizar() {
         const response = await fetch(getUserApi, {
             method: 'GET',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
         });
@@ -230,6 +232,7 @@ async function updateUsuario(usuarioId) {
         const patchResponse = await fetch(UpdateUser, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(usuarioId),
@@ -256,6 +259,7 @@ async function updateUsuarioSenha(usuarioId) {
         const patchResponse = await fetch(UpdateUser, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(usuarioId),
@@ -280,7 +284,9 @@ async function getTaxasConfig() {
     try {
         const response = await fetch('http://localhost:3000/getTaxas', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' }
         });
 
         const data = await response.json();
@@ -309,6 +315,7 @@ async function updateTaxas(taxas) {
         const patchResponse = await fetch(UpdateTaxas, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(taxas),

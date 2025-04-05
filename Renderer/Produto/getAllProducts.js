@@ -36,7 +36,13 @@ function formatarMoedaBR(valor) {
 
 // Função para buscar e renderizar os grupos
 function getGrupo(renderer) {
-    fetch(apiEndpoints.getGrupo)
+    fetch(apiEndpoints.getGrupo, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.sort((a, b) => a.nome_grupo.localeCompare(b.nome_grupo));
@@ -52,7 +58,13 @@ function getGrupo(renderer) {
 
 // Função para buscar e renderizar os subgrupos
 function getSubGrupo(renderer) {
-    fetch(apiEndpoints.getSubGrupo)
+    fetch(apiEndpoints.getSubGrupo, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             data.sort((a, b) => a.nome_sub_grupo.localeCompare(b.nome_sub_grupo));
@@ -68,7 +80,13 @@ function getSubGrupo(renderer) {
 
 // Função para buscar todos os produtos
 function fetchAllProdutos(renderer) {
-    fetch(apiEndpoints.getAllProdutos)
+    fetch(apiEndpoints.getAllProdutos, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             allProducts = data;

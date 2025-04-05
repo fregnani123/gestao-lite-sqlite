@@ -14,6 +14,7 @@ async function postNewCliente(clienteData) {
         const response = await fetch(postNewClienteData, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(clienteData),

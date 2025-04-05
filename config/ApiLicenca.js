@@ -12,6 +12,7 @@ async function verificaDadosSerial(userID, serialKey) {
         const response = await fetch(getLicencaEndpoint, {
             method: 'GET',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
         });
@@ -41,6 +42,7 @@ async function verificaDadosSerial(userID, serialKey) {
         const postResponse = await fetch(postAtivacaoDbEndpoint, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(ativacaoData),
@@ -72,10 +74,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function fetchAtivacaoMysql() {
     const apiUrl = apiLicenca.getAtivacaoMysql;
+
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123', // Substitua pela sua chave real
+                'Content-Type': 'application/json',
+            }
+        });
+
         const data = await response.json();
-        // console.log(data);
 
         ativado = data.length > 0 && data[0]?.ativado === 1;
 
@@ -99,11 +108,18 @@ const atualizarDisplay = () => {
         console.log('');
     }
 };
+
 async function verificaAtivacaoMysql() {
     const apiUrl = apiLicenca.getAtivacaoMysql;
     try {
         // Faz a requisição à API para obter os dados do MySQL
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123', // Substitua pela sua chave real
+                'Content-Type': 'application/json',
+            }
+        });
         const data = await response.json();
 
         // console.log('Dados do MySQL:', data);
@@ -115,7 +131,13 @@ async function verificaAtivacaoMysql() {
             const getLicencaEndpoint = `http://localhost:3000/getLicenca/${encodeURIComponent(userID)}/${encodeURIComponent(serialKey)}`;
 
             // Faz a requisição ao MongoDB
-            const licencaResponse = await fetch(getLicencaEndpoint);
+            const licencaResponse = await fetch(getLicencaEndpoint, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'segredo123',
+                    'Content-Type': 'application/json',
+                }
+            });
             const licencaData = await licencaResponse.json();
 
             // console.log('Dados do MongoDB:', licencaData);
@@ -133,7 +155,9 @@ async function verificaAtivacaoMysql() {
                 // Atualiza os dados no MySQL com PATCH
                 const updateResponse = await fetch('http://localhost:3000/UpdateAtivacao', {
                     method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'x-api-key': 'segredo123', 
+                        'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         ativado: licencaData.ativado,
                         expirationDate: licencaData.expirationDate,
@@ -161,15 +185,18 @@ async function verificaAtivacaoMysql() {
     }
 }
 
-
-
-
-
 async function verificaValidadeDate() {
     const apiUrl = apiLicenca.getAtivacaoMysql;
 
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'segredo123',
+                    'Content-Type': 'application/json',
+                }
+            }
+        );
         const data = await response.json();
         // console.log(data);
 

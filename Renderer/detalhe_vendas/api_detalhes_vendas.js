@@ -31,14 +31,19 @@ async function fetchSalesHistory({ startDate, endDate, cpfCliente, numeroPedido 
 
         if (startDate) params.append('startDate', startDate);
         if (endDate) params.append('endDate', endDate);
-        if (cpfCliente) params.append('cpfCliente', cpfCliente); // Ajuste aqui para enviar 'clienteNome' corretamente
+        if (cpfCliente) params.append('cpfCliente', cpfCliente);
         if (numeroPedido) params.append('numeroPedido', numeroPedido);
 
-        // Verificando a URL final com os parâmetros
-        console.log('URL de requisição:', `http://localhost:3000/getHistoricoVendas?${params.toString()}`);
+        const url = `http://localhost:3000/getHistoricoVendas?${params.toString()}`;
+        console.log('URL de requisição:', url);
 
-        // Faz a requisição com os parâmetros
-        const response = await fetch(`http://localhost:3000/getHistoricoVendas?${params.toString()}`);
+        // Faz a requisição com os parâmetros e o cabeçalho da API key
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123'
+            }
+        });
 
         if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
         const data = await response.json();
@@ -46,14 +51,12 @@ async function fetchSalesHistory({ startDate, endDate, cpfCliente, numeroPedido 
 
         const groupedSales = groupSalesByOrder(data.rows);
         displaySalesHistory(groupedSales);
-        obterPrimeiroEUltimoPedido(groupedSales)
+        obterPrimeiroEUltimoPedido(groupedSales);
 
-        // Supondo que 'data.totalRows' seja o array de totais agrupados por forma de pagamento
         const totalRows = data.totalRows;
-        displayTotalSales(totalRows); // Exibe os totais de vendas
-        const totalLiquido = calculateTotalSales(groupedSales); // Soma os totais líquidos
-        displayTotalLiquido(totalLiquido); // Exibe o total de vendas líquidas
-
+        displayTotalSales(totalRows);
+        const totalLiquido = calculateTotalSales(groupedSales);
+        displayTotalLiquido(totalLiquido);
 
     } catch (error) {
         console.error('Erro ao buscar o histórico de vendas:', error);

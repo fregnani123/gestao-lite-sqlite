@@ -26,7 +26,9 @@ async function getTaxasCred() {
     try {
         const response = await fetch('http://localhost:3000/getTaxas', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json' }
         });
 
         const data = await response.json();
@@ -61,7 +63,14 @@ async function getCrediarioCpf(cpf) {
     const dataCliente = `http://localhost:3000/getCrediario/${cpf}`;
 
     try {
-        const response = await fetch(dataCliente);
+
+        const response = await fetch(dataCliente, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
+            }
+        });
 
         if (!response.ok) {
             alertMsg('CPF digitado não foi encontrado para compras no crediário.', 'info', 4000);
@@ -92,6 +101,7 @@ async function updateCredito(dadosClienteId) {
         const patchResponse = await fetch(updateCliente, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(dadosClienteId), // Usando o nome correto da variável
@@ -115,6 +125,7 @@ async function baixarCrediario(dadosCred) {
         const response = await fetch(dataCrediario, {
             method: 'PATCH',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(dadosCred),

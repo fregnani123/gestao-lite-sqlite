@@ -15,6 +15,7 @@ async function postNewFornecedor(fornecedorData) {
         const response = await fetch(postNewFornecedorData, {
             method: 'POST',
             headers: {
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(fornecedorData),
@@ -42,7 +43,13 @@ async function postNewFornecedor(fornecedorData) {
 function getFornecedor(renderer) {
     const getFornecedor = apiEndpoints.getFornecedor;
 
-    fetch(getFornecedor)
+    fetch(getFornecedor, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const fornecedor = data;

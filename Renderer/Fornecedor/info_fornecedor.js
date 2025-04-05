@@ -27,7 +27,13 @@ const apiEndpoints = {
 let allProducts = [];
 
 function getFornecedor(cnpj) {
-    fetch(apiEndpoints.getAllFornecedor)
+    fetch(apiEndpoints.getAllFornecedor, {
+        method: 'GET',
+        headers: {
+            'x-api-key': 'segredo123',
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const fornecedor = data.find(f => f.cnpj === cnpj) || {};
@@ -56,7 +62,14 @@ function formatarMoedaBR(valor) {
 // Buscar todos os produtos ao carregar a página
 async function fetchAllProdutos() {
     try {
-        const response = await fetch(apiEndpoints.getAllProdutos);
+        const response = await fetch(apiEndpoints.getAllProdutos, {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
+            }
+        }    
+        );
         const data = await response.json();
         allProducts = data; // Agora a variável tem os produtos carregados
         console.log(allProducts);
