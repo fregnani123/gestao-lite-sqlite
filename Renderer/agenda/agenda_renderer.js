@@ -1,12 +1,8 @@
-// Função para remover caracteres especiais do CPF
-function limparCPF(cpf) {
-    return cpf.replace(/\D/g, ""); // Remove tudo que não for número
-}
 
 // Evento de input no campo CPF
 inputCPF.addEventListener("input", (e) => {
-    const cpf = limparCPF(e.target.value); // Remove pontos e traço
-    if (cpf.length === 11) { // Aguarda CPF completo antes de buscar
+    const cpf = e.target.value
+    if (cpf.length === 14) { // Aguarda CPF completo antes de buscar
         findCliente(cpf);
     } else {
         clienteNome.value = ""; // Limpa o campo nome se CPF for apagado ou incompleto
@@ -14,8 +10,8 @@ inputCPF.addEventListener("input", (e) => {
 });
 
 cpfFilter.addEventListener("input", (e) => {
-    const cpf = limparCPF(e.target.value); // Remove pontos e traço
-    if (cpf.length === 11) { // Aguarda CPF completo antes de buscar
+    const cpf = e.target.value
+    if (cpf.length === 14) { // Aguarda CPF completo antes de buscar
         findCliente(cpf);
     } else {
         clienteNome.value = ""; // Limpa o campo nome se CPF for apagado ou incompleto
@@ -123,7 +119,7 @@ function renderizarAgendamentos(agendamentos) {
 
         // Criando as células (td)
         const tdCpfCliente = document.createElement('td');
-        tdCpfCliente.textContent = agendamento.cpf;
+        tdCpfCliente.textContent = decode(agendamento.cpf);
         tr.appendChild(tdCpfCliente);
 
         const tdNomeCliente = document.createElement('td');
@@ -417,7 +413,7 @@ async function renderizarHistoricoAgendamento(agendamentosAPI, clienteId) {
 
         // Criando as células (td)
         const tdCpfCliente = document.createElement('td');
-        tdCpfCliente.textContent = agendamento.cpf;
+        tdCpfCliente.textContent = decode(agendamento.cpf);
         tr.appendChild(tdCpfCliente);
 
         const tdNomeCliente = document.createElement('td');

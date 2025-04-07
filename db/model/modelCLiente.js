@@ -19,14 +19,41 @@ db.pragma('foreign_keys = ON');
 console.log('Chaves estrangeiras ativadas.');
 
 
-async function getClientePorCPF(cpf) {
+
+// Função para gerar um número aleatório de 3 dígitos
+function generateRandomNumber(cpf) {
+    // Soma os códigos char do CPF (após remover pontuação)
+    const cleanCpf = cpf.replace(/\D/g, '');
+    let sum = 0;
+    for (let i = 0; i < cleanCpf.length; i++) {
+        sum += cleanCpf.charCodeAt(i);
+    }
+    return (sum % 900) + 100; // Sempre entre 100 e 999
+}
+
+
+// Função para inverter a string
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+
+// Função para codificar o CNPJ/CPF antes de salvar
+function encode(cod) {
+    const randomNumber = generateRandomNumber(cod); // ✅ passa o cod como argumento
+    const codRandom = cod.replace('.', `.${randomNumber}.`); // ainda insere o número no CPF
+    const valorComPrefixo = "fgl" + reverseString(codRandom || "") + "1969";
+    return Buffer.from(valorComPrefixo).toString('base64');
+}
+
+async function getClientePorCPF(cpfEnviado) {
     await ensureDBInitialized();
     try {
-        cpf = cpf.replace(/\D/g, ''); // 🔹 Remove formatação do CPF antes da busca
-        const query = `SELECT * FROM cliente WHERE REPLACE(REPLACE(cpf, '.', ''), '-', '') = ?`;
+        cpf = encode(cpfEnviado)
+        const query = `SELECT * FROM cliente WHERE cpf = ?`;
 
         const stmt = db.prepare(query);
         const rows = stmt.all(cpf);
+       
         return rows;
     } catch (error) {
         console.error('Erro ao buscar cliente por cpf:', error.message);
@@ -55,7 +82,7 @@ async function postNewCliente(cliente) {
 
         const result = stmt.run(
             cliente.nome,
-            cliente.cpf,
+            encode(cliente.cpf),
             cliente.data_nascimento,
             cliente.telefone ,
             cliente.email || null,

@@ -60,13 +60,32 @@ async function registrarCrediario(vendaId, clienteId, valorTotal, numParcelas, d
     return parcelas.length; // Retorna o número de parcelas inseridas
 };
 
+function generateRandomNumber(cpf) {
+    const cleanCpf = cpf.replace(/\D/g, '');
+    let sum = 0;
+    for (let i = 0; i < cleanCpf.length; i++) {
+        sum += cleanCpf.charCodeAt(i);
+    }
+    return (sum % 900) + 100; 
+}
+
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+
+// Função para codificar o CNPJ/CPF antes de salvar
+function encode(cod) {
+    const randomNumber = generateRandomNumber(cod); 
+    const codRandom = cod.replace('.', `.${randomNumber}.`);
+    const valorComPrefixo = "fgl" + reverseString(codRandom || "") + "1969";
+    return Buffer.from(valorComPrefixo).toString('base64');
+}
 
 async function getCrediarioByCPF(cpf) {
     await ensureDBInitialized();
 
     try {
-        // Remove formatação do CPF antes de fazer a consulta
-        cpf = cpf.replace(/\D/g, '');  // Remove qualquer caractere não numérico
+        cpf = encode(cpf);  // Remove qualquer caractere não numérico
 
         const query = `
             SELECT c.cliente_id, c.nome, c.cpf, c.credito_limite,
@@ -74,11 +93,34 @@ async function getCrediarioByCPF(cpf) {
                    cre.valor_parcela, cre.data_vencimento, cre.data_pagamento, cre.status, cre.multa_atraso
             FROM cliente c
             INNER JOIN crediario cre ON c.cliente_id = cre.cliente_id
-            WHERE REPLACE(REPLACE(c.cpf, '.', ''), '-', '') = ?;
+            WHERE c.cpf= ?;
         `;
 
         const stmt = db.prepare(query);
         const rows = stmt.all(cpf);
+        return rows;
+    } catch (error) {
+        console.error('Erro ao executar a consulta:', error.message);
+        throw error;
+    }
+}
+
+async function getCrediarioNumeroPed(numero_pedido) {
+    await ensureDBInitialized();
+
+    try {
+
+        const query = `
+            SELECT c.cliente_id, c.nome, c.cpf, c.credito_limite,
+            c.credito_utilizado,cre.crediario_id, cre.venda_id, cre.parcela_numero, 
+                   cre.valor_parcela, cre.data_vencimento, cre.data_pagamento, cre.status, cre.multa_atraso
+            FROM cliente c
+            INNER JOIN crediario cre ON c.cliente_id = cre.cliente_id
+            WHERE cre.venda_id= ?;
+        `;
+
+        const stmt = db.prepare(query);
+        const rows = stmt.all(numero_pedido);
         return rows;
     } catch (error) {
         console.error('Erro ao executar a consulta:', error.message);
@@ -212,4 +254,4 @@ async function updateTaxas(dadosTaxas) {
 };
 
 
-module.exports = { registrarCrediario, getCrediarioByCPF, updateCrediario, getCrediariosMesVigente, getCrediariosVencidos, getTaxas,  updateTaxas};
+module.exports = { registrarCrediario, getCrediarioByCPF, updateCrediario, getCrediariosMesVigente, getCrediariosVencidos, getTaxas,  updateTaxas, getCrediarioNumeroPed};

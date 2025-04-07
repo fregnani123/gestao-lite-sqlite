@@ -70,7 +70,7 @@ th:nth-child(1), td:nth-child(1) { /* Coluna 1: CPF */
 }
 
 th:nth-child(2), td:nth-child(2) { /* Coluna 2: Nome */
-    width: 25%;  /* Ajuste conforme necessário */
+    width: 24%;  /* Ajuste conforme necessário */
 }
 
 th:nth-child(3), td:nth-child(3) { /* Coluna 3: Data */
@@ -78,18 +78,18 @@ th:nth-child(3), td:nth-child(3) { /* Coluna 3: Data */
 }
 
 th:nth-child(4), td:nth-child(4) { /* Coluna 4: Hora */
-    width: 4%;  /* Ajuste conforme necessário */
+    width: 7%;  /* Ajuste conforme necessário */
 }
 
 th:nth-child(5), td:nth-child(5) { /* Coluna 5: Motivo */
-    width: 25%;  /* Ajuste conforme necessário */
+    width: 24%;  /* Ajuste conforme necessário */
 }
 
 th:nth-child(6), td:nth-child(6) { /* Coluna 6: Status */
-    width: 7%;  /* Ajuste conforme necessário */
+    width: 6%;  /* Ajuste conforme necessário */
 }
 th:nth-child(7), td:nth-child(7) { /* Coluna 7: Ações */
-    width: 30%;  /* Ajuste conforme necessário */
+    width: 32%;  /* Ajuste conforme necessário */
 }
 .table-container {
     max-height: 400px; /* Defina a altura máxima do contêiner da tabela */
@@ -97,7 +97,8 @@ th:nth-child(7), td:nth-child(7) { /* Coluna 7: Ações */
     border: 1px solid #ccc; /* Opcional: borda para separar a tabela */
 }
 table {
-    width: 100%;
+    margin-left: -1%;
+    width: 99%;
     border-collapse: collapse;
 }
 th {
@@ -390,7 +391,7 @@ h2{
 
 .table-historico th:nth-child(2),
 .table-historico td:nth-child(2) { 
-    width: 25%;  
+    width: 24%;  
 }
 
 .table-historico th:nth-child(3),
@@ -400,12 +401,12 @@ h2{
 
 .table-historico th:nth-child(4),
 .table-historico td:nth-child(4) { 
-    width: 4%;  
+    width: 6%;  
 }
 
 .table-historico th:nth-child(5),
 .table-historico td:nth-child(5) { 
-    width:25%;  
+    width:24%;  
 }
 
 .table-historico th:nth-child(6),

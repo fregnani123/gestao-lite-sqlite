@@ -25,6 +25,8 @@ serverApp.use((req, res, next) => {
     }
 });
 
+
+
 // Rotas protegidas
 serverApp.use(Routes);
 

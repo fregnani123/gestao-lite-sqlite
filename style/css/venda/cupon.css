@@ -147,6 +147,37 @@
                 gap: 3px;
             }
             
+            .carne-cred{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: 3%;
+            }
+
+            .carne-cred{
+                border-top: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: 3%;
+                width: 100%;
+                padding-bottom: 2%;
+            }
+            .parcela-info{
+                display: flex;
+                justify-content: center;
+                margin-top: 3%;
+                gap: 2%;
+                font-size: .8rem;
+            }
+            .tituloCred{
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                margin-top: 3%;
+            }
+            
             @media print {
                 @page {
                     margin: 0;

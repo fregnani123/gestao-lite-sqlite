@@ -49,6 +49,4 @@ function formatarMoedaBRL(input) {
     });
 }
 
-// Exemplo de uso
-const inputPrecoCompra = document.getElementById('inputPrecoCompra');
-if (inputPrecoCompra) formatarMoedaBRL(inputPrecoCompra);
+

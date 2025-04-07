@@ -151,7 +151,7 @@ async function insertFornecedorPadrao(db) {
 async function insertClienteDefault(db) {
     try {
         const query = `INSERT OR IGNORE INTO cliente (nome, cpf, telefone, email, cep, estado, cidade, data_nascimento) 
-        VALUES ('Consumidor Final', '000.000.000-00', '', '', '', 'SP', 'São Paulo', CURRENT_TIMESTAMP)`;
+        VALUES ('Consumidor Final', 'ZmdsMDAtMDAwLjAwMC44MjYuMDAwMTk2OQ==', '', '', '', 'SP', 'São Paulo', CURRENT_TIMESTAMP)`;
         const info = db.prepare(query).run();
 
         console.log('Cliente padrão inserido com sucesso.');

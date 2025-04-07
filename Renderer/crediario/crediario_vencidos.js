@@ -83,7 +83,6 @@ function renderizarTabelaVencidos() {
 
     parcelasVencidas.innerHTML = converteMoeda(totalParcelasVencidos);
 
-
     parcelas.forEach((p) => {
         GlobalClienteID = p.cliente_id;
         const tr = document.createElement('tr');
@@ -99,7 +98,7 @@ function renderizarTabelaVencidos() {
         }
 
         tr.innerHTML = `
-            <td>${p.cpf}</td>
+            <td>${decode(p.cpf)}</td>
             <td>${p.venda_id}</td>
             <td>${p.parcela_numero}</td>
             <td>R$ ${p.valor_parcela.toFixed(2)}</td>

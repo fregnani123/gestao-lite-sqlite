@@ -21,7 +21,6 @@ estilizarLinkAtivo(linkID_5);
 let multaParcela = '';
 let taxaJurosAtraso = '';
 
-
 async function getTaxasCred() {
     try {
         const response = await fetch('http://localhost:3000/getTaxas', {

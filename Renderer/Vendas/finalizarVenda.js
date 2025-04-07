@@ -1,8 +1,7 @@
 async function findClienteAlterar(cpf) {
-    cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
-
-    // Verifica se o CPF tem o formato correto (11 dígitos)
-    if (cpf.length !== 11) {
+   
+    // Verifica se o CPF tem o formato correto (14 dígitos)
+    if (cpf.length !== 14) {
         alertMsg("CPF inválido. Digite um CPF válido.", "error", 3000);
         document.getElementById("nomeClienteAlter").value = "";
         clienteId.value = "";
@@ -58,9 +57,9 @@ async function findClienteAlterar(cpf) {
 
 // Evento para disparar a busca ao digitar um CPF válido
 alterCliente.addEventListener("input", async function () {
-    let cpf = this.value.replace(/\D/g, ""); // Remove tudo que não for número
+    let cpf = this.value
 
-    if (cpf.length === 11) {
+    if (cpf.length === 14) {
         await findClienteAlterar(cpf);
     } else {
         // Limpa o nome e o id quando o CPF tiver menos de 11 dígitos
@@ -238,7 +237,6 @@ if (divCrediario.style.display === 'block' && excedente > 0) {
     }
 };
 
-
 async function imprimirVenda(numeroPedido) {
     try {
         // Exibe a div do cupom
@@ -247,8 +245,8 @@ async function imprimirVenda(numeroPedido) {
         }
 
         // Busca os dados do último pedido
-        await getUltimoPedidoImprimirFolha(numeroPedido);
-
+        await getUltimoPedidoImprimirFolha(numeroPedido,numeroPedido);
+      
         // Atraso para garantir que a div foi preenchida antes de imprimir
         setTimeout(() => {
             // Salva o conteúdo original

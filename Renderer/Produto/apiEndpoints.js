@@ -16,7 +16,15 @@ const apiEndpoints = {
     postNewCorProduto: 'http://localhost:3000/postNewCor',
     getVendaPorNumeroPedido: 'http://localhost:3000/getVendaPorNumeroPedido'
 };
+const linkID_4 = document.querySelector('.list-a4')
 
+function estilizarLinkAtivo(linkID) {
+  linkID.style.background = '#ffcc00'; // Cor de fundo
+  linkID.style.textShadow = 'none'; // Sem sombra de texto
+  linkID.style.color = 'black'; // Cor do texto
+  linkID.style.borderBottom = '2px solid black'; // Borda inferior
+}
+estilizarLinkAtivo(linkID_4);
 
 function getGrupo(renderer) {
     const getGrupo = apiEndpoints.getGrupo;

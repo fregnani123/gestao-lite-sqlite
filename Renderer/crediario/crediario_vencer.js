@@ -200,7 +200,7 @@ function renderizarTabelaAVencer() {
         }
 
         tr.innerHTML = `
-            <td>${p.cpf}</td>
+            <td>${decode(p.cpf)}</td>
             <td>${p.venda_id}</td>
             <td>${p.parcela_numero}</td>
             <td>R$ ${p.valor_parcela.toFixed(2)}</td>

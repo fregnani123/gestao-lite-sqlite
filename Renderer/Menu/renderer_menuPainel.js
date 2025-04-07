@@ -1,25 +1,25 @@
 const menuPainel1 = [
     { id: '1', texto: 'Painel de controle', src: '../style/img/painel-de-controle (1).png', to: '' },
-    { id: '2', texto: 'Realizar venda', src: '../style/img/carrinho-de-compras-icon.png', to: '../public/tela_vendas.html' },
-    { id: '3', texto: 'Detalhes de venda', src: '../style/img/detalhes vendas.png', to: '../public/detalhe_vendas.html' },
-    { id: '4', texto: 'Produto', src: '../style/img/codigo-de-barras.png', to: '../public/registrar_produto.html' },
-    { id: '5', texto: 'Fornecedor', src: '../style/img/fornecedor.png', to: '../public/fornecedor.html' },
+    { id: '9', texto: 'Agenda', src: '../style/img/agenda.png', to: '../public/agenda.html' },
+    { id: '12', texto: 'Backup GL', src: '../style/img/pendrive.png', to: '' },
+    { id: '7', texto: 'Cliente', src: '../style/img/cadastroCliente.png', to: '../public/registrar_cliente.html' },
+    { id: '11', texto: 'Configurações Gerais', src: '../style/img/configuracoes.png', to: '../public/config.html' },
 ];
 const menuPainel2 = [
     /* Menu id:6 oculto, disponível para futuras novas do painel opções */
     { id: '6', texto: '', src: '', to: '' },
-    { id: '7', texto: 'Cliente', src: '../style/img/cadastroCliente.png', to: '../public/registrar_cliente.html' },
-    { id: '8', texto: 'Estoque ', src: '../style/img/caixa-de-entrada.png', to: '../public/controle_estoque.html' },
-    { id: '9', texto: 'Agenda', src: '../style/img/agenda.png', to: '../public/agenda.html' },
     { id: '10', texto: 'Crediário',  src: '../style/img/crediario.png', to: '../public/crediario.html' },
+    { id: '3', texto: 'Detalhes de venda', src: '../style/img/detalhes vendas.png', to: '../public/detalhe_vendas.html' },
+    { id: '8', texto: 'Estoque ', src: '../style/img/caixa-de-entrada.png', to: '../public/controle_estoque.html' },
+    { id: '5', texto: 'Fornecedor', src: '../style/img/fornecedor.png', to: '../public/fornecedor.html' },  
 ];
 
 const menuPainel3 = [
     /* Menu id:6 oculto, disponível para futuras novas do painel opções */
     { id: '6', texto: '', src: '', to: '' },
-    { id: '11', texto: 'Configurações Gerais', src: '../style/img/configuracoes.png', to: '../public/config.html' },
-    { id: '12', texto: 'Backup GL', src: '../style/img/pendrive.png', to: '' },
-    { id: '13', texto: 'Suporte', src: '../style/img/suporte.png', to: 'https://api.whatsapp.com/send?phone=5548996607600' },
+    { id: '4', texto: 'Produto', src: '../style/img/codigo-de-barras.png', to: '../public/registrar_produto.html' },
+    { id: '2', texto: 'Realizar venda', src: '../style/img/carrinho-de-compras-icon.png', to: '../public/tela_vendas.html' },
+    { id: '13', texto: 'Suporte', src: '../style/img/suporte.png', to: '' },
     { id: '14', texto: 'Sair', src: '../style/img/sair.png', to: '../public/index.html' },
 ];
 
@@ -70,4 +70,38 @@ menuPainel2.map(itemPainel => {
 menuPainel3.map(itemPainel => {
     const li = criaLi(itemPainel.texto, itemPainel.id, itemPainel.src, itemPainel.to);
     listPainel3.appendChild(li);
+});
+
+const btnSuporte = document.querySelector('.menu-item-13');
+
+btnSuporte.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (document.querySelector('.chat-suporte')) return; // evita múltiplas janelas
+
+    const divSuporte = document.createElement('div');
+    divSuporte.classList.add('chat-suporte');
+
+    divSuporte.innerHTML = `
+        <div class="chat-header">
+            <span>Suporte</span>
+            <button class="btn-fechar-chat">&times;</button>
+        </div>
+        <div class="chat-messages">
+            <div class="mensagem-suporte">Olá! Como posso ajudar?</div>
+        </div>
+        <div class="chat-input">
+            <input id='inputChat' type="text" placeholder="Digite sua mensagem..." />
+            <button>Enviar</button>
+        </div>
+    `;
+
+    document.body.appendChild(divSuporte);
+    const inputChat = document.getElementById('inputChat');
+    inputChat.focus();
+
+    // Fechar chat
+    divSuporte.querySelector('.btn-fechar-chat').addEventListener('click', () => {
+        divSuporte.remove();
+    });
 });

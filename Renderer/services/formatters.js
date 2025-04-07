@@ -129,7 +129,6 @@ function formatarEVerificarCPF(input) {
     });
 }
 
-
 // Utilizado por crediário para formatar e comparar sem os caracteres
 function formatarCPF(valor) {
     let cpf = valor.replace(/\D/g, ''); // Remove tudo que não for número
@@ -200,7 +199,6 @@ function formatarCEP(input) {
         }
     });
 };
-
 
 // Função para validar e formatar a data
 function validarDataVenda(dataVenda) {
@@ -293,3 +291,54 @@ function formatDate(dateString) {
     
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
+// Função para inverter a string
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+// Função para remover o número aleatório inserido no CNPJ/CPF
+function removeRandomNumber(cnpjCpf) {
+    // Encontra a posição do primeiro ponto e remove o número aleatório entre o ponto
+    const parts = cnpjCpf.split('.');
+    if (parts.length > 2) {
+        parts.splice(1, 1); // Remove o número aleatório (posição 1)
+    }
+    return parts.join('.');
+}
+
+// Função para decodificar o CNPJ/CPF config
+function decodeCnpjCpf(encodedCnpjCpf) {
+    const decodedValue = atob(encodedCnpjCpf);
+    const cleanedValue = decodedValue.slice(3, decodedValue.length - 4);
+    const reversedValue = reverseString(cleanedValue);
+    return removeRandomNumber(reversedValue);
+}
+
+
+// cod crediario - cliente - venda
+function decode(encoded) {
+    try {
+        const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
+        if (!decoded.startsWith("fgl") || !decoded.endsWith("1969")) {
+            throw new Error("Formato inválido");
+        }
+        const trimmed = decoded.slice(3, -4);
+        const reversed = reverseString(trimmed);
+        const parts = reversed.split('.');
+        if (parts.length >= 3) {
+            parts.splice(1, 1); 
+        }
+        return parts.join('.');
+    } catch (err) {
+        return "Erro ao decodificar: " + err.message;
+    }
+}
+
+function formatarDataISOCupom(dataISO) {
+    const data = new Date(dataISO);
+    const dia = String(data.getUTCDate()).padStart(2, '0');
+    const mes = String(data.getUTCMonth() + 1).padStart(2, '0');
+    const ano = data.getUTCFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+

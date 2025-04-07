@@ -33,15 +33,6 @@ const inputMarkup = document.querySelector('#inputMarkup');
 const inputPrecoCompra = document.querySelector('#precoCusto');
 const inputprecoVenda = document.querySelector('#precoVenda');
 const inputLucro = document.querySelector('#lucro');
-const linkID_4 = document.querySelector('.list-a4')
-
-function estilizarLinkAtivo(linkID) {
-  linkID.style.background = '#ffcc00'; // Cor de fundo
-  linkID.style.textShadow = 'none'; // Sem sombra de texto
-  linkID.style.color = 'black'; // Cor do texto
-  linkID.style.borderBottom = '2px solid black'; // Borda inferior
-}
-estilizarLinkAtivo(linkID_4);
 
 // Adiciona um atraso para evitar requisições a cada digitação
 let timeout;
@@ -170,7 +161,6 @@ function calcularPrecoVenda(preco_compra, markup, preco_venda) {
       .replace('.', ',') // Troca o ponto decimal por vírgula
       .replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Adiciona pontos como separador de milhar
   }
-
 
   inputPrecoCompra.addEventListener('input', () => {
     try {
@@ -329,6 +319,7 @@ inputPathImg.onchange = function (event) {
 
 document.querySelector('#btn-cadastrar-produto').addEventListener('click', async function (e) {
   e.preventDefault();
+  
 
   const file = document.querySelector('input[type="file"]').files[0];
   let relativePath = null;

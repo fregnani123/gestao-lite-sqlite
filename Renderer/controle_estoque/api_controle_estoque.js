@@ -1,3 +1,14 @@
+const linkID_9 = document.querySelector('.list-a9');
+
+function estilizarLinkAtivo(linkID) {
+  linkID.style.background = '#ffcc00'; // Cor de fundo
+  linkID.style.textShadow = 'none'; // Sem sombra de texto
+  linkID.style.color = 'black'; // Cor do texto
+  linkID.style.borderBottom = '2px solid black'; // Borda inferior
+}
+
+estilizarLinkAtivo(linkID_9);
+
 async function getProdutoEstoque(codigoDeBarras) {
     try {
         // Constrói a URL completa para a requisição

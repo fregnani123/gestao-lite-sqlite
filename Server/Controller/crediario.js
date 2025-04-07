@@ -6,7 +6,8 @@ const {
     getCrediariosMesVigente,
     getCrediariosVencidos,
     getTaxas,
-    updateTaxas
+    updateTaxas,
+    getCrediarioNumeroPed
 } = require(path.join(__dirname, '../../db/model/modelCrediario'));
 
 const controllersCrediario = {
@@ -70,6 +71,26 @@ const controllersCrediario = {
             const crediario = await getCrediarioByCPF(cpf);  
             if (crediario.length === 0) {
                 return res.status(404).json({ error: 'Nenhum crediário encontrado para este CPF.' });
+            }
+            res.json(crediario);
+        } catch (error) {
+            console.error('Erro ao buscar Crediário:', error);
+            res.status(500).json({ error: 'Erro ao buscar Crediário' });
+        }
+    },
+
+     getCrediarioNumeroPedido: async (req, res) => {
+        const { venda_id } = req.params;  // O CPF vem como parâmetro de URL
+        
+        if (!venda_id) {
+            return res.status(400).json({ error: 'venda_id não informado.' });
+        }
+    
+        try {
+            // Passa o CPF para a função de consulta
+            const crediario = await  getCrediarioNumeroPed(venda_id);  
+            if (crediario.length === 0) {
+                return res.status(404).json({ error: 'Nenhum crediário encontrado para esta venda_id.' });
             }
             res.json(crediario);
         } catch (error) {
