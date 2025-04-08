@@ -53,7 +53,7 @@
 
 /* Ajuste especial para a segunda coluna (nome do produto) */
 #ul-filtros li span:nth-child(2) {
-    flex: 3; /* Aloca mais espaço para o nome */
+    flex: 4; /* Aloca mais espaço para o nome */
     text-align: left; /* Nome alinhado à esquerda */
 }
 

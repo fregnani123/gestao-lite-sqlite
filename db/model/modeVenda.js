@@ -1,12 +1,12 @@
 const path = require('path');
-const Database = require('better-sqlite3'); 
+const Database = require('better-sqlite3');
 const { app } = require('electron');
 
 const { ensureDBInitialized } = require(path.join(__dirname, './ensureDBInitialized'));
 
 // Obtém o caminho dinâmico para o diretório %APPDATA% e cria uma subpasta para o aplicativo
 const appDataPath = app.getPath('appData');
-const appDBPath = path.join(appDataPath, 'electronmysql','db'); // Subpasta do aplicativo
+const appDBPath = path.join(appDataPath, 'electronmysql', 'db'); // Subpasta do aplicativo
 
 // Caminho completo para o banco de dados
 const dbPath = path.join(appDBPath, 'gestaolite.db');
@@ -102,7 +102,7 @@ async function historicoDeVendas({ startDate, endDate, cpfCliente, numeroPedido 
             whereConditions.push('c.cpf = ?');
             queryParams.push(cpfCliente);
         }
-        
+
         if (numeroPedido) {
             whereConditions.push('v.numero_pedido = ?');
             queryParams.push(numeroPedido);
@@ -133,7 +133,7 @@ async function historicoDeVendas({ startDate, endDate, cpfCliente, numeroPedido 
         ${whereClause}
         ORDER BY v.numero_pedido DESC;
     `;
-    
+
         const totalStmt = db.prepare(totalQuery);
         const totalRows = totalStmt.all(...queryParams);
 
@@ -151,37 +151,56 @@ async function getVendasPorNumeroVenda(numeroPedido) {
     await ensureDBInitialized();
     try {
         const query = `
-            SELECT 
-                v.data_venda, 
-                c.nome AS cliente_nome, 
-                c.cpf,
-                v.total_liquido,
-                v.valor_recebido,
-                v.troco,
-                v.numero_pedido,
-                v.desconto_venda,
-                iv.produto_id,
-                p.codigo_ean,
-                p.nome_produto AS produto_nome,
-                iv.preco,
-                iv.quantidade,
-                ue.estoque_nome AS unidade_estoque_nome,
-                fp.tipo_pagamento,
-                fp.valor AS valor_pagamento
-            FROM 
-                venda v
-            LEFT JOIN 
-                cliente c ON v.cliente_id = c.cliente_id
-            LEFT JOIN 
-                item_venda iv ON v.venda_id = iv.venda_id
-            LEFT JOIN 
-                produto p ON iv.produto_id = p.produto_id
-            LEFT JOIN 
-                unidade_estoque ue ON iv.unidade_estoque_id = ue.unidade_estoque_id
-            LEFT JOIN 
-                forma_pagamento fp ON v.venda_id = fp.venda_id
-            WHERE 
-                v.numero_pedido = ?;
+       SELECT 
+    v.data_venda, 
+    c.nome AS cliente_nome, 
+    c.cpf,
+    v.total_liquido,
+    v.valor_recebido,
+    v.troco,
+    v.numero_pedido,
+    v.desconto_venda,
+    iv.produto_id,
+    p.codigo_ean,
+    p.nome_produto AS produto_nome,
+    cp.nome_cor_produto,
+    tl.tamanho AS tamanho_letras,
+    tn.tamanho AS tamanho_numero,
+    mv.medida_nome AS medida_volume,
+    um.unidade_nome AS unidade_massa,
+    uc.unidade_nome AS unidade_comprimento,
+    iv.preco,
+    iv.quantidade,
+    ue.estoque_nome AS unidade_estoque_nome,
+    fp.tipo_pagamento,
+    fp.valor AS valor_pagamento
+FROM 
+    venda v
+LEFT JOIN 
+    cliente c ON v.cliente_id = c.cliente_id
+LEFT JOIN 
+    item_venda iv ON v.venda_id = iv.venda_id
+LEFT JOIN 
+    produto p ON iv.produto_id = p.produto_id
+LEFT JOIN 
+    cor_produto cp ON p.cor_produto_id = cp.cor_produto_id
+LEFT JOIN 
+    tamanho_letras tl ON p.tamanho_letras_id = tl.tamanho_id
+LEFT JOIN 
+    tamanho_numero tn ON p.tamanho_num_id = tn.tamanho_id
+LEFT JOIN 
+    medida_volume mv ON p.medida_volume_id = mv.medida_volume_id
+LEFT JOIN 
+    unidade_massa um ON p.unidade_massa_id = um.unidade_massa_id
+LEFT JOIN 
+    unidade_comprimento uc ON p.unidade_comprimento_id = uc.unidade_comprimento_id
+LEFT JOIN 
+    unidade_estoque ue ON iv.unidade_estoque_id = ue.unidade_estoque_id
+LEFT JOIN 
+    forma_pagamento fp ON v.venda_id = fp.venda_id
+WHERE 
+    v.numero_pedido = ?;
+
         `;
 
         const stmt = db.prepare(query);

@@ -34,11 +34,14 @@ const path = require('path');
 async function getProduto(descricaoElement, codigoEan, precoVendaElement) {
     try {
         const getOneProduct = `${apiEndpoints.findOneProduct}/${codigoEan}`;
-        const response = await fetch(getOneProduct, 
-            { method: 'GET', 
-              headers: { 
-                'x-api-key': 'segredo123',
-                'Content-Type': 'application/json' } });
+        const response = await fetch(getOneProduct,
+            {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'segredo123',
+                    'Content-Type': 'application/json'
+                }
+            });
 
         if (!response.ok) {
             alertMsg('Produto não encontrado. Por favor, verifique se o item está cadastrado corretamente.', 'orange', 4000);
@@ -59,9 +62,36 @@ async function getProduto(descricaoElement, codigoEan, precoVendaElement) {
             const estoqueNome = await getunidadeEstoqueVendas(produto.unidade_estoque_id);
             unidadeEstoqueRender.value = estoqueNome || 'Não disponível';
 
-            // Preencher os elementos com os dados do produto
-            descricaoElement.value = produto.nome_produto;
+            // Construir a descrição com base nos dados do produto
+            let texto = produto.nome_produto;
 
+            if (produto.nome_cor_produto?.trim()) {
+                texto += ` ${produto.nome_cor_produto}`;
+            }
+
+            if (produto.tamanho_letras?.trim()) {
+                texto += ` ${produto.tamanho_letras}`;
+            }
+
+            if (produto.tamanho_numero?.trim()) {
+                texto += ` tam.${produto.tamanho_numero}`;
+            }
+
+            if (produto.medida_volume?.trim()) {
+                texto += ` ${produto.medida_volume_qtd}${produto.medida_volume}`;
+            }
+
+            if (produto.unidade_massa?.trim()) {
+                texto += ` ${produto.unidade_massa_qtd}${produto.unidade_massa}`;
+            }
+
+            if (produto.unidade_comprimento?.trim()) {
+                texto += ` ${produto.unidade_comprimento_qtd}${produto.unidade_comprimento}`;
+            }
+
+            // Preencher os elementos com os dados do produto
+            descricaoElement.value = texto;
+          
             // Formatar o preço corretamente
             if (produto.preco_venda !== null && produto.preco_venda !== undefined) {
                 let preco = parseFloat(produto.preco_venda);
@@ -204,7 +234,7 @@ async function updateEstoque(produto) {
         const patchResponse = await fetch(apiEndpoints.updateEstoque, {
             method: 'PATCH',
             headers: {
-               'x-api-key': 'segredo123',
+                'x-api-key': 'segredo123',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(produto), // Apenas serialize aqui

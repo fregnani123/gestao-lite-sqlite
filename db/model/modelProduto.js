@@ -19,12 +19,42 @@ db.pragma('foreign_keys = ON');
 console.log('Chaves estrangeiras ativadas.');
 
 
+// async function getAllProdutos() {
+//     await ensureDBInitialized();
+
+//     try {
+//         // Adiciona uma cláusula WHERE para filtrar produtos ativos
+//         const rows = db.prepare('SELECT * FROM produto WHERE produto_ativado = 1').all();
+//         return rows;
+//     } catch (error) {
+//         console.error('Erro ao conectar ao banco de dados SQLite ou executar a consulta:', error);
+//         throw error;
+//     }
+// }
 async function getAllProdutos() {
     await ensureDBInitialized();
 
     try {
-        // Adiciona uma cláusula WHERE para filtrar produtos ativos
-        const rows = db.prepare('SELECT * FROM produto WHERE produto_ativado = 1').all();
+        const rows = db.prepare(`
+            SELECT 
+                p.*, 
+                c.nome_cor_produto,
+                t.tamanho AS tamanho_letras,
+                tn.tamanho AS tamanho_numero,
+                tm.medida_nome AS medida_volume,
+                um.unidade_nome As unidade_massa,
+                uc.unidade_nome AS unidade_comprimento
+            FROM produto p
+            LEFT JOIN cor_produto c ON p.cor_produto_id = c.cor_produto_id
+            LEFT JOIN tamanho_letras t ON p.tamanho_letras_id = t.tamanho_id
+            LEFT JOIN tamanho_numero tn ON p.tamanho_num_id = tn.tamanho_id
+            LEFT JOIN medida_volume tm ON p.medida_volume_id = tm.medida_volume_id
+            LEFT JOIN unidade_massa um ON p.unidade_massa_id = um.unidade_massa_id
+            LEFT JOIN unidade_comprimento uc ON p.unidade_comprimento_id = uc.unidade_comprimento_id
+
+            WHERE p.produto_ativado = 1
+        `).all();
+        
         return rows;
     } catch (error) {
         console.error('Erro ao conectar ao banco de dados SQLite ou executar a consulta:', error);
@@ -32,17 +62,35 @@ async function getAllProdutos() {
     }
 }
 
-
 async function findProductByBarcode(barcode) {
     await ensureDBInitialized();
     try {
-        const rows = db.prepare('SELECT * FROM produto WHERE codigo_ean = ?').all(barcode);
+        const rows = db.prepare(`
+            SELECT 
+                p.*, 
+                c.nome_cor_produto,
+                t.tamanho AS tamanho_letras,
+                tn.tamanho AS tamanho_numero,
+                tm.medida_nome AS medida_volume,
+                um.unidade_nome As unidade_massa,
+                uc.unidade_nome AS unidade_comprimento
+            FROM produto p
+            LEFT JOIN cor_produto c ON p.cor_produto_id = c.cor_produto_id
+            LEFT JOIN tamanho_letras t ON p.tamanho_letras_id = t.tamanho_id
+            LEFT JOIN tamanho_numero tn ON p.tamanho_num_id = tn.tamanho_id
+            LEFT JOIN medida_volume tm ON p.medida_volume_id = tm.medida_volume_id
+            LEFT JOIN unidade_massa um ON p.unidade_massa_id = um.unidade_massa_id
+            LEFT JOIN unidade_comprimento uc ON p.unidade_comprimento_id = uc.unidade_comprimento_id
+            WHERE p.codigo_ean = ?
+        `).all(barcode);
+        
         return rows;
     } catch (error) {
         console.error('Erro ao buscar produto:', error);
         throw error;
     }
 }
+
 
 async function postNewProduct(produto) {
     await ensureDBInitialized();

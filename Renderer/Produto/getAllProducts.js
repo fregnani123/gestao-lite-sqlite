@@ -91,6 +91,7 @@ function fetchAllProdutos(renderer) {
         .then(data => {
             allProducts = data;
             renderProdutos(renderer, allProducts);
+            console.log(data)
         })
         .catch(error => console.error('Erro ao buscar produtos:', error));
 }
@@ -115,7 +116,7 @@ function renderProdutos(renderer, produtos) {
     headerRow.classList.add('header-row');
     headerRow.innerHTML = `
         <span>Código de Barras</span>
-        <span>Nome do Produto</span>
+      <span id="spanDescricaoProduto">Nome do Produto / Características</span>
         <span>Preço de Compra</span>
         <span>Preço de Venda</span>
         <span>Qtd Vendida</span>
@@ -134,8 +135,35 @@ function renderProdutos(renderer, produtos) {
         spanCodigo.textContent = produto.codigo_ean || 'Sem código';
 
         const spanNome = document.createElement('span');
-        spanNome.textContent = produto.nome_produto || 'Produto desconhecido';
+        let texto = produto.nome_produto;
+        
+        if (produto.nome_cor_produto?.trim()) {
+            texto += ` ${produto.nome_cor_produto}`;
+        }
+        
+        if (produto.tamanho_letras?.trim()) {
+            texto += ` ${produto.tamanho_letras}`;
+        }
 
+        if (produto.tamanho_numero?.trim()) {
+            texto += ` tam.${produto.tamanho_numero}`;
+        }
+        
+        if (produto.medida_volume?.trim()) {
+            texto += ` ${produto.medida_volume_qtd}${produto.medida_volume}`;
+        }
+        
+        if (produto.unidade_massa?.trim()) {
+            texto += ` ${produto.unidade_massa_qtd}${produto.unidade_massa}`;
+        }
+        if (produto.unidade_comprimento?.trim()) {
+            texto += ` ${produto.unidade_comprimento_qtd}${produto.unidade_comprimento}`;
+        }
+
+        spanNome.textContent = texto;
+        
+        spanNome.textContent = texto;
+        
         const spanPrecoCompra = document.createElement('span');
         spanPrecoCompra.textContent = `${formatarMoedaBR(parseFloat(produto.preco_compra || 0))}`;
 

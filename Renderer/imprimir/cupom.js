@@ -122,7 +122,7 @@ async function getUltimoPedidoImprimirFolha(venda_id, numero_pedido_imprimir) {
                 });
             } else {
                 vencimentosDiv.style.display = 'block';
-                vencimentosDiv.innerHTML = '<span>Crediário sem parcelas disponíveis.</span>';
+                vencimentosDiv.innerHTML = '<span></span>';
             }
         } else {
             vencimentosDiv.style.display = 'none';
@@ -154,13 +154,43 @@ async function getUltimoPedidoImprimirFolha(venda_id, numero_pedido_imprimir) {
         data.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('item-venda');
+        
+            // Construir a descrição completa
+            let descricao = item.produto_nome;
+        
+            if (item.nome_cor_produto?.trim()) {
+                descricao += ` ${item.nome_cor_produto}`;
+            }
+        
+            if (item.tamanho_letras?.trim()) {
+                descricao += ` ${item.tamanho_letras}`;
+            }
+        
+            if (item.tamanho_numero?.trim()) {
+                descricao += ` tam.${item.tamanho_numero}`;
+            }
+        
+            if (item.medida_volume?.trim()) {
+                descricao += ` ${item.medida_volume_qtd || ''}${item.medida_volume}`;
+            }
+        
+            if (item.unidade_massa?.trim()) {
+                descricao += ` ${item.unidade_massa_qtd || ''}${item.unidade_massa}`;
+            }
+        
+            if (item.unidade_comprimento?.trim()) {
+                descricao += ` ${item.unidade_comprimento_qtd || ''}${item.unidade_comprimento}`;
+            }
+        
             itemDiv.innerHTML = `
                 <span>${item.codigo_ean}</span>
-                <span>${item.produto_nome}</span>
+                <span>${descricao}</span>
                 <span>${item.quantidade}${item.unidade_estoque_nome} x ${formatarValorReal(item.preco)}</span>
             `;
+        
             listaItens.appendChild(itemDiv);
         });
+        
 
     } catch (error) {
         console.error('Erro ao buscar informações:', error);
