@@ -136,10 +136,48 @@ async function insertUnidadeEstoque(db) {
 
 async function insertFornecedorPadrao(db) {
     try {
-        const query = `INSERT OR IGNORE INTO fornecedor (nome_fantasia) 
-        VALUES ('Fornecedor não Cadastrado')`;
+        const query = `
+            INSERT OR IGNORE INTO fornecedor (
+                cnpj,
+                inscricao_estadual,
+                razao_social,
+                nome_fantasia,
+                cep,
+                cidade,
+                bairro,
+                uf,
+                endereco,
+                telefone,
+                email,
+                observacoes,
+                pessoa,
+                contribuinte,
+                numero,
+                ramos_de_atividade,
+                forma_de_Pgto,
+                condicoes_Pgto
+            ) VALUES (
+                '00.000.000/0000-00',
+                'ISENTO',
+                'Fornecedor Padrão LTDA',
+                'Fornecedor não Cadastrado',
+                '00000-000',
+                'Cidade Padrão',
+                'Bairro Padrão',
+                'SP',
+                'Rua Padrão',
+                '(00) 0000-0000',
+                'fornecedor@padrao.com',
+                'Fornecedor padrão criado automaticamente.',
+                'Jurídica',
+                'isento',
+                '0',
+                'Outros',
+                'Boleto',
+                'À vista'
+            )
+        `;
         const info = db.prepare(query).run();
-
         console.log('Fornecedor padrão inserido com sucesso.');
         return info.changes;
     } catch (error) {

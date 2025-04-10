@@ -320,9 +320,13 @@ inputQtd.addEventListener('input', function (e) {
     textSelecionarQtd.innerHTML = e.target.value;
     div_qtd.style.backgroundColor = 'yellow';
 });
+
 const handleInputExit = (e) => {
-    if (e.key === 'Enter') { // Verifica se a tecla pressionada foi Enter
-        if (inputExitVenda.value === senhaVendaUser) {
+    if (e.key === 'Enter') {
+        // Define a senha padrão caso senhaVendaUser esteja vazia
+        const senhaCorreta = senhaVendaUser.trim() === '' ? 'adm' : senhaVendaUser;
+
+        if (inputExitVenda.value === senhaCorreta) {
             window.location.href = '../public/menu.html';
         } else {
             alertMsg('Senha incorreta, tente novamente.', 'error', 3000);
@@ -334,6 +338,7 @@ const handleInputExit = (e) => {
         }
     }
 };
+
 const limparTelakey = (e) => {
     if (e.key === 'Enter') {
         if (inputlimparTelakey.value === 'adm') {

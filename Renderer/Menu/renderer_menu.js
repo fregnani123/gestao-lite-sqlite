@@ -44,6 +44,6 @@ function criaMenu(menuArray) {
     });
 }
 
-// Adiciona os itens do menuPainel1 e menuPainel2
+
 criaMenu(menuPainel1);
 

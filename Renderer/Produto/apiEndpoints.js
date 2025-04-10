@@ -344,7 +344,7 @@ async function postNewProdutoWithImage(produtoData, selectedFile) {
         const response = await fetch(apiEndpoint, {
             method: 'POST',
             headers: {
-                'x-api-key': 'segredo123'
+                'x-api-key': 'segredo123',
             },
             body: formData
         });

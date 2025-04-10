@@ -18,19 +18,6 @@ const db = new Database(dbPath, { verbose: console.log });
 db.pragma('foreign_keys = ON');
 console.log('Chaves estrangeiras ativadas.');
 
-
-// async function getAllProdutos() {
-//     await ensureDBInitialized();
-
-//     try {
-//         // Adiciona uma cláusula WHERE para filtrar produtos ativos
-//         const rows = db.prepare('SELECT * FROM produto WHERE produto_ativado = 1').all();
-//         return rows;
-//     } catch (error) {
-//         console.error('Erro ao conectar ao banco de dados SQLite ou executar a consulta:', error);
-//         throw error;
-//     }
-// }
 async function getAllProdutos() {
     await ensureDBInitialized();
 

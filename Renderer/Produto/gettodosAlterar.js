@@ -174,30 +174,6 @@ function getFornecedor(fornecedorId) {
 }
 
 
-// Inicializa eventos após o carregamento do DOM
-document.addEventListener("DOMContentLoaded", function () {
-    const select = document.getElementById("escolhaUM");
-
-    const sections = {
-        "Tamanho - P/GG": "divTamanho",
-        "Tamanho - Numeração": "divTamanhoNUm",
-        "Medida de Volume": "volumeDiv",
-        "Unidade Comprimento": "comprimentoDiv",
-        "Unidade de Massa": "massaDiv"
-    };
-
-    select.addEventListener("change", function () {
-        Object.values(sections).forEach(id => {
-            document.getElementById(id).style.display = "none";
-        });
-
-        const selectedValue = select.value;
-        if (sections[selectedValue]) {
-            document.getElementById(sections[selectedValue]).style.display = "flex";
-            select.value = sections[selectedValue]
-        }
-    });
-});
 
 fetchAllProdutos(); // Aguarda o carregamento dos produtos
 let ultimoCodigoEan = ''; // Variável para armazenar o último valor digitado
@@ -275,7 +251,6 @@ async function uploadImagem(imagemFile) {
             method: 'POST',
             headers: {
                 'x-api-key': 'segredo123',
-                'Content-Type': 'application/json',
             },
             body: formData
         });

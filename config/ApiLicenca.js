@@ -98,11 +98,19 @@ async function fetchAtivacaoMysql() {
 }
 
 const atualizarDisplay = () => {
+
+    const imgUser = document.querySelector('.img-user');
+    const imgCadeado = document.querySelector('.img-cadeado');
+
     if (divAtivar) {
         if (ativado) {
             divAtivar.style.display = 'none';
+            imgUser.style.display = 'flex';
+            imgCadeado.style.display = 'flex';
         } else {
             divAtivar.style.display = 'flex'; // Exibe se não ativado
+          imgUser.style.display = 'none';
+          imgCadeado.style.display = 'none';
         }
     } else {
         console.log('');
@@ -151,13 +159,14 @@ async function verificaAtivacaoMysql() {
             console.log('Mudanças detectadas:', hasChanges);
             if (hasChanges) {
                 console.log('Mudanças detectadas, atualizando no MySQL...');
-                
+
                 // Atualiza os dados no MySQL com PATCH
                 const updateResponse = await fetch('http://localhost:3000/UpdateAtivacao', {
                     method: 'PATCH',
-                    headers: { 
-                        'x-api-key': 'segredo123', 
-                        'Content-Type': 'application/json' },
+                    headers: {
+                        'x-api-key': 'segredo123',
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
                         ativado: licencaData.ativado,
                         expirationDate: licencaData.expirationDate,
@@ -190,12 +199,12 @@ async function verificaValidadeDate() {
 
     try {
         const response = await fetch(apiUrl, {
-                method: 'GET',
-                headers: {
-                    'x-api-key': 'segredo123',
-                    'Content-Type': 'application/json',
-                }
+            method: 'GET',
+            headers: {
+                'x-api-key': 'segredo123',
+                'Content-Type': 'application/json',
             }
+        }
         );
         const data = await response.json();
         // console.log(data);
@@ -276,7 +285,7 @@ function exibirMensagemLicencaExpirada(endDate) {
     // Verifica se a data de validade existe
     if (dataValidade instanceof Date && !isNaN(dataValidade)) {
         const formattedDate = dataValidade.toLocaleDateString();
-        
+
         // Exibe a mensagem dependendo se a licença está expirada ou não
         if (dataValidade < dataAtual) {
             exibirMensagem(`A licença venceu em ${formattedDate}. Entre em contato para renovação.`, 'red');
@@ -288,7 +297,7 @@ function exibirMensagemLicencaExpirada(endDate) {
         // Caso não haja dados válidos de licença
         exibirMensagemSemDados();
     }
-    
+
 }
 
 function exibirMensagemLicencaExpirada(endDate) {

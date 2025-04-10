@@ -20,21 +20,6 @@
             border-bottom: 2px solid black;
             cursor: pointer;
         }
-        #escolhaUM {
-            background-color: transparent;
-            border: none;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            outline: none;
-            box-shadow: none;
-        }
-        #escolhaUM:disabled {
-            border: none;
-            background-color: transparent;
-            color: #555;
-            box-shadow: none;
-        }
     </style>
     <title>Cadastro de Produto</title>
 </head>
@@ -113,11 +98,11 @@
                                 <button id="add-cor" class="add-cor"><span class="cad">Cad...</span></button>
                             </div>
                         </div>
-                        <div class="escolhaUnDiv">
-                            <label for="escolhaUM"><strong>Unidade de Medida:</strong></label>
+                        <div class="escolhaUnDiv" style="width: 30%;">
+                            <label for="escolhaUM"><strong>Alterar Unidade de Medida:</strong></label>
                             <div class="input-select-wrapper">
-                                <select id="escolhaUM" disabled>
-                                    <option value=""></option>
+                                <select id="escolhaUM">
+                                    <option value="">Selecione</option>
                                     <option value="Tamanho - P/GG">Tamanho - P/GG</option>
                                     <option value="Tamanho - Numeração">Tamanho - Numeração</option>
                                     <option value="Medida de Volume">Medida de Volume</option>
@@ -153,14 +138,14 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="divTamanho">
+                        <div id="divTamanho"  style="width: 20%;">
                             <label for="tamanho">Tamanho - P/GG:</label>
                             <select id="tamanhoLetras" name="tamanhoLetras">
                                 <option value="">Selecione</option>
                             </select>
                         </div>
-                        <div id="divTamanhoNUm">
-                            <label for="tamanhoNumeros">Tamanho - Numeração:</label>
+                        <div id="divTamanhoNUm" style="width: 20%;">
+                            <label for="tamanhoNumeros">Tam. Numeração:</label>
                             <select id="tamanhoNumeros" name="tamanho">
                                 <option value="">Selecione</option>
                             </select>
@@ -219,21 +204,22 @@
                 </section>
             </div>
             <footer class="div-form__footer">
-                <p class="informativo">⚠️ <strong>Atenção: Ao alterar os dados do produto, as informações antigas serão substituídas. Caso necessário, revise antes de aplicar a alteração.</strong></p>
+                <p class="informativo">
+                    ⚠️ <strong>Atenção: Ao alterar os dados do produto, as informações antigas serão substituídas. Caso necessário, revise antes de aplicar a alteração. Além disso, o <u>código EAN não pode ser alterado</u>.</strong>
+                  </p>                  
                 <button class="btn-alterar-produto"><img class="img-disquete" src="../style/img/troca.png"
                         alt="">Alterar</button>
                 <button id="limparButton"><img class="img-excluir"
                     src="../style//img/excluir.png" alt="">Limpar</button>
             </footer>
         </div>
-        <script src="../Renderer/Menu/renderer_menu.js"></script>
-        <script src="../Renderer/services/converte_moeda.js"></script>
-        <script src="../Renderer/Produto/renderizarInputsGrupo.js"></script>
-        <script src="../Renderer/Produto/apiEndpoints.js"></script>
-        <script src="../Renderer/Produto/gettodosAlterar.js"></script>
-        <script src="../Renderer/services/alertMsg.js"></script>
-        <script src="../Renderer/Produto/renderer_produtos.js"></script>
-        <script src="../Renderer/services/formatters.js"></script>
 </body>
 <script src="../Renderer/Menu/renderer_menu.js"></script>
+<script src="../Renderer/services/converte_moeda.js"></script>
+<script src="../Renderer/Produto/renderizarInputsGrupo.js"></script>
+<script src="../Renderer/Produto/apiEndpoints.js"></script>
+<script src="../Renderer/Produto/gettodosAlterar.js"></script>
+<script src="../Renderer/services/alertMsg.js"></script>
+<script src="../Renderer/Produto/renderer_produtos.js"></script>
+<script src="../Renderer/services/formatters.js"></script>
 </html>
