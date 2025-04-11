@@ -38,6 +38,7 @@ const getLicenca = async (req, res) => {
   }
 };
 
+
 // Exporte todas as funções necessárias
 module.exports = {
   conectarMongoDB,
