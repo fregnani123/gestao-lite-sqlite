@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const Licenca = require('./model/modelMongo'); // Certifique-se de que o modelo é o correto
-const cxMongo = "mongodb+srv://Fabiano:Freg_1308@cluster0.lkzntjb.mongodb.net/serialKey?retryWrites=true&w=majority"
+const { Licenca }= require('./model/modelMongo'); // Certifique-se de que o modelo é o correto
+const cxMongo = "mongodb+srv://Fabiano:Freg_1308@cluster0.lkzntjb.mongodb.net/msguser?retryWrites=true&w=majority"
+const SchemaMsg = require('./model/mensagemSchema')
+const { Mensagem } = require('./model/modelMongo')
 
 
 // Função para conectar ao MongoDB
@@ -39,8 +41,57 @@ const getLicenca = async (req, res) => {
 };
 
 
-// Exporte todas as funções necessárias
+const getMensagensPorRemetente = async (req, res) => {
+  try {
+    const { remetente } = req.params;
+
+    if (!remetente) {
+      return res.status(400).json({ message: 'Remetente não informado' });
+    }
+
+    const mensagens = await Mensagem.find({ remetente });
+
+    if (mensagens.length === 0) {
+      return res.status(404).json({ message: 'Nenhuma mensagem encontrada para este remetente' });
+    }
+
+    res.status(200).json(mensagens);
+  } catch (error) {
+    console.error('Erro ao buscar mensagens:', error);
+    res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+};
+
+
+const postMensagem = async (req, res) => {
+  try {
+    const { remetente, mensagem } = req.body;
+
+    // Verificações básicas
+    if (!remetente || !mensagem) {
+      return res.status(400).json({ message: 'Campos obrigatórios não enviados.' });
+    }
+
+    // Cria nova instância do schema
+    const novaMensagem = new SchemaMsg({
+      remetente,
+      mensagem
+    });
+
+    // Salva no banco
+    await novaMensagem.save();
+
+    res.status(201).json({ message: 'Mensagem enviada com sucesso!', dados: novaMensagem });
+  } catch (error) {
+    console.error('Erro ao salvar mensagem:', error);
+    res.status(500).json({ message: 'Erro interno ao salvar mensagem.' });
+  }
+};
+
+
 module.exports = {
   conectarMongoDB,
   getLicenca,
+  postMensagem,
+  getMensagensPorRemetente,
 };

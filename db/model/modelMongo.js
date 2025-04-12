@@ -1,14 +1,28 @@
 const mongoose = require('mongoose');
 
+// Schema de Licença
 const serialKeySchema = new mongoose.Schema({
   userID: { type: String, required: true, unique: true },
-  serialKey: { type: String, required: true, unique: true },  // Campo serialKey
+  serialKey: { type: String, required: true, unique: true },
   startedDate: { type: Date, required: true },
   expirationDate: { type: Date, required: true },
   at: { type: Boolean, required: true },
-}, { collection: 'serialKeySchema' });  // Definindo explicitamente o nome da coleção
+}, { collection: 'serialKeySchema' });
 
-// Modelo de Licença com o nome correto da coleção
-const Licenca = mongoose.model('Licenca', serialKeySchema);  // 'Licenca' é o nome do modelo
+const Licenca = mongoose.model('Licenca', serialKeySchema);
 
-module.exports = Licenca;
+// Schema de Mensagem
+const mensagemUsersSchema = new mongoose.Schema({
+  remetente: { type: String, required: true },
+  mensagem: { type: String, required: true },
+  visualizado: { type: Boolean, required: true },
+  data_envio: { type: Date, required: true },
+}, { collection: 'mensagemUsers' });
+
+const Mensagem = mongoose.model('Mensagem', mensagemUsersSchema);
+
+// Exportar os dois modelos corretamente
+module.exports = {
+  Licenca,
+  Mensagem,
+};

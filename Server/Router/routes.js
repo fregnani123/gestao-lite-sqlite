@@ -12,7 +12,7 @@ const controllersCliente = require('../Controller/cliente');
 const controllersDesativar = require('../Controller/desativarProdutoSistema');
 const controllersCrediario = require('../Controller/crediario');
 const controllersAgenda = require('../Controller/agendamento');
-const { getLicenca } = require('../../db/mongoDB');
+const dbMongo = require('../../db/mongoDB');
 const controllersUsuario = require('../Controller/usuario');
 
 // Definições de rotas
@@ -69,6 +69,8 @@ Router.patch('/UpdateUsuario', controllersUsuario.updateUsuario);
 Router.patch('/updateTaxas', controllersCrediario.updateTaxas);
 
 // Rota para obter licença
-Router.get('/getLicenca/:userID/:serialKey', getLicenca);
+Router.get('/getLicenca/:userID/:serialKey', dbMongo.getLicenca);
+Router.get('/getLicenca/:remetente', dbMongo.getMensagensPorRemetente);
+Router.post('/postmensagem', dbMongo.postMensagem);
 
 module.exports = Router;

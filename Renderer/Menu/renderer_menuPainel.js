@@ -72,36 +72,3 @@ menuPainel3.map(itemPainel => {
     listPainel3.appendChild(li);
 });
 
-const btnSuporte = document.querySelector('.menu-item-13');
-
-btnSuporte.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    if (document.querySelector('.chat-suporte')) return; // evita múltiplas janelas
-
-    const divSuporte = document.createElement('div');
-    divSuporte.classList.add('chat-suporte');
-
-    divSuporte.innerHTML = `
-        <div class="chat-header">
-            <span>Suporte</span>
-            <button class="btn-fechar-chat">&times;</button>
-        </div>
-        <div class="chat-messages">
-            <div class="mensagem-suporte">Olá! Como posso ajudar?</div>
-        </div>
-        <div class="chat-input">
-            <input id='inputChat' type="text" placeholder="Digite sua mensagem..." />
-            <button>Enviar</button>
-        </div>
-    `;
-
-    document.body.appendChild(divSuporte);
-    const inputChat = document.getElementById('inputChat');
-    inputChat.focus();
-
-    // Fechar chat
-    divSuporte.querySelector('.btn-fechar-chat').addEventListener('click', () => {
-        divSuporte.remove();
-    });
-});
