@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const { Licenca }= require('./model/modelMongo'); // Certifique-se de que o modelo é o correto
+const { Licenca }= require('./model/modelMongo'); 
 const cxMongo = "mongodb+srv://Fabiano:Freg_1308@cluster0.lkzntjb.mongodb.net/msguser?retryWrites=true&w=majority"
-const SchemaMsg = require('./model/mensagemSchema')
-const { Mensagem } = require('./model/modelMongo')
+const SchemaMsg = require('./model/mensagemSchema');
+const SchemaMsgChat = require('./model/modelMsgSuporte');
+const { Mensagem } = require('./model/modelMongo');
 
 
-// Função para conectar ao MongoDB
 const conectarMongoDB = async () => {
   try {
-    await mongoose.connect(process.env.PASSWORD_MONGO_DB || cxMongo );  // Verifique a string de conexão
+    await mongoose.connect(process.env.PASSWORD_MONGO_DB || cxMongo );  
     console.log('Conexão com o MongoDB bem-sucedida!');
   } catch (err) {
     console.error('Erro ao conectar ao MongoDB:', err);
@@ -88,10 +88,37 @@ const postMensagem = async (req, res) => {
   }
 };
 
+const postMensagemChat = async (req, res) => {
+  try {
+    const { remetente, cliente , mensagem } = req.body;
+
+    // Verificações básicas
+    if (!remetente || !cliente || !mensagem) {
+      return res.status(400).json({ message: 'Campos obrigatórios não enviados.' });
+    }
+
+    // Cria nova instância do schema
+    const novaMensagemChat = new SchemaMsgChat({
+      remetente,
+      cliente,
+      mensagem
+    });
+
+    // Salva no banco
+    await novaMensagemChat.save();
+
+    res.status(201).json({ message: 'Mensagem suporte enviada com sucesso!', dados: novaMensagemChat });
+  } catch (error) {
+    console.error('Erro ao salvar mensagem suporte:', error);
+    res.status(500).json({ message: 'Erro interno ao salvar mensagem suporte.' });
+  }
+};
+
 
 module.exports = {
   conectarMongoDB,
   getLicenca,
   postMensagem,
   getMensagensPorRemetente,
+  postMensagemChat
 };

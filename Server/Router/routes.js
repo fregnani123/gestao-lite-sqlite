@@ -72,5 +72,6 @@ Router.patch('/updateTaxas', controllersCrediario.updateTaxas);
 Router.get('/getLicenca/:userID/:serialKey', dbMongo.getLicenca);
 Router.get('/getLicenca/:remetente', dbMongo.getMensagensPorRemetente);
 Router.post('/postmensagem', dbMongo.postMensagem);
+Router.post('/postmensagemChat', dbMongo.postMensagemChat);
 
 module.exports = Router;
