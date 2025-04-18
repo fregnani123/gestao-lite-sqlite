@@ -4,6 +4,7 @@ const cxMongo = "mongodb+srv://Fabiano:Freg_1308@cluster0.lkzntjb.mongodb.net/ms
 const SchemaMsg = require('./model/mensagemSchema');
 const SchemaMsgChat = require('./model/modelMsgSuporte');
 const { Mensagem } = require('./model/modelMongo');
+const {  MsgSuporte } = require('./model/modelMongo');
 
 
 const conectarMongoDB = async () => {
@@ -53,6 +54,27 @@ const getMensagensPorRemetente = async (req, res) => {
 
     if (mensagens.length === 0) {
       return res.status(404).json({ message: 'Nenhuma mensagem encontrada para este remetente' });
+    }
+
+    res.status(200).json(mensagens);
+  } catch (error) {
+    console.error('Erro ao buscar mensagens:', error);
+    res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+};
+
+const getMensagensPorSuporte = async (req, res) => {
+  try {
+    const { cliente } = req.params;
+
+    if (!cliente) {
+      return res.status(400).json({ message: 'Cliente não informado' });
+    }
+
+    const mensagens = await  MsgSuporte.find({ cliente });
+
+    if (mensagens.length === 0) {
+      return res.status(404).json({ message: 'Nenhuma mensagem encontrada para este cliente' });
     }
 
     res.status(200).json(mensagens);
@@ -120,5 +142,6 @@ module.exports = {
   getLicenca,
   postMensagem,
   getMensagensPorRemetente,
-  postMensagemChat
+  postMensagemChat,
+  getMensagensPorSuporte 
 };

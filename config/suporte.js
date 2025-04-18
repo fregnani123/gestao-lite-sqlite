@@ -1,30 +1,56 @@
 const btnEnviarMsg = document.getElementById("btnEnviarMsg");
-const userID = document.getElementById('userID');      // campo hidden
+const userID = document.getElementById('userID'); // campo hidden
 const inputChat = document.getElementById('inputChat'); // campo de mensagem
 const btnSuporte = document.querySelector('.menu-item-13');
 const btnfecharSuporte = document.querySelector('.btn-fechar-chat');
 const divSuporte = document.querySelector('.chat-suporte');
+const chatMessagesDiv = document.querySelector('.chat-messages');
 
+// Abrir chat
 btnSuporte.addEventListener('click', (e) => {
     e.preventDefault();
-    
-    if(divSuporte.style.display === 'none'){
-        divSuporte.style.display='flex'
+
+    if (divSuporte.style.display === 'none' || divSuporte.style.display === '') {
+        divSuporte.style.display = 'flex';
     }
+
     inputChat.focus();
+
     setTimeout(() => {
         mensagensData(userID.value);
-        exibirMensagens();
-    }, 100); 
-    // Aqui é onde você garante o scroll após renderizar tudo
- const chatMessagesDiv = document.querySelector('.chat-messages');
- chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+    }, 100);
 });
 
-async function enviarMsSuporte(mensagem) { 
+// Enviar mensagem
+btnEnviarMsg.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const remetente = userID.value.trim();
+    const mensagem = inputChat.value.trim();
+
+    if (!remetente || !mensagem) return;
+
+    const msgEnviar = { remetente, mensagem };
+
+    await enviarMsSuporte(msgEnviar);
+
+    inputChat.value = '';
+
+    setTimeout(() => {
+        mensagensData(userID.value);
+    }, 200);
+});
+
+// Fechar chat
+btnfecharSuporte.addEventListener('click', (e) => {
+    e.preventDefault();
+    divSuporte.style.display = 'none';
+});
+
+// Função para enviar mensagem
+async function enviarMsSuporte(mensagem) {
     const urlEnviarMsg = 'http://localhost:3000/postmensagem';
 
-    
     try {
         const response = await fetch(urlEnviarMsg, {
             method: 'POST',
@@ -43,88 +69,68 @@ async function enviarMsSuporte(mensagem) {
     }
 }
 
-async function mensagensData(remetente) { 
-    const chatMessagesDiv = document.querySelector('.chat-messages');
-    
-    // Inicia fade-out
-    chatMessagesDiv.classList.add('oculto');
+// Buscar e exibir mensagens
+// Buscar e exibir mensagens
+async function mensagensData(remetente) {
+    chatMessagesDiv.classList.add('oculto'); // Isso adiciona a opacidade 0 durante a atualização
 
-    const urlMsgDate = `http://localhost:3000/getLicenca/${remetente}`;
+    const urlMsgUsuario = `http://localhost:3000/getLicenca/${remetente}`;
+    const urlMsgSuporte = `http://localhost:3000/getSuporte/${remetente}`;
+
     try {
-        const response = await fetch(urlMsgDate, {
-            method: 'GET',
-            headers: {
-                'x-api-key': 'segredo123',
-                'Content-Type': 'application/json'
-            },
+        const [resUsuario, resSuporte] = await Promise.all([
+            fetch(urlMsgUsuario, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'segredo123',
+                    'Content-Type': 'application/json'
+                }
+            }),
+            fetch(urlMsgSuporte, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'segredo123',
+                    'Content-Type': 'application/json'
+                }
+            })
+        ]);
+
+        const mensagensUsuario = resUsuario.ok ? await resUsuario.json() : [];
+        const mensagensSuporte = resSuporte.ok ? await resSuporte.json() : [];
+
+        const todasMensagens = [...mensagensUsuario, ...mensagensSuporte].sort((a, b) => {
+            return new Date(a.data_envio) - new Date(b.data_envio);
         });
 
-        if (!response.ok) {
-            console.log('Erro ao buscar as mensagens para o suporte');
-            return;
-        }
+        chatMessagesDiv.innerHTML = '';  // Limpa as mensagens atuais
 
-        const msgData = await response.json();
+        // Agora apenas atualiza as mensagens sem fazer a animação de opacidade
+        exibirMensagens(todasMensagens);
 
-        // Aguarda a transição de fade-out antes de limpar e mostrar
-        setTimeout(() => {
-            chatMessagesDiv.innerHTML = ''; // limpar
-            exibirMensagens(msgData);       // inserir novas
+        chatMessagesDiv.classList.remove('oculto');  // Remover a opacidade para exibir as mensagens
 
-            // Finaliza com fade-in
-            chatMessagesDiv.classList.remove('oculto');
-        }, 200); // mesmo tempo da transição no CSS (0.2s)
+        // Manter o scroll no final após a atualização, sem resetar
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
 
     } catch (error) {
-        console.error('Erro ao buscar as mensagens para o suporte:', error);
+        console.error('Erro ao buscar mensagens:', error);
     }
 }
 
-
-btnEnviarMsg.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const remetente = userID.value.trim();
-    const mensagem = inputChat.value.trim();
-
-    if (!remetente || !mensagem) {
-        return;
-    }
-
-    const msgEnviar = {
-        remetente,
-        mensagem
-    };
-
-    enviarMsSuporte(msgEnviar);
-    
-    setTimeout(() => {
-        mensagensData(userID.value);
-        exibirMensagens()
-    }, 200); 
-    
-    // (opcional) limpar campo após envio:
-    inputChat.value = '';
-});
-
-// Fechar chat
-btnfecharSuporte.addEventListener('click', (e) => {
-    e.preventDefault();
-    if(divSuporte.style.display === 'flex'){
-        divSuporte.style.display='none';
-    }
-});
-
+// Função para exibir mensagens no chat sem piscar
 function exibirMensagens(mensagens) {
-    const chatMessagesDiv = document.querySelector('.chat-messages');
-    
     mensagens.forEach(mensagemObj => {
         const mensagemDiv = document.createElement('div');
-        mensagemDiv.classList.add('mensagem-suporte');
+        const ehSuporte = mensagemObj.remetente.toLowerCase() === 'suporte';
 
-        // const remetente = document.createElement('div');
-        // remetente.classList.add('remetente');
-        // remetente.textContent = mensagemObj.remetente;
+        mensagemDiv.classList.add(ehSuporte ? 'mensagem-suporte' : 'mensagem-usuario');
+
+        if (ehSuporte) {
+            const remetente = document.createElement('div');
+            remetente.classList.add('remetente');
+            remetente.textContent = mensagemObj.remetente;
+            mensagemDiv.appendChild(remetente);
+        }
 
         const texto = document.createElement('div');
         texto.classList.add('texto-mensagem');
@@ -132,23 +138,22 @@ function exibirMensagens(mensagens) {
 
         const data = document.createElement('div');
         data.classList.add('data-msg');
-        const dataFormatada = new Date(mensagemObj.data_envio).toLocaleString('pt-BR', {
+        data.textContent = new Date(mensagemObj.data_envio).toLocaleString('pt-BR', {
             dateStyle: 'short',
             timeStyle: 'short'
         });
-        data.textContent = dataFormatada;
 
-        // Organiza na ordem desejada
-        // mensagemDiv.appendChild(remetente);
         mensagemDiv.appendChild(texto);
         mensagemDiv.appendChild(data);
-
         chatMessagesDiv.appendChild(mensagemDiv);
     });
-
-    chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
 }
 
 
-
+// Carregar mensagens ao iniciar
 mensagensData(userID.value);
+
+// Atualização automática para quando suporte envia nova mensagem
+setInterval(() => {
+    mensagensData(userID.value);
+}, 5000);  // Atualiza as mensagens a cada 5 segundos

@@ -71,6 +71,7 @@ Router.patch('/updateTaxas', controllersCrediario.updateTaxas);
 // Rota para obter licença
 Router.get('/getLicenca/:userID/:serialKey', dbMongo.getLicenca);
 Router.get('/getLicenca/:remetente', dbMongo.getMensagensPorRemetente);
+Router.get('/getSuporte/:cliente', dbMongo.getMensagensPorSuporte);
 Router.post('/postmensagem', dbMongo.postMensagem);
 Router.post('/postmensagemChat', dbMongo.postMensagemChat);
 
